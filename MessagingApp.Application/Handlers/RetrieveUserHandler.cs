@@ -1,4 +1,5 @@
 ﻿using MessagingApp.Application.Common.DTOs;
+using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Queries;
@@ -25,7 +26,8 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserDto?>
         else if (req.Id is not null)
             user = _userRepository.GetUserById((Guid)req.Id);
         else
-            throw new Exception(); // TODO: Create proper exception
+            throw new NotEnoughDetailsException(
+                $"No {nameof(user.Username)} or {nameof(user.Id)} was specified");
 
         if (user is not null)
             userDto = new RetrieveUserDto

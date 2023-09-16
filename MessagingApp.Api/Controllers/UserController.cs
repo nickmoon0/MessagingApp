@@ -1,4 +1,5 @@
 ﻿using MessagingApp.Application.Common.DTOs;
+using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,15 @@ public class UserController : ControllerBase
     [HttpGet]
     public IActionResult GetUser(RetrieveUserDto retrieveUserDto)
     {
-        var query = new RetrieveUserQuery(retrieveUserDto);
-        var result = _mediator.Send(query);
-        return result is null ? NotFound() : Ok(result);
+        try
+        {
+            var query = new RetrieveUserQuery(retrieveUserDto);
+            var result = _mediator.Send(query);
+            return result is null ? NotFound() : Ok(result);
+        }
+        catch (NotEnoughDetailsException)
+        {
+            return BadRequest();
+        }
     }
 }
