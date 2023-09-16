@@ -1,5 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Add additional config files
+builder.Configuration.AddJsonFile("appsettings.Local.json");
+
 // Add services to the container.
 builder.Services.AddMediator();
 builder.Services.AddInfrastructureServices(builder.Configuration);
