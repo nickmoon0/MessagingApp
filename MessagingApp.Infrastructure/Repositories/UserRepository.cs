@@ -11,14 +11,16 @@ public class UserRepository : IUserRepository
     {
         _authContext = authContext;
     }
-    public User GetUserById(Guid id)
+    public User? GetUserById(Guid id)
     {
-        throw new NotImplementedException();
+        var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
+        return user;
     }
 
-    public User GetUserByUsername(string username)
+    public User? GetUserByUsername(string username)
     {
-        throw new NotImplementedException();
+        var user = _authContext.Users.SingleOrDefault(x => x.Username == username);
+        return user;
     }
 
     public Guid CreateUser(User user)
