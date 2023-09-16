@@ -15,9 +15,5 @@ public class AuthContext : DbContext
         builder.Entity<User>()
             .ToTable(nameof(User))
             .HasKey(x => x.Id);
-            
-        builder.Entity<User>()
-            .Property(x => x.Id)
-            .HasDefaultValueSql("UUID()");
     }
 }
