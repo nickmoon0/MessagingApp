@@ -6,7 +6,7 @@ namespace MessagingApp.Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private AuthContext _authContext;
+    private readonly AuthContext _authContext;
     public UserRepository(AuthContext authContext)
     {
         _authContext = authContext;
