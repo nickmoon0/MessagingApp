@@ -1,6 +1,8 @@
-﻿using MessagingApp.Application.Interfaces.Repositories;
+﻿using MessagingApp.Application.Common.Exceptions;
+using MessagingApp.Application.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Repositories;
 
@@ -25,9 +27,16 @@ public class UserRepository : IUserRepository
 
     public Guid CreateUser(User user)
     {
-        _authContext.Users.Add(user);
-        _authContext.SaveChanges();
+        try
+        {
+            _authContext.Users.Add(user);
+            _authContext.SaveChanges();
 
-        return user.Id;
+            return user.Id;
+        }
+        catch (DbUpdateException)
+        {
+            throw new EntityAlreadyExistsException($"User with username {user.Username} already exists");
+        }
     }
 }

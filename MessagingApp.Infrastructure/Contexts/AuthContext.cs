@@ -11,9 +11,19 @@ public class AuthContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // Ensure table is called User and not Users
-        builder.Entity<User>()
-            .ToTable(nameof(User))
-            .HasKey(x => x.Id);
+        
+        builder.Entity<User>(entity =>
+        {
+            // Ensure table is called User and not Users
+            entity.ToTable(nameof(User));
+            
+            // Set primary key
+            entity.HasKey(x => x.Id);
+
+            // Ensure usernames are unique
+            entity.HasIndex(x => x.Username)
+                .IsUnique();
+        });
+
     }
 }
