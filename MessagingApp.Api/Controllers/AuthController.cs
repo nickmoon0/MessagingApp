@@ -18,7 +18,8 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult RegisterUser(CreateUserDto createUserDto)
+    [Route(nameof(Register))]
+    public IActionResult Register(CreateUserDto createUserDto)
     {
         var command = new CreateUserCommand(createUserDto);
         var result = _mediator.Send(command);
