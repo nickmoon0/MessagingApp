@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using MessagingApp.Application.Interfaces.Repositories;
+﻿using MessagingApp.Application.Interfaces.Repositories;
 using MessagingApp.Infrastructure.Contexts;
 using MessagingApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
