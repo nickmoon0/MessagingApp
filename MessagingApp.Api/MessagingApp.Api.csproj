@@ -15,4 +15,9 @@
       <Folder Include="Controllers\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MessagingApp.Application\MessagingApp.Application.csproj" />
+      <ProjectReference Include="..\MessagingApp.Infrastructure\MessagingApp.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
