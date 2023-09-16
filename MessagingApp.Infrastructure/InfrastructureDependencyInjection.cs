@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class DependencyInjection
+public static class InfrastructureDependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(
         this IServiceCollection services,
