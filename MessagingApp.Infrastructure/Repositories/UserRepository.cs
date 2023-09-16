@@ -21,8 +21,11 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public Guid CreateUser()
+    public Guid CreateUser(User user)
     {
-        throw new NotImplementedException();
+        _authContext.Users.Add(user);
+        _authContext.SaveChanges();
+
+        return user.Id;
     }
 }

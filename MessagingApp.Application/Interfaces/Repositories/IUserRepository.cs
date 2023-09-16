@@ -8,5 +8,5 @@ public interface IUserRepository
     public User GetUserByUsername(string username);
     
     // TODO: Figure out what parameters we need
-    public Guid CreateUser();
+    public Guid CreateUser(User user);
 }
