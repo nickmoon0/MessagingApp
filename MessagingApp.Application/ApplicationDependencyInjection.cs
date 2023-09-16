@@ -1,5 +1,4 @@
-﻿using MessagingApp.Application;
-using MessagingApp.Application.Commands;
+﻿using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Handlers;
