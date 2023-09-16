@@ -1,6 +1,6 @@
 ﻿using MessagingApp.Domain.Entities;
 
-namespace MessagingApp.Application.Interfaces.Repositories;
+namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
 public interface IUserRepository
 {

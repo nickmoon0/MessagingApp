@@ -1,5 +1,5 @@
 ﻿using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;

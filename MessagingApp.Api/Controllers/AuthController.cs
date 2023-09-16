@@ -1,6 +1,6 @@
 ﻿using MessagingApp.Application.Commands;
-using MessagingApp.Application.DTOs;
-using MessagingApp.Application.Interfaces;
+using MessagingApp.Application.Common.DTOs;
+using MessagingApp.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessagingApp.Api.Controllers;

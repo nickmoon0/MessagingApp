@@ -1,6 +1,6 @@
 ﻿using MessagingApp.Application.Commands;
-using MessagingApp.Application.Interfaces;
-using MessagingApp.Application.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces;
+using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Handlers;

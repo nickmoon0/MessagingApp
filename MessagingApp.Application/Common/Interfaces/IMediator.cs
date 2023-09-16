@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Application.Interfaces;
+﻿namespace MessagingApp.Application.Common.Interfaces;
 
 public interface IMediator
 {

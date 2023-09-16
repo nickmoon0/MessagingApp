@@ -1,5 +1,5 @@
-﻿using MessagingApp.Application.DTOs;
-using MessagingApp.Application.Interfaces;
+﻿using MessagingApp.Application.Common.DTOs;
+using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Commands;

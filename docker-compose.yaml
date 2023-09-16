@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  AppDb:
+    image: mysql:8.1.0
+    ports: 
+      - "3306:3306"
+    volumes:
+      - "AuthDb:/var/lib/mysql"
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=password1 # Dont use outside of local testing
+  AuthDb:
+    image: mysql:8.1.0
+    ports: 
+      - "3307:3306"
+    volumes:
+      - "AppDb:/var/lib/mysql"
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=password1 # Dont use outside of local testing
+      
+volumes:
+  AuthDb:
+  AppDb:

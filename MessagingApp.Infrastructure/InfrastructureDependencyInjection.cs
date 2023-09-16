@@ -1,4 +1,4 @@
-﻿using MessagingApp.Application.Interfaces.Repositories;
+﻿using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Infrastructure.Contexts;
 using MessagingApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;

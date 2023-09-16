@@ -1,7 +1,7 @@
-﻿using MessagingApp.Application.Interfaces;
+﻿using MessagingApp.Application.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MessagingApp.Application;
+namespace MessagingApp.Application.Common;
 
 public class Mediator : IMediator
 {

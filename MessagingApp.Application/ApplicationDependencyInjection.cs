@@ -1,7 +1,8 @@
 ﻿using MessagingApp.Application;
 using MessagingApp.Application.Commands;
+using MessagingApp.Application.Common;
+using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Handlers;
-using MessagingApp.Application.Interfaces;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
