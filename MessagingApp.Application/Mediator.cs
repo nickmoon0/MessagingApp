@@ -13,7 +13,10 @@ public class Mediator : IMediator
     
     public TResponse Send<TResponse>(IRequest<TResponse> request)
     {
-        var handler = _serviceProvider.GetRequiredService<IHandler<IRequest<TResponse>, TResponse>>();
-        return handler.Handle(request);
+        var handlerType = typeof(IHandler<,>)
+            .MakeGenericType(request.GetType(), typeof(TResponse));
+    
+        dynamic handler = _serviceProvider.GetRequiredService(handlerType);
+        return handler.Handle((dynamic)request);
     }
 }
