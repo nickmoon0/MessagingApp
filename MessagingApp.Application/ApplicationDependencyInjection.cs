@@ -2,7 +2,6 @@
 using MessagingApp.Application.Commands;
 using MessagingApp.Application.Handlers;
 using MessagingApp.Application.Interfaces;
-using MessagingApp.Domain.Entities;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
@@ -12,7 +11,7 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {
         // Register handlers
-        services.AddTransient<IHandler<CreateUserCommand, User>, CreateUserHandler>();
+        services.AddTransient<IHandler<CreateUserCommand, Guid>, CreateUserHandler>();
         
         // Register mediator
         services.AddTransient<IMediator, Mediator>();
