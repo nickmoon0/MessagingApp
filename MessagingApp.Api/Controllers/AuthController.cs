@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common.DTOs;
+using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,8 +22,15 @@ public class AuthController : ControllerBase
     [Route(nameof(Register))]
     public IActionResult Register(CreateUserDto createUserDto)
     {
-        var command = new CreateUserCommand(createUserDto);
-        var result = _mediator.Send(command);
-        return Created("", result);
+        try
+        {
+            var command = new CreateUserCommand(createUserDto);
+            var result = _mediator.Send(command);
+            return Created("", result);
+        }
+        catch (EntityAlreadyExistsException)
+        {
+            return Conflict();
+        }
     }
 }
