@@ -2,6 +2,7 @@
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessagingApp.Api.Controllers;
@@ -19,6 +20,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
+    [Authorize]
     public IActionResult GetUser(RetrieveUserDto retrieveUserDto)
     {
         try
