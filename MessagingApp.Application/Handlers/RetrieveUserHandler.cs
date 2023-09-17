@@ -3,6 +3,7 @@ using LanguageExt.Common;
 using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
+using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Queries;
 using MessagingApp.Domain.Entities;

@@ -1,5 +1,6 @@
 ﻿using LanguageExt.Common;
 using MessagingApp.Application.Common.Interfaces;
+using MessagingApp.Application.Common.Interfaces.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MessagingApp.Application.Common;

@@ -1,6 +1,6 @@
 ﻿using LanguageExt.Common;
 
-namespace MessagingApp.Application.Common.Interfaces;
+namespace MessagingApp.Application.Common.Interfaces.Mediator;
 
 public interface IMediator
 {

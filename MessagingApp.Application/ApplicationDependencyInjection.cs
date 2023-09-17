@@ -3,6 +3,7 @@ using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Interfaces;
+using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Validators;
 using MessagingApp.Application.Handlers;
 using MessagingApp.Application.Queries;

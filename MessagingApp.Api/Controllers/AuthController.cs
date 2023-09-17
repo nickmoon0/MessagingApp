@@ -3,6 +3,7 @@ using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
+using MessagingApp.Application.Common.Interfaces.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessagingApp.Api.Controllers;
