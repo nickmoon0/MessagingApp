@@ -7,7 +7,7 @@ namespace MessagingApp.Application.Handlers;
 
 public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
 {
-    private IUserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
     public CreateUserHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
