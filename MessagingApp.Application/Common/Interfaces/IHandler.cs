@@ -1,6 +1,8 @@
-﻿namespace MessagingApp.Application.Common.Interfaces;
+﻿using LanguageExt.Common;
 
-public interface IHandler<in TRequest, out TResponse> where TRequest : IRequest<TResponse>
+namespace MessagingApp.Application.Common.Interfaces;
+
+public interface IHandler<in TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
-    public TResponse Handle(TRequest req);
+    public Result<TResponse> Handle(TRequest req);
 }

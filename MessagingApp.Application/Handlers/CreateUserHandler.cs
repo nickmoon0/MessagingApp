@@ -1,4 +1,6 @@
-﻿using MessagingApp.Application.Commands;
+﻿using LanguageExt.Common;
+using MessagingApp.Application.Commands;
+using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
@@ -12,10 +14,17 @@ public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
     {
         _userRepository = userRepository;
     }
-    public Guid Handle(CreateUserCommand req)
+    public Result<Guid> Handle(CreateUserCommand req)
     {
-        var user = new User(req.Username, req.Password);
-        _userRepository.CreateUser(user);
-        return user.Id;
+        try
+        {
+            var user = new User(req.Username, req.Password);
+            _userRepository.CreateUser(user);
+            return new Result<Guid>(user.Id);
+        }
+        catch (EntityAlreadyExistsException ex)
+        {
+            return new Result<Guid>(ex);
+        }
     }
 }

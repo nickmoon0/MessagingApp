@@ -1,4 +1,5 @@
-﻿using MessagingApp.Application.Common.Interfaces;
+﻿using LanguageExt.Common;
+using MessagingApp.Application.Common.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MessagingApp.Application.Common;
@@ -11,7 +12,7 @@ public class Mediator : IMediator
         _serviceProvider = serviceProvider;
     }
     
-    public TResponse Send<TResponse>(IRequest<TResponse> request)
+    public Result<TResponse> Send<TResponse>(IRequest<TResponse> request)
     {
         var handlerType = typeof(IHandler<,>)
             .MakeGenericType(request.GetType(), typeof(TResponse));

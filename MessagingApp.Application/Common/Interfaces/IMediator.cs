@@ -1,6 +1,8 @@
-﻿namespace MessagingApp.Application.Common.Interfaces;
+﻿using LanguageExt.Common;
+
+namespace MessagingApp.Application.Common.Interfaces;
 
 public interface IMediator
 {
-    TResponse Send<TResponse>(IRequest<TResponse> request);
+    Result<TResponse> Send<TResponse>(IRequest<TResponse> request);
 }

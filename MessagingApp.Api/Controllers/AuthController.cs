@@ -1,4 +1,5 @@
-﻿using MessagingApp.Application.Commands;
+﻿using MessagingApp.Api.Extensions;
+using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
@@ -22,15 +23,8 @@ public class AuthController : ControllerBase
     [Route(nameof(Register))]
     public IActionResult Register(CreateUserDto createUserDto)
     {
-        try
-        {
-            var command = new CreateUserCommand(createUserDto);
-            var result = _mediator.Send(command);
-            return Created("", result);
-        }
-        catch (EntityAlreadyExistsException)
-        {
-            return Conflict();
-        }
+        var command = new CreateUserCommand(createUserDto);
+        var result = _mediator.Send(command);
+        return result.ToCreated("", guid => guid);
     }
 }
