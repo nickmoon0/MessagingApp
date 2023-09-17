@@ -6,7 +6,6 @@ using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Common.Validators;
 using MessagingApp.Application.Handlers;
 using MessagingApp.Application.Queries;
-using MessagingApp.Domain.Entities;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
