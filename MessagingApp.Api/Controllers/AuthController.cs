@@ -1,9 +1,8 @@
 ﻿using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Common.Interfaces.Mediator;
+using MessagingApp.Application.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessagingApp.Api.Controllers;
@@ -27,5 +26,14 @@ public class AuthController : ControllerBase
         var command = new CreateUserCommand(createUserDto);
         var result = _mediator.Send(command);
         return result.ToCreated("", guid => guid);
+    }
+
+    [HttpPost]
+    [Route(nameof(Authenticate))]
+    public IActionResult Authenticate(AuthenticateUserDto authenticateUserDto)
+    {
+        var query = new AuthenticateUserQuery(authenticateUserDto);
+        var result = _mediator.Send(query);
+        return result.ToOk(x => x);
     }
 }

@@ -33,6 +33,7 @@ public static class ControllerExtensions
         {
             ValidationException => new BadRequestResult(),
             EntityAlreadyExistsException => new ConflictResult(),
+            UnauthorizedAccessException => new UnauthorizedResult(),
             MissingConfigException => new StatusCodeResult(500),
             _ => new StatusCodeResult(500)
         };
