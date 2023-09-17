@@ -14,15 +14,7 @@ public static class ControllerExtensions
         {
             var response = mapper(obj);
             return new OkObjectResult(response);
-        }, exception =>
-        {
-            return exception switch
-            {
-                ValidationException => new BadRequestResult(),
-                EntityAlreadyExistsException => new ConflictResult(),
-                _ => new StatusCodeResult(500)
-            };
-        });
+        }, GetErrorActionResult);
     }
     
     public static IActionResult ToCreated<TResult, TContract>(
@@ -32,15 +24,17 @@ public static class ControllerExtensions
         {
             var response = mapper(obj);
             return new CreatedResult(location, response);
-        }, exception =>
+        }, GetErrorActionResult);
+    }
+
+    private static IActionResult GetErrorActionResult(Exception ex)
+    {
+        return ex switch
         {
-            return exception switch
-            {
-                ValidationException => new BadRequestResult(),
-                EntityAlreadyExistsException => new ConflictResult(),
-                MissingConfigException => new StatusCodeResult(500),
-                _ => new StatusCodeResult(500)
-            };
-        });
+            ValidationException => new BadRequestResult(),
+            EntityAlreadyExistsException => new ConflictResult(),
+            MissingConfigException => new StatusCodeResult(500),
+            _ => new StatusCodeResult(500)
+        };
     }
 }
