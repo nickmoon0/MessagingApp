@@ -27,6 +27,8 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddValidators(this IServiceCollection services)
     {
         services.AddTransient<IValidator<RetrieveUserQuery>, ValidateRetrieveUserQuery>();
+        services.AddTransient<IValidator<CreateUserCommand>, ValidateCreateUserCommand>();
+        
         return services;
     }
 }

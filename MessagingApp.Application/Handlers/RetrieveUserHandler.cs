@@ -31,8 +31,9 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserDto?>
         // Return RetrieveUserDto so that hashed password is never leaked
         RetrieveUserDto? userDto = null;
         
+        // Suppress warning as validator ensures these are not null
         var user = req.Username == null ? 
-            _userRepository.GetUserById(req.Id ?? Guid.Empty) : _userRepository.GetUserByUsername(req.Username);
+            _userRepository.GetUserById((Guid)req.Id!) : _userRepository.GetUserByUsername(req.Username);
         
         if (user is not null)
             userDto = new RetrieveUserDto
