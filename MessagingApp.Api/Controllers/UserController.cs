@@ -21,7 +21,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    //[Authorize]
+    [Authorize]
     public IActionResult GetUser(RetrieveUserDto retrieveUserDto)
     {
         var query = new RetrieveUserQuery(retrieveUserDto);
