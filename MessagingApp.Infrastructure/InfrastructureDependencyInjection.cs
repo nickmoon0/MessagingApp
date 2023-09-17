@@ -1,6 +1,8 @@
 ﻿using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Infrastructure.Contexts;
 using MessagingApp.Infrastructure.Repositories;
+using MessagingApp.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -21,6 +23,9 @@ public static class InfrastructureDependencyInjection
     
         // Register repositories
         services.AddScoped<IUserRepository, UserRepository>();
+        
+        // Register services
+        services.AddSingleton<ITokenService, TokenService>();
         
         return services;
     }
