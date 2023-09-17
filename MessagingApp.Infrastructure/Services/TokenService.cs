@@ -19,21 +19,26 @@ public class TokenService : ITokenService
     }
     public string GenerateToken(User user)
     {
-        string keyString = _config["Jwt:Key"] 
-                           ?? throw new MissingConfigException("No JWT secret key has been configured");
-        SymmetricSecurityKey secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString));
-        SigningCredentials credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512);
+        var key = _config["Jwt:Key"] ?? throw new MissingConfigException("No JWT key configured");
+        var issuer = _config["Jwt:Issuer"] ?? throw new MissingConfigException("No JWT issuer configured");
+        var audience = _config["Jwt:Audience"] ?? 
+                       throw new MissingConfigException("No JWT audience configured");
+        var tokenLife = int.Parse(_config["Jwt:TokenLife"] ?? 
+                                  throw new MissingConfigException("No JWT token life configured"));
+
+        var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+        var credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512);
 
         Claim[] claims = {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(ClaimTypes.NameIdentifier, user.Username)
+            new(ClaimTypes.NameIdentifier, user.Username!)
         };
-
-        JwtSecurityToken token = new JwtSecurityToken(
-            _config["Jwt:Issuer"],
-            _config["Jwt:Audience"],
+        
+        var token = new JwtSecurityToken(
+            issuer,
+            audience,
             claims,
-            expires: DateTime.Now.AddMinutes(30),
+            expires: DateTime.Now.AddMinutes(tokenLife),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
