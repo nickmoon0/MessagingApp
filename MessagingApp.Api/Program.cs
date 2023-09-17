@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.Local.json");
 
 // Add services to the container.
+builder.Services.AddValidators();
 builder.Services.AddMediator();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 

@@ -6,8 +6,8 @@ namespace MessagingApp.Application.Commands;
 
 public class CreateUserCommand : IRequest<Guid>
 {
-    public string Username { get; init; }
-    public string Password { get; init; }
+    public string? Username { get; init; }
+    public string? Password { get; init; }
     
     public CreateUserCommand(CreateUserDto createUserDto)
     {
