@@ -1,0 +1,32 @@
+﻿using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
+using MessagingApp.Infrastructure.Contexts;
+using MessagingApp.Infrastructure.Repositories;
+using MessagingApp.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+// ReSharper disable once CheckNamespace
+namespace Microsoft.Extensions.DependencyInjection;
+
+public static class InfrastructureDependencyInjection
+{
+    public static IServiceCollection AddInfrastructureServices(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        // Register contexts
+        var authConnString = configuration.GetConnectionString("AuthDb");
+        
+        services.AddDbContext<AuthContext>(opt =>
+            opt.UseMySql(authConnString, ServerVersion.AutoDetect(authConnString)));
+    
+        // Register repositories
+        services.AddScoped<IUserRepository, UserRepository>();
+        
+        // Register services
+        services.AddSingleton<ITokenService, TokenService>();
+        
+        return services;
+    }
+}
