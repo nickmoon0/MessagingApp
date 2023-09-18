@@ -1,7 +1,7 @@
 ﻿using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
-using MessagingApp.Infrastructure.Contexts;
-using MessagingApp.Infrastructure.Repositories;
+using MessagingApp.Infrastructure.Data.Contexts;
+using MessagingApp.Infrastructure.Data.Repositories;
 using MessagingApp.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

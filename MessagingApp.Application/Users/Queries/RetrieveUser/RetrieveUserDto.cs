@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Application.Common.DTOs;
+﻿namespace MessagingApp.Application.Users.Queries.RetrieveUser;
 
 public class RetrieveUserDto
 {

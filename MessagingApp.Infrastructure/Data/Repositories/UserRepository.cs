@@ -1,10 +1,10 @@
 ﻿using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
-using MessagingApp.Infrastructure.Contexts;
+using MessagingApp.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace MessagingApp.Infrastructure.Repositories;
+namespace MessagingApp.Infrastructure.Data.Repositories;
 
 public class UserRepository : IUserRepository
 {

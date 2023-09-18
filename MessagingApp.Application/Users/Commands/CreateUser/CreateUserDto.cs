@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Application.Common.DTOs;
+﻿namespace MessagingApp.Application.Users.Commands.CreateUser;
 
 public class CreateUserDto
 {

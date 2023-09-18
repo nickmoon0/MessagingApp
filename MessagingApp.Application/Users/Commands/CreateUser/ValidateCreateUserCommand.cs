@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using MessagingApp.Application.Commands;
 
-namespace MessagingApp.Application.Common.Validators;
+namespace MessagingApp.Application.Users.Commands.CreateUser;
 
 public class ValidateCreateUserCommand : AbstractValidator<CreateUserCommand>
 {

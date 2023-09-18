@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
-using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common;
-using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.Common.Validators;
-using MessagingApp.Application.Handlers;
-using MessagingApp.Application.Queries;
+using MessagingApp.Application.Users.Commands.CreateUser;
+using MessagingApp.Application.Users.Queries.AuthenticateUser;
+using MessagingApp.Application.Users.Queries.RetrieveUser;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;
