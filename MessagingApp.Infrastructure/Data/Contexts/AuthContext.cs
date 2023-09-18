@@ -1,7 +1,7 @@
 ﻿using MessagingApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MessagingApp.Infrastructure.Contexts;
+namespace MessagingApp.Infrastructure.Data.Contexts;
 
 public class AuthContext : DbContext
 {

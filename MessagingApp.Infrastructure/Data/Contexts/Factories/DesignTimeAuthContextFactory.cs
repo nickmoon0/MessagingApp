@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace MessagingApp.Infrastructure.Contexts.Factories;
+namespace MessagingApp.Infrastructure.Data.Contexts.Factories;
 
 public class DesignTimeAuthContextFactory : IDesignTimeDbContextFactory<AuthContext>
 {
