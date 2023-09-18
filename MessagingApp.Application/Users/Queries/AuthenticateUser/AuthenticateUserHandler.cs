@@ -4,9 +4,8 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
-using MessagingApp.Application.Queries;
 
-namespace MessagingApp.Application.Handlers;
+namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
 public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
 {

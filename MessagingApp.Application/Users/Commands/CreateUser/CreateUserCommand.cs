@@ -1,9 +1,6 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Interfaces;
-using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Domain.Entities;
+﻿using MessagingApp.Application.Common.Interfaces.Mediator;
 
-namespace MessagingApp.Application.Commands;
+namespace MessagingApp.Application.Users.Commands.CreateUser;
 
 public class CreateUserCommand : IRequest<Guid>
 {

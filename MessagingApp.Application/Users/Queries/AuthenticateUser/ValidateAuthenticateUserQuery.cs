@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using MessagingApp.Application.Queries;
 
-namespace MessagingApp.Application.Common.Validators;
+namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
 public class ValidateAuthenticateUserQuery : AbstractValidator<AuthenticateUserQuery>
 {

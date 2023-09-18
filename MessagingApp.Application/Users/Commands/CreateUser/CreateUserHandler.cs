@@ -1,14 +1,11 @@
-﻿using System.Diagnostics;
-using FluentValidation;
+﻿using FluentValidation;
 using LanguageExt.Common;
-using MessagingApp.Application.Commands;
 using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 
-namespace MessagingApp.Application.Handlers;
+namespace MessagingApp.Application.Users.Commands.CreateUser;
 
 public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
 {

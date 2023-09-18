@@ -1,7 +1,6 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Interfaces.Mediator;
+﻿using MessagingApp.Application.Common.Interfaces.Mediator;
 
-namespace MessagingApp.Application.Queries;
+namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
 public class AuthenticateUserQuery : IRequest<string>
 {

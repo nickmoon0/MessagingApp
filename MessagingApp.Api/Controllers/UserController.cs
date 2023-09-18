@@ -1,9 +1,8 @@
 ﻿using MessagingApp.Api.Extensions;
-using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.Queries;
+using MessagingApp.Application.Users.Queries.RetrieveUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
