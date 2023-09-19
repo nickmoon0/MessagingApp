@@ -15,28 +15,33 @@ public class UserRepository : IUserRepository
     }
     public User? GetUserById(Guid id)
     {
-        var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
-        return user;
+        throw new NotImplementedException();
+        // var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
+        // return user;
     }
 
     public User? GetUserByUsername(string username)
     {
-        var user = _authContext.Users.SingleOrDefault(x => x.Username == username);
-        return user;
+        throw new NotImplementedException();
+        
+        // var user = _authContext.Users.SingleOrDefault(x => x.Username == username);
+        // return user;
     }
 
     public Guid CreateUser(User user)
     {
-        try
-        {
-            _authContext.Users.Add(user);
-            _authContext.SaveChanges();
-
-            return user.Id;
-        }
-        catch (DbUpdateException)
-        {
-            throw new EntityAlreadyExistsException($"User with username {user.Username} already exists");
-        }
+        throw new NotImplementedException();
+        
+        // try
+        // {
+        //     _authContext.Users.Add(user);
+        //     _authContext.SaveChanges();
+        //
+        //     return user.Id;
+        // }
+        // catch (DbUpdateException)
+        // {
+        //     throw new EntityAlreadyExistsException($"User with username {user.Username} already exists");
+        // }
     }
 }
