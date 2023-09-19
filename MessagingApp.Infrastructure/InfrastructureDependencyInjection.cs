@@ -1,6 +1,7 @@
 ﻿using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Infrastructure.Data.Contexts;
+using MessagingApp.Infrastructure.Data.Entities;
 using MessagingApp.Infrastructure.Data.Repositories;
 using MessagingApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
@@ -23,7 +24,7 @@ public static class InfrastructureDependencyInjection
             opt.UseMySql(authConnString, ServerVersion.AutoDetect(authConnString)));
     
         // Register identities
-        services.AddIdentity<IdentityUser, IdentityRole>()
+        services.AddIdentity<AuthUser, AuthRole>()
             .AddEntityFrameworkStores<AuthContext>()
             .AddDefaultTokenProviders();
         
