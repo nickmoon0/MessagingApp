@@ -16,11 +16,11 @@ public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
         _userRepository = userRepository;
         _validator = validator;
     }
-    public Result<Guid> Handle(CreateUserCommand req)
+    public async Task<Result<Guid>> Handle(CreateUserCommand req)
     {
         try
         {
-            var result = _validator.Validate(req);
+            var result = await _validator.ValidateAsync(req);
             if (!result.IsValid)
             {
                 var valException = new ValidationException(result.Errors);

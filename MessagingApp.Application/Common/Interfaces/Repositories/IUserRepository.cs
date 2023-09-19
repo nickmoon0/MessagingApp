@@ -4,8 +4,8 @@ namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    public User? GetUserById(Guid id);
-    public User? GetUserByUsername(string username);
+    public Task<User?> GetUserById(Guid id);
+    public Task<User?> GetUserByUsername(string username);
     
-    public Guid CreateUser(User user);
+    public Task<Guid> CreateUser(User user);
 }

@@ -15,9 +15,9 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserDto?>
         _validator = validator;
     }
     
-    public Result<RetrieveUserDto?> Handle(RetrieveUserQuery req)
+    public async Task<Result<RetrieveUserDto?>> Handle(RetrieveUserQuery req)
     {
-        var valResult = _validator.Validate(req);
+        var valResult = await _validator.ValidateAsync(req);
         if (!valResult.IsValid)
         {
             var valException = new ValidationException(valResult.Errors);
@@ -28,8 +28,8 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserDto?>
         RetrieveUserDto? userDto = null;
         
         // Suppress warning as validator ensures these are not null
-        var user = req.Username == null ? 
-            _userRepository.GetUserById((Guid)req.Id!) : _userRepository.GetUserByUsername(req.Username);
+        var user = req.Username == null ?
+            await _userRepository.GetUserById((Guid)req.Id!) : await _userRepository.GetUserByUsername(req.Username);
         
         if (user is not null)
             userDto = new RetrieveUserDto

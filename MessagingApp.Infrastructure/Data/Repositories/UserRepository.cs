@@ -2,33 +2,44 @@
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
+using MessagingApp.Infrastructure.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly AuthContext _authContext;
-    public UserRepository(AuthContext authContext)
+    private readonly UserManager<AuthUser> _userManager;
+    private readonly SignInManager<AuthUser> _signInManager;
+    
+    public UserRepository(UserManager<AuthUser> userManager, SignInManager<AuthUser> signInManager)
     {
-        _authContext = authContext;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
-    public User? GetUserById(Guid id)
+    public Task<User?> GetUserById(Guid id)
     {
         throw new NotImplementedException();
         // var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
         // return user;
     }
 
-    public User? GetUserByUsername(string username)
+    public async Task<User?> GetUserByUsername(string username)
     {
-        throw new NotImplementedException();
+        var retrievedUser = await _userManager.FindByNameAsync(username);
+        if (retrievedUser == null) return null;
         
-        // var user = _authContext.Users.SingleOrDefault(x => x.Username == username);
-        // return user;
+        var user = new User()
+        {
+            Id = retrievedUser.Id,
+            Username = retrievedUser.UserName
+        };
+        
+        return user;
     }
 
-    public Guid CreateUser(User user)
+    public Task<Guid> CreateUser(User user)
     {
         throw new NotImplementedException();
         

@@ -22,9 +22,10 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
         _validator = validator;
     }
     
-    public Result<string> Handle(AuthenticateUserQuery req)
+    // TODO: Update so that credential verification occurs in repository
+    public async Task<Result<string>> Handle(AuthenticateUserQuery req)
     {
-        var valResult = _validator.Validate(req);
+        var valResult = await _validator.ValidateAsync(req);
         if (!valResult.IsValid)
         {
             var valException = new ValidationException(valResult.Errors);
@@ -32,7 +33,7 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
         }
         
         // Suppress warning as validation ensures its not null
-        var user = _userRepository.GetUserByUsername(req.Username!);
+        var user = await _userRepository.GetUserByUsername(req.Username!);
 
         if (user == null)
         {

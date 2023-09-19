@@ -13,12 +13,12 @@ public class Mediator : IMediator
         _serviceProvider = serviceProvider;
     }
     
-    public Result<TResponse> Send<TResponse>(IRequest<TResponse> request)
+    public async Task<Result<TResponse>> Send<TResponse>(IRequest<TResponse> request)
     {
         var handlerType = typeof(IHandler<,>)
             .MakeGenericType(request.GetType(), typeof(TResponse));
     
         dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-        return handler.Handle((dynamic)request);
+        return await handler.Handle((dynamic)request);
     }
 }
