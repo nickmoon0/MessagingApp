@@ -1,10 +1,11 @@
 ﻿using MessagingApp.Domain.Entities;
+using MessagingApp.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Contexts;
 
-public class AuthContext : IdentityDbContext
+public class AuthContext : IdentityDbContext<AuthUser, AuthRole, Guid>
 {
     //public DbSet<User> Users { get; set; } = null!;
     
