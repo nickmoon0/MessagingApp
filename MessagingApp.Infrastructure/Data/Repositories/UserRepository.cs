@@ -59,6 +59,29 @@ public class UserRepository : IUserRepository
         var authUser = new AuthUser { UserName = user.Username };
         var result = await _userManager.CreateAsync(authUser, user.Password!);
 
+        if (!result.Succeeded)
+        {
+            // All error descriptions listed in single string
+            var errorString = string.Join("\n", result.Errors.Select(e => e.Description));
+            
+            var badValues = result.Errors.Any(x => x.Code is 
+                nameof(IdentityErrorDescriber.PasswordRequiresDigit) or
+                nameof(IdentityErrorDescriber.PasswordRequiresLower) or
+                nameof(IdentityErrorDescriber.PasswordRequiresNonAlphanumeric) or 
+                nameof(IdentityErrorDescriber.PasswordTooShort) or
+                nameof(IdentityErrorDescriber.PasswordRequiresUniqueChars) or
+                nameof(IdentityErrorDescriber.PasswordRequiresUpper) or
+                nameof(IdentityErrorDescriber.InvalidUserName));
+            
+            if (badValues) throw new BadValuesException(errorString);
+
+            var duplicateValues = result.Errors.Any(x => x.Code is 
+                nameof(IdentityErrorDescriber.DuplicateUserName) or
+                nameof(IdentityErrorDescriber.DuplicateEmail));
+
+            if (duplicateValues) throw new EntityAlreadyExistsException(errorString);
+        }
+        
         var createdUser = new User
         {
             Id = authUser.Id,

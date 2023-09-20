@@ -20,6 +20,7 @@ public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
     {
         try
         {
+            // Ensure all required values are present
             var result = await _validator.ValidateAsync(req);
             if (!result.IsValid)
             {
@@ -30,15 +31,20 @@ public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
             // Suppress warnings as validator ensures these values are not null
             var user = new User(req.Username!, req.Password!);
             var createdUser = await _userRepository.CreateUser(user);
-            
+
+            // Not null if created successfully
             if (createdUser != null)
             {
                 // createdUser.Username will always be populated if createdUser != null
                 var userResponse = new CreateUserResponse { Id = createdUser.Id, Username = createdUser.Username! };
                 return new Result<CreateUserResponse>(userResponse);
             }
-            
-            var ex = new Exception("Could not create user");
+
+            var ex = new CouldNotCreateEntityException("Could not create user");
+            return new Result<CreateUserResponse>(ex);
+        }
+        catch (BadValuesException ex)
+        {
             return new Result<CreateUserResponse>(ex);
         }
         catch (EntityAlreadyExistsException ex)
