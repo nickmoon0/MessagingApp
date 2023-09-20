@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Security.Authentication;
+using FluentValidation;
 using LanguageExt.Common;
 using MessagingApp.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,11 @@ public static class ControllerExtensions
             return new OkObjectResult(response);
         }, GetErrorActionResult);
     }
+    public static IActionResult ToOk<TResult>(
+        this Result<TResult> result)
+    {
+        return result.Match<IActionResult>(obj => new OkObjectResult(obj), GetErrorActionResult);
+    }
     
     public static IActionResult ToCreated<TResult, TContract>(
         this Result<TResult> result, string location, Func<TResult, TContract> mapper)
@@ -26,6 +32,13 @@ public static class ControllerExtensions
             return new CreatedResult(location, response);
         }, GetErrorActionResult);
     }
+    
+    public static IActionResult ToCreated<TResult>(
+        this Result<TResult> result, string location)
+    {
+        return result.Match<IActionResult>(obj => new CreatedResult(location, obj), GetErrorActionResult);
+    }
+
 
     private static IActionResult GetErrorActionResult(Exception ex)
     {
@@ -34,6 +47,7 @@ public static class ControllerExtensions
             ValidationException => new BadRequestResult(),
             EntityAlreadyExistsException => new ConflictResult(),
             UnauthorizedAccessException => new UnauthorizedResult(),
+            AuthenticationException => new UnauthorizedResult(),
             MissingConfigException => new StatusCodeResult(500),
             _ => new StatusCodeResult(500)
         };
