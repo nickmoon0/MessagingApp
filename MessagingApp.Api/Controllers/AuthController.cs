@@ -24,7 +24,7 @@ public class AuthController : ControllerBase
     {
         var command = new CreateUserCommand(createUserDto);
         var result = await _mediator.Send(command);
-        return result.ToCreated("", userResponse => userResponse);
+        return result.ToCreated("", createdUser => createdUser);
     }
 
     [HttpPost]
@@ -33,6 +33,6 @@ public class AuthController : ControllerBase
     {
         var query = new AuthenticateUserQuery(authenticateUserDto);
         var result = await _mediator.Send(query);
-        return result.ToOk(x => x);
+        return result.ToOk(token => token);
     }
 }

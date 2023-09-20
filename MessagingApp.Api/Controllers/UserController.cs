@@ -26,6 +26,6 @@ public class UserController : ControllerBase
     {
         var query = new RetrieveUserQuery(retrieveUserDto);
         var result = await _mediator.Send(query);
-        return result.ToOk(x => x);
+        return result.ToOk(retrievedUser => retrievedUser);
     }
 }

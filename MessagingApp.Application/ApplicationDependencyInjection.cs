@@ -14,7 +14,7 @@ public static class ApplicationDependencyInjection
     {
         // Register handlers
         services.AddTransient<IHandler<CreateUserCommand, CreateUserResponse>, CreateUserHandler>();
-        services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserDto?>, RetrieveUserHandler>();
+        services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserResponse?>, RetrieveUserHandler>();
         services.AddTransient<IHandler<AuthenticateUserQuery, string>, AuthenticateUserHandler>();
         // Register mediator
         services.AddTransient<IMediator, Mediator>();
