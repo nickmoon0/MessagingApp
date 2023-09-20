@@ -7,7 +7,7 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Commands.CreateUser;
 
-public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
+public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
 {
     private readonly IUserRepository _userRepository;
     private readonly IValidator<CreateUserCommand> _validator;
@@ -16,7 +16,7 @@ public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
         _userRepository = userRepository;
         _validator = validator;
     }
-    public async Task<Result<Guid>> Handle(CreateUserCommand req)
+    public async Task<Result<CreateUserResponse>> Handle(CreateUserCommand req)
     {
         try
         {
@@ -24,22 +24,26 @@ public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
             if (!result.IsValid)
             {
                 var valException = new ValidationException(result.Errors);
-                return new Result<Guid>(valException);
+                return new Result<CreateUserResponse>(valException);
             }
 
             // Suppress warnings as validator ensures these values are not null
             var user = new User(req.Username!, req.Password!);
             var createdUser = await _userRepository.CreateUser(user);
             
-            if (createdUser != null) return new Result<Guid>(createdUser.Id);
+            if (createdUser != null)
+            {
+                // createdUser.Username will always be populated if createdUser != null
+                var userResponse = new CreateUserResponse { Id = createdUser.Id, Username = createdUser.Username! };
+                return new Result<CreateUserResponse>(userResponse);
+            }
             
             var ex = new Exception("Could not create user");
-            return new Result<Guid>(ex);
-
+            return new Result<CreateUserResponse>(ex);
         }
         catch (EntityAlreadyExistsException ex)
         {
-            return new Result<Guid>(ex);
+            return new Result<CreateUserResponse>(ex);
         }
     }
 }
