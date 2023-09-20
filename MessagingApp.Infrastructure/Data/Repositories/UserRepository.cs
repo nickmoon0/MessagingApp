@@ -1,4 +1,5 @@
-﻿using MessagingApp.Application.Common.Exceptions;
+﻿using FluentValidation;
+using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
@@ -53,20 +54,17 @@ public class UserRepository : IUserRepository
         return result.Succeeded;
     }
 
-    public Task<Guid> CreateUser(User user)
+    public async Task<User?> CreateUser(User user)
     {
-        throw new NotImplementedException();
+        var authUser = new AuthUser { UserName = user.Username };
+        var result = await _userManager.CreateAsync(authUser, user.Password!);
+
+        var createdUser = new User
+        {
+            Id = authUser.Id,
+            Username = authUser.UserName,
+        };
         
-        // try
-        // {
-        //     _authContext.Users.Add(user);
-        //     _authContext.SaveChanges();
-        //
-        //     return user.Id;
-        // }
-        // catch (DbUpdateException)
-        // {
-        //     throw new EntityAlreadyExistsException($"User with username {user.Username} already exists");
-        // }
+        return result.Succeeded ? createdUser : null;
     }
 }

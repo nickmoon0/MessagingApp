@@ -8,5 +8,5 @@ public interface IUserRepository
     public Task<User?> GetUserByUsername(string username);
     public Task<bool> UserValid(User user);
     
-    public Task<Guid> CreateUser(User user);
+    public Task<User?> CreateUser(User user);
 }

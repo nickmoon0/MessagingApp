@@ -29,8 +29,13 @@ public class CreateUserHandler : IHandler<CreateUserCommand, Guid>
 
             // Suppress warnings as validator ensures these values are not null
             var user = new User(req.Username!, req.Password!);
-            _userRepository.CreateUser(user);
-            return new Result<Guid>(user.Id);
+            var createdUser = await _userRepository.CreateUser(user);
+            
+            if (createdUser != null) return new Result<Guid>(createdUser.Id);
+            
+            var ex = new Exception("Could not create user");
+            return new Result<Guid>(ex);
+
         }
         catch (EntityAlreadyExistsException ex)
         {
