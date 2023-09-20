@@ -13,7 +13,7 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {
         // Register handlers
-        services.AddTransient<IHandler<CreateUserCommand, Guid>, CreateUserHandler>();
+        services.AddTransient<IHandler<CreateUserCommand, CreateUserResponse>, CreateUserHandler>();
         services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserDto?>, RetrieveUserHandler>();
         services.AddTransient<IHandler<AuthenticateUserQuery, string>, AuthenticateUserHandler>();
         // Register mediator

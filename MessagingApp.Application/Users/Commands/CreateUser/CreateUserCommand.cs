@@ -2,7 +2,7 @@
 
 namespace MessagingApp.Application.Users.Commands.CreateUser;
 
-public class CreateUserCommand : IRequest<Guid>
+public class CreateUserCommand : IRequest<CreateUserResponse>
 {
     public string? Username { get; init; }
     public string? Password { get; init; }
