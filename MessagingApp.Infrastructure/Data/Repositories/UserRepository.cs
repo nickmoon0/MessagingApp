@@ -39,6 +39,20 @@ public class UserRepository : IUserRepository
         return user;
     }
 
+    public async Task<bool> UserValid(User reqUser)
+    {
+        if (reqUser.Username == null || reqUser.Password == null)
+            return false;
+        
+        var user = await _userManager.FindByNameAsync(reqUser.Username);
+        if (user == null)
+            return false;
+
+        // Check the password
+        var result = await _signInManager.CheckPasswordSignInAsync(user, reqUser.Password, false);
+        return result.Succeeded;
+    }
+
     public Task<Guid> CreateUser(User user)
     {
         throw new NotImplementedException();
