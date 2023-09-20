@@ -46,11 +46,12 @@ public static class ControllerExtensions
     {
         return ex switch
         {
-            ValidationException => new BadRequestResult(),
-            EntityAlreadyExistsException => new ConflictResult(),
-            UnauthorizedAccessException => new UnauthorizedResult(),
             AuthenticationException => new UnauthorizedResult(),
+            BadValuesException => new BadRequestResult(),
+            EntityAlreadyExistsException => new ConflictResult(),
             MissingConfigException => new StatusCodeResult(Status500InternalServerError),
+            UnauthorizedAccessException => new UnauthorizedResult(),
+            ValidationException => new BadRequestResult(),
             _ => new StatusCodeResult(Status500InternalServerError)
         };
     }
