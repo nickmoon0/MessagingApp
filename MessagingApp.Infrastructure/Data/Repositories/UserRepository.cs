@@ -1,42 +1,93 @@
-﻿using MessagingApp.Application.Common.Exceptions;
+﻿using FluentValidation;
+using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
+using MessagingApp.Infrastructure.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private readonly AuthContext _authContext;
-    public UserRepository(AuthContext authContext)
+    private readonly UserManager<AuthUser> _userManager;
+    private readonly SignInManager<AuthUser> _signInManager;
+    
+    public UserRepository(UserManager<AuthUser> userManager, SignInManager<AuthUser> signInManager)
     {
-        _authContext = authContext;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
-    public User? GetUserById(Guid id)
+    public Task<User?> GetUserById(Guid id)
     {
-        var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
+        throw new NotImplementedException();
+        // var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
+        // return user;
+    }
+
+    public async Task<User?> GetUserByUsername(string username)
+    {
+        var retrievedUser = await _userManager.FindByNameAsync(username);
+        if (retrievedUser == null) return null;
+        
+        var user = new User()
+        {
+            Id = retrievedUser.Id,
+            Username = retrievedUser.UserName
+        };
+        
         return user;
     }
 
-    public User? GetUserByUsername(string username)
+    public async Task<bool> UserValid(User reqUser)
     {
-        var user = _authContext.Users.SingleOrDefault(x => x.Username == username);
-        return user;
+        if (reqUser.Username == null || reqUser.Password == null)
+            return false;
+        
+        var user = await _userManager.FindByNameAsync(reqUser.Username);
+        if (user == null)
+            return false;
+
+        // Check the password
+        var result = await _signInManager.CheckPasswordSignInAsync(user, reqUser.Password, false);
+        return result.Succeeded;
     }
 
-    public Guid CreateUser(User user)
+    public async Task<User?> CreateUser(User user)
     {
-        try
-        {
-            _authContext.Users.Add(user);
-            _authContext.SaveChanges();
+        var authUser = new AuthUser { UserName = user.Username };
+        var result = await _userManager.CreateAsync(authUser, user.Password!);
 
-            return user.Id;
-        }
-        catch (DbUpdateException)
+        if (!result.Succeeded)
         {
-            throw new EntityAlreadyExistsException($"User with username {user.Username} already exists");
+            // All error descriptions listed in single string
+            var errorString = string.Join("\n", result.Errors.Select(e => e.Description));
+            
+            var badValues = result.Errors.Any(x => x.Code is 
+                nameof(IdentityErrorDescriber.PasswordRequiresDigit) or
+                nameof(IdentityErrorDescriber.PasswordRequiresLower) or
+                nameof(IdentityErrorDescriber.PasswordRequiresNonAlphanumeric) or 
+                nameof(IdentityErrorDescriber.PasswordTooShort) or
+                nameof(IdentityErrorDescriber.PasswordRequiresUniqueChars) or
+                nameof(IdentityErrorDescriber.PasswordRequiresUpper) or
+                nameof(IdentityErrorDescriber.InvalidUserName));
+            
+            if (badValues) throw new BadValuesException(errorString);
+
+            var duplicateValues = result.Errors.Any(x => x.Code is 
+                nameof(IdentityErrorDescriber.DuplicateUserName) or
+                nameof(IdentityErrorDescriber.DuplicateEmail));
+
+            if (duplicateValues) throw new EntityAlreadyExistsException(errorString);
         }
+        
+        var createdUser = new User
+        {
+            Id = authUser.Id,
+            Username = authUser.UserName,
+        };
+        
+        return result.Succeeded ? createdUser : null;
     }
 }

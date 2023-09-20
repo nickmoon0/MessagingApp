@@ -1,9 +1,11 @@
-﻿using FluentValidation;
+﻿using System.Security.Authentication;
+using FluentValidation;
 using LanguageExt.Common;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
+using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
@@ -22,40 +24,25 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
         _validator = validator;
     }
     
-    public Result<string> Handle(AuthenticateUserQuery req)
+    public async Task<Result<string>> Handle(AuthenticateUserQuery req)
     {
-        var valResult = _validator.Validate(req);
+        var valResult = await _validator.ValidateAsync(req);
         if (!valResult.IsValid)
         {
             var valException = new ValidationException(valResult.Errors);
             return new Result<string>(valException);
         }
-        
-        // Suppress warning as validation ensures its not null
-        var user = _userRepository.GetUserByUsername(req.Username!);
 
-        if (user == null)
-        {
-            var userNotFoundEx = new UnauthorizedAccessException("User not found");
-            return new Result<string>(userNotFoundEx);
-        }
+        var user = new User(req.Username, req.Password);
 
-        var passwordMatch = BCrypt.Net.BCrypt.Verify(req.Password, user.HashedPassword);
-        if (passwordMatch)
+        var userValid = await _userRepository.UserValid(user);
+
+        if (userValid)
         {
-            // Generate and return token
-            try
-            {
-                var token = _tokenService.GenerateToken(user);
-                return new Result<string>(token);
-            }
-            catch (MissingConfigException ex)
-            {
-                return new Result<string>(ex);
-            }
+            return new Result<string>(_tokenService.GenerateToken(user));
         }
         
-        var passwordsDontMatchEx = new UnauthorizedAccessException("Incorrect password");
-        return new Result<string>(passwordsDontMatchEx);
+        var authException = new AuthenticationException("Invalid user credentials");
+        return new Result<string>(authException);
     }
 }

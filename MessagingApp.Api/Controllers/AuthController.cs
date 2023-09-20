@@ -20,19 +20,19 @@ public class AuthController : ControllerBase
     
     [HttpPost]
     [Route(nameof(Register))]
-    public IActionResult Register(CreateUserDto createUserDto)
+    public async Task<IActionResult> Register(CreateUserDto createUserDto)
     {
         var command = new CreateUserCommand(createUserDto);
-        var result = _mediator.Send(command);
-        return result.ToCreated("", guid => guid);
+        var result = await _mediator.Send(command);
+        return result.ToCreated("/user");
     }
 
     [HttpPost]
     [Route(nameof(Authenticate))]
-    public IActionResult Authenticate(AuthenticateUserDto authenticateUserDto)
+    public async Task<IActionResult> Authenticate(AuthenticateUserDto authenticateUserDto)
     {
         var query = new AuthenticateUserQuery(authenticateUserDto);
-        var result = _mediator.Send(query);
-        return result.ToOk(x => x);
+        var result = await _mediator.Send(query);
+        return result.ToOk();
     }
 }
