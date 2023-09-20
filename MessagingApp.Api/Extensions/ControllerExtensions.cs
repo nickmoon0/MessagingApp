@@ -4,6 +4,8 @@ using LanguageExt.Common;
 using MessagingApp.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
+using static Microsoft.AspNetCore.Http.StatusCodes;
+
 namespace MessagingApp.Api.Extensions;
 
 public static class ControllerExtensions
@@ -48,8 +50,8 @@ public static class ControllerExtensions
             EntityAlreadyExistsException => new ConflictResult(),
             UnauthorizedAccessException => new UnauthorizedResult(),
             AuthenticationException => new UnauthorizedResult(),
-            MissingConfigException => new StatusCodeResult(500),
-            _ => new StatusCodeResult(500)
+            MissingConfigException => new StatusCodeResult(Status500InternalServerError),
+            _ => new StatusCodeResult(Status500InternalServerError)
         };
     }
 }
