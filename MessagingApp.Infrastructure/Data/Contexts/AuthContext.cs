@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Entities;
+using MessagingApp.Infrastructure.Data.Entities.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
