@@ -10,25 +10,15 @@ namespace MessagingApp.Application.Users.Commands.CreateUser;
 public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IValidator<CreateUserCommand> _validator;
-    public CreateUserHandler(IUserRepository userRepository, IValidator<CreateUserCommand> validator)
+    public CreateUserHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _validator = validator;
     }
     public async Task<Result<CreateUserResponse>> Handle(CreateUserCommand req)
     {
         try
         {
-            // Ensure all required values are present
-            var result = await _validator.ValidateAsync(req);
-            if (!result.IsValid)
-            {
-                var valException = new ValidationException(result.Errors);
-                return new Result<CreateUserResponse>(valException);
-            }
-
-            // Suppress warnings as validator ensures these values are not null
+            // Suppress warnings as CreateUserDto does not allow null values
             var user = new User(req.Username!, req.Password!);
             var createdUser = await _userRepository.CreateUser(user);
 
