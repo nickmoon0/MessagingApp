@@ -22,7 +22,6 @@ namespace MessagingApp.Infrastructure.Migrations
             modelBuilder.Entity("MessagingApp.Infrastructure.Data.Models.RequestStatus", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Name")

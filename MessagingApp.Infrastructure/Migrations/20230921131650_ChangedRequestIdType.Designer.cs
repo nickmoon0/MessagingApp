@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MessagingApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230921125938_RemoveFriendRequest")]
-    partial class RemoveFriendRequest
+    [Migration("20230921131650_ChangedRequestIdType")]
+    partial class ChangedRequestIdType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,6 @@ namespace MessagingApp.Infrastructure.Migrations
             modelBuilder.Entity("MessagingApp.Infrastructure.Data.Models.RequestStatus", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Name")

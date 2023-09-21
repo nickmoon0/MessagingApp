@@ -2,6 +2,13 @@
 
 public class RequestStatus
 {
-    public int Id { get; set; }
+    public RequestStatuses Id { get; set; }
     public string Name { get; set; } = null!;
+}
+
+public enum RequestStatuses
+{
+    Pending,
+    Accepted,
+    Declined
 }

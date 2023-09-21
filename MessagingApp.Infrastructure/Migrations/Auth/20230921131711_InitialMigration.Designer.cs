@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MessagingApp.Infrastructure.Migrations.Auth
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20230921125518_InitialMigration")]
+    [Migration("20230921131711_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
