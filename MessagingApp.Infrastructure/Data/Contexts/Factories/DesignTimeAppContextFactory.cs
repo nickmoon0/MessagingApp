@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace MessagingApp.Infrastructure.Data.Contexts.Factories;
 
-public class DesignTimeAuthContextFactory : IDesignTimeDbContextFactory<AuthContext>
+public class DesignTimeAppContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
 {
-    public AuthContext CreateDbContext(string[] args)
+    public ApplicationContext CreateDbContext(string[] args)
     {
         // Set up configuration
         IConfiguration configuration = new ConfigurationBuilder()
@@ -15,11 +15,11 @@ public class DesignTimeAuthContextFactory : IDesignTimeDbContextFactory<AuthCont
             .Build();
 
         // Configure the DbContext
-        var optionsBuilder = new DbContextOptionsBuilder<AuthContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
         var connString = configuration.GetConnectionString("AuthDb");
         
         optionsBuilder.UseMySql(connString, ServerVersion.AutoDetect(connString));
 
-        return new AuthContext(optionsBuilder.Options);
+        return new ApplicationContext(optionsBuilder.Options);
     }
 }
