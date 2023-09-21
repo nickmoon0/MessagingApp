@@ -22,13 +22,13 @@ public class ApplicationContext : DbContext
         modelBuilder.Entity<User>()
             .HasMany(u => u.SentFriendRequests)
             .WithOne(fr => fr.FromUser)
-            .HasForeignKey(fr => fr.FromUser.Id);
+            .HasForeignKey(fr => fr.FromUserId);
 
         // Configuration for received friend requests
         modelBuilder.Entity<User>()
             .HasMany(u => u.ReceivedFriendRequests)  
             .WithOne(fr => fr.ToUser)
-            .HasForeignKey(fr => fr.ToUser.Id);
+            .HasForeignKey(fr => fr.ToUserId);
         
         // Configure Request Status Table
         modelBuilder.Entity<RequestStatus>()
