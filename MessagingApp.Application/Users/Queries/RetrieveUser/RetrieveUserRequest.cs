@@ -1,6 +1,6 @@
 ﻿namespace MessagingApp.Application.Users.Queries.RetrieveUser;
 
-public class RetrieveUserDto
+public class RetrieveUserRequest
 {
     public Guid? Id { get; set; }
     public string? Username { get; set; }

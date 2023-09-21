@@ -7,9 +7,9 @@ public class RetrieveUserQuery : IRequest<RetrieveUserResponse?>
     public string? Username { get; set; }
     public Guid? Id { get; set; }
 
-    public RetrieveUserQuery(RetrieveUserDto retrieveUserDto)
+    public RetrieveUserQuery(RetrieveUserRequest retrieveUserRequest)
     {
-        Username = retrieveUserDto.Username;
-        Id = retrieveUserDto.Id;
+        Username = retrieveUserRequest.Username;
+        Id = retrieveUserRequest.Id;
     }
 }

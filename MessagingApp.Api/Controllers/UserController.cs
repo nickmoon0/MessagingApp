@@ -22,9 +22,9 @@ public class UserController : ControllerBase
     
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> GetUser(RetrieveUserDto retrieveUserDto)
+    public async Task<IActionResult> GetUser(RetrieveUserRequest retrieveUserRequest)
     {
-        var query = new RetrieveUserQuery(retrieveUserDto);
+        var query = new RetrieveUserQuery(retrieveUserRequest);
         var result = await _mediator.Send(query);
         return result.ToOk();
     }
