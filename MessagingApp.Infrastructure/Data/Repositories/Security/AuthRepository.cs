@@ -1,6 +1,8 @@
 ﻿using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Infrastructure.Data.Contexts;
+using MessagingApp.Infrastructure.Data.Models;
 using MessagingApp.Infrastructure.Data.Models.Security;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,11 +12,14 @@ public class AuthRepository : IAuthRepository
 {
     private readonly UserManager<AuthUser> _userManager;
     private readonly SignInManager<AuthUser> _signInManager;
-    
-    public AuthRepository(UserManager<AuthUser> userManager, SignInManager<AuthUser> signInManager)
+    private readonly ApplicationContext _applicationContext;
+    public AuthRepository(UserManager<AuthUser> userManager, 
+        SignInManager<AuthUser> signInManager, 
+        ApplicationContext applicationContext)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _applicationContext = applicationContext;
     }
     public Task<UserDto?> GetUserById(Guid id)
     {
@@ -56,7 +61,17 @@ public class AuthRepository : IAuthRepository
         var authUser = new AuthUser { UserName = user.Username };
         var result = await _userManager.CreateAsync(authUser, user.Password!);
 
-        if (!result.Succeeded)
+        if (result.Succeeded)
+        {
+            // Create user in application database
+            var appDbUser = new User
+            {
+                Id = authUser.Id,
+                Username = authUser.UserName! // Cant be null due to identity constraints
+            };
+            _applicationContext.Users.Add(appDbUser);
+        }
+        else
         {
             // All error descriptions listed in single string
             var errorString = string.Join("\n", result.Errors.Select(e => e.Description));

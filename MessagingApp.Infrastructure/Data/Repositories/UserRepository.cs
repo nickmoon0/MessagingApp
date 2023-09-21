@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Repositories;
 
-public class UserRepository : IFriendRequestRepository
+public class UserRepository : IFriendRequestRepository, IUserRepository
 {
     private readonly ApplicationContext _context;
     private UserRepository(ApplicationContext context)
