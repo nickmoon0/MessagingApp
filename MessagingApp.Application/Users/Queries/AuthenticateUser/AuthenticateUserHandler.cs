@@ -1,6 +1,7 @@
 ﻿using System.Security.Authentication;
 using FluentValidation;
 using LanguageExt.Common;
+using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
@@ -22,7 +23,7 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
     
     public async Task<Result<string>> Handle(AuthenticateUserQuery req)
     {
-        var user = new User(req.Username, req.Password);
+        var user = new UserDto(req.Username, req.Password);
 
         var userValid = await _userRepository.UserValid(user);
 

@@ -1,13 +1,8 @@
-﻿using FluentValidation;
-using MessagingApp.Application.Common.DTOs;
+﻿using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
-using MessagingApp.Domain.Entities;
-using MessagingApp.Infrastructure.Data.Contexts;
-using MessagingApp.Infrastructure.Data.Entities;
 using MessagingApp.Infrastructure.Data.Entities.Security;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Repositories;
 
@@ -42,7 +37,7 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<bool> UserValid(User reqUser)
+    public async Task<bool> UserValid(UserDto reqUser)
     {
         if (reqUser.Username == null || reqUser.Password == null)
             return false;
@@ -56,7 +51,7 @@ public class UserRepository : IUserRepository
         return result.Succeeded;
     }
 
-    public async Task<UserDto?> CreateUser(User user)
+    public async Task<UserDto?> CreateUser(UserDto user)
     {
         var authUser = new AuthUser { UserName = user.Username };
         var result = await _userManager.CreateAsync(authUser, user.Password!);
