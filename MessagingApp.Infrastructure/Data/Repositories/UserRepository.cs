@@ -8,7 +8,7 @@ namespace MessagingApp.Infrastructure.Data.Repositories;
 
 public class UserRepository : IFriendRequestRepository
 {
-    private ApplicationContext _context;
+    private readonly ApplicationContext _context;
     private UserRepository(ApplicationContext context)
     {
         _context = context;
@@ -20,17 +20,50 @@ public class UserRepository : IFriendRequestRepository
         
         // Get pending status
         var pendingStatus = await _context.RequestStatuses
-            .SingleOrDefaultAsync(x => x.Id == RequestStatuses.Pending);
+            .SingleAsync(x => x.Id == RequestStatuses.Pending);
         
         // Sent request = UserId with pending status
-        
-        
-        throw new NotImplementedException();
+        var friendRequests = _context.UserFriends
+            .Where(x => x.UserId == user.Id && x.Status.Id == pendingStatus.Id);
+
+        foreach (var userFriend in friendRequests)
+        {
+            var requestDto = new FriendRequestDto()
+            {
+                ToUser = userFriend.FriendId,
+                FromUser = userFriend.UserId,
+                Status = FriendRequestDtoStatus.Pending
+            };         
+            friendReqList.Add(requestDto);
+        }
+
+        return friendReqList;
     }
 
-    public Task<List<FriendRequestDto>> GetReceivedFriendRequests(UserDto user)
+    public async Task<List<FriendRequestDto>> GetReceivedFriendRequests(UserDto user)
     {
-        throw new NotImplementedException();
+        var friendReqList = new List<FriendRequestDto>();
+        
+        // Get pending status
+        var pendingStatus = await _context.RequestStatuses
+            .SingleAsync(x => x.Id == RequestStatuses.Pending);
+        
+        // Sent request = UserId with pending status
+        var friendRequests = _context.UserFriends
+            .Where(x => x.FriendId == user.Id && x.Status.Id == pendingStatus.Id);
+        
+        foreach (var userFriend in friendRequests)
+        {
+            var requestDto = new FriendRequestDto()
+            {
+                ToUser = userFriend.UserId,
+                FromUser = userFriend.FriendId,
+                Status = FriendRequestDtoStatus.Pending
+            };         
+            friendReqList.Add(requestDto);
+        }
+
+        return friendReqList;
     }
 
     public Task SetFriendRequestStatus(FriendRequestDto friendRequest)
