@@ -70,6 +70,7 @@ public class AuthRepository : IAuthRepository
                 Username = authUser.UserName! // Cant be null due to identity constraints
             };
             _applicationContext.Users.Add(appDbUser);
+            var task = _applicationContext.SaveChangesAsync();
         }
         else
         {
