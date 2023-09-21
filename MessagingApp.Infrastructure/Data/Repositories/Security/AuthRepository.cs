@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MessagingApp.Infrastructure.Data.Repositories.Security;
 
-public class AuthRepository : IUserRepository
+public class AuthRepository : IAuthRepository
 {
     private readonly UserManager<AuthUser> _userManager;
     private readonly SignInManager<AuthUser> _signInManager;

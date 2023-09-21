@@ -33,7 +33,7 @@ public static class InfrastructureDependencyInjection
             .AddDefaultTokenProviders();
         
         // Register repositories
-        services.AddScoped<IUserRepository, AuthRepository>();
+        services.AddScoped<IAuthRepository, AuthRepository>();
         
         // Register services
         services.AddSingleton<ITokenService, TokenService>();

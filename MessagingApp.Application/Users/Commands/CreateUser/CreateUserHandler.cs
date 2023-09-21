@@ -8,10 +8,10 @@ namespace MessagingApp.Application.Users.Commands.CreateUser;
 
 public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
 {
-    private readonly IUserRepository _userRepository;
-    public CreateUserHandler(IUserRepository userRepository)
+    private readonly IAuthRepository _authRepository;
+    public CreateUserHandler(IAuthRepository authRepository)
     {
-        _userRepository = userRepository;
+        _authRepository = authRepository;
     }
     public async Task<Result<CreateUserResponse>> Handle(CreateUserCommand req)
     {
@@ -19,7 +19,7 @@ public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
         {
             // Suppress warnings as CreateUserDto does not allow null values
             var user = new UserDto(req.Username!, req.Password!);
-            var createdUser = await _userRepository.CreateUser(user);
+            var createdUser = await _authRepository.CreateUser(user);
 
             // Not null if created successfully
             if (createdUser != null)

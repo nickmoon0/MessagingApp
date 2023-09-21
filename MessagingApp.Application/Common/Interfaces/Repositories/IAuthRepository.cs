@@ -2,7 +2,7 @@
 
 namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
-public interface IUserRepository
+public interface IAuthRepository
 {
     public Task<UserDto?> GetUserById(Guid id);
     public Task<UserDto?> GetUserByUsername(string username);

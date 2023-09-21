@@ -12,12 +12,12 @@ namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
 public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IAuthRepository _authRepository;
     private readonly ITokenService _tokenService;
     
-    public AuthenticateUserHandler(IUserRepository userRepository, ITokenService tokenService)
+    public AuthenticateUserHandler(IAuthRepository authRepository, ITokenService tokenService)
     {
-        _userRepository = userRepository;
+        _authRepository = authRepository;
         _tokenService = tokenService;
     }
     
@@ -25,7 +25,7 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
     {
         var user = new UserDto(req.Username, req.Password);
 
-        var userValid = await _userRepository.UserValid(user);
+        var userValid = await _authRepository.UserValid(user);
 
         if (userValid)
         {
