@@ -13,26 +13,15 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
 {
     private readonly IUserRepository _userRepository;
     private readonly ITokenService _tokenService;
-    private readonly IValidator<AuthenticateUserQuery> _validator;
     
-    public AuthenticateUserHandler(IUserRepository userRepository, 
-        ITokenService tokenService, 
-        IValidator<AuthenticateUserQuery> validator)
+    public AuthenticateUserHandler(IUserRepository userRepository, ITokenService tokenService)
     {
         _userRepository = userRepository;
         _tokenService = tokenService;
-        _validator = validator;
     }
     
     public async Task<Result<string>> Handle(AuthenticateUserQuery req)
     {
-        var valResult = await _validator.ValidateAsync(req);
-        if (!valResult.IsValid)
-        {
-            var valException = new ValidationException(valResult.Errors);
-            return new Result<string>(valException);
-        }
-
         var user = new User(req.Username, req.Password);
 
         var userValid = await _userRepository.UserValid(user);
