@@ -7,4 +7,6 @@ public class UserFriend
 
     public Guid FriendId { get; set; }
     public User Friend { get; set; } = null!;
+
+    public RequestStatus Status { get; set; } = null!;
 }

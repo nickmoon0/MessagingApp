@@ -4,14 +4,14 @@ using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Infrastructure.Data.Models.Security;
 using Microsoft.AspNetCore.Identity;
 
-namespace MessagingApp.Infrastructure.Data.Repositories;
+namespace MessagingApp.Infrastructure.Data.Repositories.Security;
 
-public class UserRepository : IUserRepository
+public class AuthRepository : IUserRepository
 {
     private readonly UserManager<AuthUser> _userManager;
     private readonly SignInManager<AuthUser> _signInManager;
     
-    public UserRepository(UserManager<AuthUser> userManager, SignInManager<AuthUser> signInManager)
+    public AuthRepository(UserManager<AuthUser> userManager, SignInManager<AuthUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
