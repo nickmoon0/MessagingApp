@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace MessagingApp.Infrastructure.Migrations
+namespace MessagingApp.Infrastructure.Migrations.Auth
 {
     [DbContext(typeof(AuthContext))]
     partial class AuthContextModelSnapshot : ModelSnapshot
@@ -19,7 +19,7 @@ namespace MessagingApp.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("MessagingApp.Infrastructure.Data.Entities.AuthRole", b =>
+            modelBuilder.Entity("MessagingApp.Infrastructure.Data.Models.Security.AuthRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace MessagingApp.Infrastructure.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("MessagingApp.Infrastructure.Data.Entities.AuthUser", b =>
+            modelBuilder.Entity("MessagingApp.Infrastructure.Data.Models.Security.AuthUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,7 +212,7 @@ namespace MessagingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("MessagingApp.Infrastructure.Data.Entities.AuthRole", null)
+                    b.HasOne("MessagingApp.Infrastructure.Data.Models.Security.AuthRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -221,7 +221,7 @@ namespace MessagingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("MessagingApp.Infrastructure.Data.Entities.AuthUser", null)
+                    b.HasOne("MessagingApp.Infrastructure.Data.Models.Security.AuthUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -230,7 +230,7 @@ namespace MessagingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("MessagingApp.Infrastructure.Data.Entities.AuthUser", null)
+                    b.HasOne("MessagingApp.Infrastructure.Data.Models.Security.AuthUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -239,13 +239,13 @@ namespace MessagingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("MessagingApp.Infrastructure.Data.Entities.AuthRole", null)
+                    b.HasOne("MessagingApp.Infrastructure.Data.Models.Security.AuthRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MessagingApp.Infrastructure.Data.Entities.AuthUser", null)
+                    b.HasOne("MessagingApp.Infrastructure.Data.Models.Security.AuthUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -254,7 +254,7 @@ namespace MessagingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("MessagingApp.Infrastructure.Data.Entities.AuthUser", null)
+                    b.HasOne("MessagingApp.Infrastructure.Data.Models.Security.AuthUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

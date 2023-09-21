@@ -16,7 +16,7 @@ public class DesignTimeAppContextFactory : IDesignTimeDbContextFactory<Applicati
 
         // Configure the DbContext
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-        var connString = configuration.GetConnectionString("AuthDb");
+        var connString = configuration.GetConnectionString("AppDb");
         
         optionsBuilder.UseMySql(connString, ServerVersion.AutoDetect(connString));
 

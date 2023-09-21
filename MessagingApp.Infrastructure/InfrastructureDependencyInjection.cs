@@ -19,10 +19,13 @@ public static class InfrastructureDependencyInjection
     {
         // Register contexts
         var authConnString = configuration.GetConnectionString("AuthDb");
+        var appConnString = configuration.GetConnectionString("AppDb");
         
         services.AddDbContext<AuthContext>(opt =>
             opt.UseMySql(authConnString, ServerVersion.AutoDetect(authConnString)));
-    
+        services.AddDbContext<ApplicationContext>(opt =>
+            opt.UseMySql(appConnString, ServerVersion.AutoDetect(appConnString)));
+        
         // Register identities
         services.AddIdentity<AuthUser, AuthRole>()
             .AddEntityFrameworkStores<AuthContext>()
