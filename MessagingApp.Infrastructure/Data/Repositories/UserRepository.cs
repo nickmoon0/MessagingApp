@@ -9,7 +9,7 @@ namespace MessagingApp.Infrastructure.Data.Repositories;
 public class UserRepository : IFriendRequestRepository, IUserRepository
 {
     private readonly ApplicationContext _context;
-    private UserRepository(ApplicationContext context)
+    public UserRepository(ApplicationContext context)
     {
         _context = context;
     }
