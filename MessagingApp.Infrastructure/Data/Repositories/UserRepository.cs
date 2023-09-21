@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
@@ -20,19 +21,19 @@ public class UserRepository : IUserRepository
         _userManager = userManager;
         _signInManager = signInManager;
     }
-    public Task<User?> GetUserById(Guid id)
+    public Task<UserDto?> GetUserById(Guid id)
     {
         throw new NotImplementedException();
         // var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
         // return user;
     }
 
-    public async Task<User?> GetUserByUsername(string username)
+    public async Task<UserDto?> GetUserByUsername(string username)
     {
         var retrievedUser = await _userManager.FindByNameAsync(username);
         if (retrievedUser == null) return null;
         
-        var user = new User()
+        var user = new UserDto
         {
             Id = retrievedUser.Id,
             Username = retrievedUser.UserName
@@ -55,7 +56,7 @@ public class UserRepository : IUserRepository
         return result.Succeeded;
     }
 
-    public async Task<User?> CreateUser(User user)
+    public async Task<UserDto?> CreateUser(User user)
     {
         var authUser = new AuthUser { UserName = user.Username };
         var result = await _userManager.CreateAsync(authUser, user.Password!);
@@ -83,7 +84,7 @@ public class UserRepository : IUserRepository
             if (duplicateValues) throw new EntityAlreadyExistsException(errorString);
         }
         
-        var createdUser = new User
+        var createdUser = new UserDto
         {
             Id = authUser.Id,
             Username = authUser.UserName,
