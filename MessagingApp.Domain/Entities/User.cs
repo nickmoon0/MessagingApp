@@ -9,35 +9,9 @@ public class User
 
     public string? Password { get; set; }
 
-    public List<UserFriend> Friends { get; set; }
-    public List<FriendRequest> SentFriendRequests { get; set; }
-    public List<FriendRequest> ReceivedFriendRequests { get; set; }
-
-    public User(Guid id)
-    {
-        Id = id;
-        Friends = new List<UserFriend>();
-        SentFriendRequests = new List<FriendRequest>();
-        ReceivedFriendRequests = new List<FriendRequest>();
-    }
-
-    public User(string username, string password)
-    {
-        Username = username;
-        Password = password;
-        Friends = new List<UserFriend>();
-        SentFriendRequests = new List<FriendRequest>();
-        ReceivedFriendRequests = new List<FriendRequest>();
-    }
-    
-    public User(Guid id, string? username)
-    {
-        Id = id;
-        Username = username;
-        Friends = new List<UserFriend>();
-        SentFriendRequests = new List<FriendRequest>();
-        ReceivedFriendRequests = new List<FriendRequest>();
-    }
+    public List<UserFriend> Friends { get; set; } = new();
+    public List<FriendRequest> SentFriendRequests { get; set; } = new();
+    public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
 
     public void SendFriendRequest(FriendRequest request, Guid requestingUser)
     {

@@ -23,8 +23,12 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
     
     public async Task<Result<string>> Handle(AuthenticateUserQuery req)
     {
-        // TODO: perform null checks
-        var user = new User(req.Username, req.Password);
+        // req.Username/Password cannot be null, AuthenticateUserRequest does not allow null values
+        var user = new User 
+        {
+            Username = req.Username, 
+            Password = req.Password
+        };
 
         var userValid = await _authRepository.UserValid(user);
 

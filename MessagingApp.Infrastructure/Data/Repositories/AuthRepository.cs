@@ -31,7 +31,11 @@ public class AuthRepository : IAuthRepository
         var retrievedUser = await _userManager.FindByNameAsync(username);
         if (retrievedUser == null) return null;
 
-        var user = new User(retrievedUser.Id, retrievedUser.UserName);
+        var user = new User 
+        {
+            Id = retrievedUser.Id, 
+            Username = retrievedUser.UserName
+        };
         
         return user;
     }

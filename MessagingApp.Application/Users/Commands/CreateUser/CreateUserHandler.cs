@@ -18,8 +18,13 @@ public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
     {
         try
         {
-            // Suppress warnings as CreateUserDto does not allow null values
-            var user = new User(req.Username!, req.Password!);
+            // req.Username/Password cannot be null, CreateUserRequest does not allow null values
+            var user = new User 
+            {
+                Username = req.Username,
+                Password = req.Password
+            };
+            
             var createdUser = await _authRepository.CreateUser(user);
 
             // Not null if created successfully
