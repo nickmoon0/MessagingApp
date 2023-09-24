@@ -1,12 +1,13 @@
 ﻿using MessagingApp.Application.Common.DTOs;
+using MessagingApp.Domain.Aggregates;
 
 namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
 public interface IAuthRepository
 {
-    public Task<UserDto?> GetUserById(Guid id);
-    public Task<UserDto?> GetUserByUsername(string username);
-    public Task<bool> UserValid(UserDto user);
+    public Task<User?> GetUserById(Guid id);
+    public Task<User?> GetUserByUsername(string username);
+    public Task<bool> UserValid(User user);
     
-    public Task<UserDto?> CreateUser(UserDto user);
+    public Task<User?> CreateUser(User user);
 }

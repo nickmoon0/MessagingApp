@@ -6,6 +6,7 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
+using MessagingApp.Domain.Aggregates;
 
 namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
@@ -22,7 +23,8 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
     
     public async Task<Result<string>> Handle(AuthenticateUserQuery req)
     {
-        var user = new UserDto(req.Username, req.Password);
+        // TODO: perform null checks
+        var user = new User(req.Username, req.Password);
 
         var userValid = await _authRepository.UserValid(user);
 

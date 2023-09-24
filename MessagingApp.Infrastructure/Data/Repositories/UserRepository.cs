@@ -16,54 +16,12 @@ public class UserRepository : IFriendRequestRepository, IUserRepository
     
     public async Task<List<FriendRequestDto>> GetSentFriendRequests(UserDto user)
     {
-        var friendReqList = new List<FriendRequestDto>();
-        
-        // Get pending status
-        var pendingStatus = await _context.RequestStatuses
-            .SingleAsync(x => x.Id == RequestStatuses.Pending);
-        
-        // Sent request = UserId with pending status
-        var friendRequests = _context.UserFriends
-            .Where(x => x.UserId == user.Id && x.Status.Id == pendingStatus.Id);
-
-        foreach (var userFriend in friendRequests)
-        {
-            var requestDto = new FriendRequestDto()
-            {
-                ToUser = userFriend.FriendId,
-                FromUser = userFriend.UserId,
-                Status = FriendRequestDtoStatus.Pending
-            };         
-            friendReqList.Add(requestDto);
-        }
-
-        return friendReqList;
+        throw new NotImplementedException();
     }
 
     public async Task<List<FriendRequestDto>> GetReceivedFriendRequests(UserDto user)
     {
-        var friendReqList = new List<FriendRequestDto>();
-        
-        // Get pending status
-        var pendingStatus = await _context.RequestStatuses
-            .SingleAsync(x => x.Id == RequestStatuses.Pending);
-        
-        // Sent request = UserId with pending status
-        var friendRequests = _context.UserFriends
-            .Where(x => x.FriendId == user.Id && x.Status.Id == pendingStatus.Id);
-        
-        foreach (var userFriend in friendRequests)
-        {
-            var requestDto = new FriendRequestDto()
-            {
-                ToUser = userFriend.UserId,
-                FromUser = userFriend.FriendId,
-                Status = FriendRequestDtoStatus.Pending
-            };         
-            friendReqList.Add(requestDto);
-        }
-
-        return friendReqList;
+        throw new NotImplementedException();
     }
 
     public Task SetFriendRequestStatus(FriendRequestDto friendRequest)

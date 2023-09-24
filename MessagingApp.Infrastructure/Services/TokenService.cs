@@ -1,9 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Services;
+using MessagingApp.Domain.Aggregates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,7 +17,7 @@ public class TokenService : ITokenService
     {
         _config = config;
     }
-    public string GenerateToken(UserDto user)
+    public string GenerateToken(User user)
     {
         var key = _config["Jwt:Key"] ?? throw new MissingConfigException("No JWT key configured");
         var issuer = _config["Jwt:Issuer"] ?? throw new MissingConfigException("No JWT issuer configured");
