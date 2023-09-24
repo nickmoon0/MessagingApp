@@ -1,6 +1,6 @@
 ﻿using MessagingApp.Domain.Common;
 
-namespace MessagingApp.Domain.Aggregates;
+namespace MessagingApp.Domain.Entities;
 
 public class FriendRequest
 {

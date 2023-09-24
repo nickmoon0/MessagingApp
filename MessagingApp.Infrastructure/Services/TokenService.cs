@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Services;
-using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

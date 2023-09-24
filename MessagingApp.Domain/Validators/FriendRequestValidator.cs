@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using FluentValidation;
-using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Domain.Validators;
 

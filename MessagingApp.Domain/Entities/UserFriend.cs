@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Domain.Aggregates;
+﻿namespace MessagingApp.Domain.Entities;
 
 public class UserFriend
 {

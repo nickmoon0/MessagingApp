@@ -1,7 +1,6 @@
-﻿using MessagingApp.Domain.Exceptions;
-using MessagingApp.Domain.Validators;
+﻿using MessagingApp.Domain.Validators;
 
-namespace MessagingApp.Domain.Aggregates;
+namespace MessagingApp.Domain.Entities;
 
 public class User
 {

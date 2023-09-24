@@ -1,5 +1,5 @@
 ﻿using MessagingApp.Application.Common.Interfaces.Repositories;
-using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
 
 namespace MessagingApp.Infrastructure.Data.Repositories;
