@@ -14,4 +14,12 @@ public class FriendRequest
     // Navigation properties
     public User FromUser { get; set; } = null!;
     public User ToUser { get; set; } = null!;
+    
+    public FriendRequest() { }
+
+    public FriendRequest(Guid fromUserId, Guid toUserId)
+    {
+        FromUserId = fromUserId;
+        ToUserId = toUserId;
+    }
 }

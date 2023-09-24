@@ -1,5 +1,4 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Domain.Entities;
+﻿using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
