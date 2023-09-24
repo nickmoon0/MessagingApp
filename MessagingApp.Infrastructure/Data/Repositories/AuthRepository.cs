@@ -20,19 +20,34 @@ public class AuthRepository : IAuthRepository
         _signInManager = signInManager;
         _applicationContext = applicationContext;
     }
-    public Task<User?> GetUserById(Guid id)
+    public async Task<User?> GetUserById(Guid id)
     {
+        //var authUser = await _userManager.FindByIdAsync(id);
         throw new NotImplementedException();
     }
 
     public async Task<User?> GetUserByUsername(string username)
     {
-        throw new NotImplementedException();
+        var retrievedUser = await _userManager.FindByNameAsync(username);
+        if (retrievedUser == null) return null;
+
+        var user = new User(retrievedUser.Id, retrievedUser.UserName);
+        
+        return user;
     }
     
     public async Task<bool> UserValid(User reqUser)
     {
-        throw new NotImplementedException();
+        if (reqUser.Username == null || reqUser.Password == null)
+            return false;
+        
+        var user = await _userManager.FindByNameAsync(reqUser.Username);
+        if (user == null)
+            return false;
+
+        // Check the password
+        var result = await _signInManager.CheckPasswordSignInAsync(user, reqUser.Password, false);
+        return result.Succeeded;
     }
 
     public async Task<User?> CreateUser(User user)
