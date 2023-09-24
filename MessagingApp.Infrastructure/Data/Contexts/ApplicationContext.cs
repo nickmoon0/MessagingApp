@@ -1,4 +1,5 @@
-﻿using MessagingApp.Domain.Entities;
+﻿using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Contexts;

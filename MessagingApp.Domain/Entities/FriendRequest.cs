@@ -1,4 +1,5 @@
-﻿using MessagingApp.Domain.Common;
+﻿using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Common;
 
 namespace MessagingApp.Domain.Entities;
 

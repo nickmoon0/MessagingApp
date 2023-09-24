@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
