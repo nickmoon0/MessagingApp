@@ -1,12 +1,9 @@
 ﻿using MessagingApp.Api.Extensions;
-using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace MessagingApp.Api.Controllers;
 
@@ -35,7 +32,7 @@ public class UserController : BaseController
     [Authorize]
     public async Task<IActionResult> AddFriend(CreateFriendRequestRequest createFriendRequest)
     {
-        var command = new CreateFriendRequestCommand();
+        var command = new CreateFriendRequestCommand(createFriendRequest, UserId);
         var result = await _mediator.Send(command);
         return result.ToOk();
     }
