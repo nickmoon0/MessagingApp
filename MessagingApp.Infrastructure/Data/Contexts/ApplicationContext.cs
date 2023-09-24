@@ -15,7 +15,6 @@ public class ApplicationContext : DbContext
         // Define primary keys
         modelBuilder.Entity<User>()
             .Ignore(u => u.Password)
-            .Ignore(u => u.HashedPassword)
             .ToTable(nameof(User))
             .HasKey(u => u.Id);
 

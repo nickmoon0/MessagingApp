@@ -8,7 +8,6 @@ public class User
     public string? Username { get; set; }
 
     public string? Password { get; set; }
-    public string? HashedPassword { get; set; }
 
     public List<UserFriend> Friends { get; set; }
     public List<FriendRequest> SentFriendRequests { get; set; }
