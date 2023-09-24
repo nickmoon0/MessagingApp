@@ -1,6 +1,12 @@
-﻿namespace MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
+﻿using LanguageExt.Common;
+using MessagingApp.Application.Common.Interfaces.Mediator;
 
-public class CreateFriendRequestHandler
+namespace MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
+
+public class CreateFriendRequestHandler : IHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>
 {
-    
+    public Task<Result<CreateFriendRequestResponse>> Handle(CreateFriendRequestCommand req)
+    {
+        throw new NotImplementedException();
+    }
 }

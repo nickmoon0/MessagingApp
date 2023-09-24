@@ -1,6 +1,8 @@
-﻿namespace MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
+﻿using MessagingApp.Application.Common.Interfaces.Mediator;
 
-public class CreateFriendRequestCommand
+namespace MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
+
+public class CreateFriendRequestCommand : IRequest<CreateFriendRequestResponse>
 {
     
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Interfaces.Mediator;
+using MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateUser;
 using MessagingApp.Application.Users.Queries.AuthenticateUser;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
@@ -12,10 +13,10 @@ public static class ApplicationDependencyInjection
 {
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {
-        // Register handlers
-        services.AddTransient<IHandler<CreateUserCommand, CreateUserResponse>, CreateUserHandler>();
-        services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserResponse?>, RetrieveUserHandler>();
-        services.AddTransient<IHandler<AuthenticateUserQuery, string>, AuthenticateUserHandler>();
+        // Register user handlers
+        AddUserHandlers(services);
+        AddFriendRequestHandlers(services);
+        
         // Register mediator
         services.AddTransient<IMediator, Mediator>();
         return services;
@@ -25,6 +26,23 @@ public static class ApplicationDependencyInjection
     {
         services.AddTransient<IValidator<RetrieveUserQuery>, ValidateRetrieveUserQuery>();
         
+        return services;
+    }
+
+    private static IServiceCollection AddUserHandlers(IServiceCollection services)
+    {
+        services.AddTransient<IHandler<CreateUserCommand, CreateUserResponse>, CreateUserHandler>();
+        services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserResponse?>, RetrieveUserHandler>();
+        services.AddTransient<IHandler<AuthenticateUserQuery, string>, AuthenticateUserHandler>();
+        return services;
+    }
+
+    private static IServiceCollection AddFriendRequestHandlers(IServiceCollection services)
+    {
+        services
+            .AddTransient<IHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>,
+                CreateFriendRequestHandler>();
+
         return services;
     }
 }
