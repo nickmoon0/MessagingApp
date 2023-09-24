@@ -66,6 +66,7 @@ public class AuthRepository : IAuthRepository
         // Create in app database if exists
         if (result.Succeeded)
         {
+            user.Id = authUser.Id;
             _applicationContext.Users.Add(user);
             await _applicationContext.SaveChangesAsync();
         }

@@ -19,6 +19,11 @@ public class ApplicationContext : DbContext
             .ToTable(nameof(User))
             .HasKey(u => u.Id);
 
+        // Prevent user from auto-generating IDs
+        modelBuilder.Entity<User>()
+            .Property(u => u.Id)
+            .ValueGeneratedNever();
+        
         modelBuilder.Entity<FriendRequest>()
             .ToTable(nameof(FriendRequest))
             .HasKey(fr => fr.Id);
