@@ -2,6 +2,7 @@
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
@@ -17,7 +18,7 @@ public class CreateFriendRequestHandler : IHandler<CreateFriendRequestCommand, C
     {
         try
         {
-            var friendRequest = new FriendRequest(req.FromUser, req.ToUser);
+            var friendRequest = new FriendRequest(req.FromUser, req.ToUser, FriendRequestStatus.Pending);
             var fromUser = await _userRepository.GetUserById(req.FromUser);
             var toUser = await _userRepository.GetUserById(req.ToUser);
 

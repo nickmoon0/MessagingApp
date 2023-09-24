@@ -18,7 +18,7 @@ public class FriendRequest
     
     public FriendRequest() { }
 
-    public FriendRequest(Guid fromUserId, Guid toUserId)
+    public FriendRequest(Guid fromUserId, Guid toUserId, FriendRequestStatus status)
     {
         FromUserId = fromUserId;
         ToUserId = toUserId;
