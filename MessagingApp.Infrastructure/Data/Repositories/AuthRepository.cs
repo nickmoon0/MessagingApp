@@ -20,7 +20,7 @@ public class AuthRepository : IAuthRepository
         _signInManager = signInManager;
         _applicationContext = applicationContext;
     }
-    public async Task<User?> GetUserById(Guid id)
+    public Task<User?> GetUserById(Guid id)
     {
         //var authUser = await _userManager.FindByIdAsync(id);
         throw new NotImplementedException();
