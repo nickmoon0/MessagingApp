@@ -25,6 +25,8 @@
       <ProjectReference Include="..\MessagingApp.Domain\MessagingApp.Domain.csproj" />
 
 
+
+
     </ItemGroup>
 
 

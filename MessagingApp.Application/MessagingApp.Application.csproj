@@ -19,5 +19,7 @@
 
     <ItemGroup>
       <Folder Include="FriendRequests\Queries\" />
+      <Folder Include="UserFriends\Commands\" />
+      <Folder Include="UserFriends\Queries\" />
     </ItemGroup>
 </Project>

@@ -1,73 +1,28 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Interfaces.Repositories;
+﻿using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
-using MessagingApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Repositories;
 
-public class UserRepository : IFriendRequestRepository, IUserRepository
+public class UserRepository : IUserRepository
 {
     private readonly ApplicationContext _context;
     public UserRepository(ApplicationContext context)
     {
         _context = context;
     }
-    
-    public async Task<List<FriendRequestDto>> GetSentFriendRequests(UserDto user)
+
+    public async Task<User?> GetUserById(Guid id)
     {
-        var friendReqList = new List<FriendRequestDto>();
-        
-        // Get pending status
-        var pendingStatus = await _context.RequestStatuses
-            .SingleAsync(x => x.Id == RequestStatuses.Pending);
-        
-        // Sent request = UserId with pending status
-        var friendRequests = _context.UserFriends
-            .Where(x => x.UserId == user.Id && x.Status.Id == pendingStatus.Id);
-
-        foreach (var userFriend in friendRequests)
-        {
-            var requestDto = new FriendRequestDto()
-            {
-                ToUser = userFriend.FriendId,
-                FromUser = userFriend.UserId,
-                Status = FriendRequestDtoStatus.Pending
-            };         
-            friendReqList.Add(requestDto);
-        }
-
-        return friendReqList;
+        var user = await _context.Users.SingleOrDefaultAsync(user => user.Id == id);
+        return user;
     }
 
-    public async Task<List<FriendRequestDto>> GetReceivedFriendRequests(UserDto user)
+    public async Task UpdateUser(User user)
     {
-        var friendReqList = new List<FriendRequestDto>();
-        
-        // Get pending status
-        var pendingStatus = await _context.RequestStatuses
-            .SingleAsync(x => x.Id == RequestStatuses.Pending);
-        
-        // Sent request = UserId with pending status
-        var friendRequests = _context.UserFriends
-            .Where(x => x.FriendId == user.Id && x.Status.Id == pendingStatus.Id);
-        
-        foreach (var userFriend in friendRequests)
-        {
-            var requestDto = new FriendRequestDto()
-            {
-                ToUser = userFriend.UserId,
-                FromUser = userFriend.FriendId,
-                Status = FriendRequestDtoStatus.Pending
-            };         
-            friendReqList.Add(requestDto);
-        }
-
-        return friendReqList;
-    }
-
-    public Task SetFriendRequestStatus(FriendRequestDto friendRequest)
-    {
-        throw new NotImplementedException();
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
     }
 }

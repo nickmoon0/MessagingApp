@@ -1,4 +1,6 @@
-﻿namespace MessagingApp.Infrastructure.Data.Models;
+﻿using MessagingApp.Domain.Aggregates;
+
+namespace MessagingApp.Domain.Entities;
 
 public class UserFriend
 {
@@ -7,6 +9,4 @@ public class UserFriend
 
     public Guid FriendId { get; set; }
     public User Friend { get; set; } = null!;
-
-    public RequestStatus Status { get; set; } = null!;
 }

@@ -1,12 +1,12 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Exceptions;
+﻿using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
-using MessagingApp.Infrastructure.Data.Models.Security;
 using Microsoft.AspNetCore.Identity;
 
-namespace MessagingApp.Infrastructure.Data.Repositories.Security;
+namespace MessagingApp.Infrastructure.Data.Repositories;
 
 public class AuthRepository : IAuthRepository
 {
@@ -21,28 +21,27 @@ public class AuthRepository : IAuthRepository
         _signInManager = signInManager;
         _applicationContext = applicationContext;
     }
-    public Task<UserDto?> GetUserById(Guid id)
+    public Task<User?> GetUserById(Guid id)
     {
+        //var authUser = await _userManager.FindByIdAsync(id);
         throw new NotImplementedException();
-        // var user = _authContext.Users.SingleOrDefault(x => x.Id == id);
-        // return user;
     }
 
-    public async Task<UserDto?> GetUserByUsername(string username)
+    public async Task<User?> GetUserByUsername(string username)
     {
         var retrievedUser = await _userManager.FindByNameAsync(username);
         if (retrievedUser == null) return null;
-        
-        var user = new UserDto
+
+        var user = new User 
         {
-            Id = retrievedUser.Id,
+            Id = retrievedUser.Id, 
             Username = retrievedUser.UserName
         };
         
         return user;
     }
-
-    public async Task<bool> UserValid(UserDto reqUser)
+    
+    public async Task<bool> UserValid(User reqUser)
     {
         if (reqUser.Username == null || reqUser.Password == null)
             return false;
@@ -56,21 +55,19 @@ public class AuthRepository : IAuthRepository
         return result.Succeeded;
     }
 
-    public async Task<UserDto?> CreateUser(UserDto user)
+    public async Task<User?> CreateUser(User user)
     {
-        var authUser = new AuthUser { UserName = user.Username };
-        var result = await _userManager.CreateAsync(authUser, user.Password!);
+        if (user.Password == null) throw new InvalidOperationException();
 
+        // Create user in auth database
+        var authUser = new AuthUser { UserName = user.Username };
+        var result = await _userManager.CreateAsync(authUser, user.Password);
+
+        // Create in app database if exists
         if (result.Succeeded)
         {
-            // Create user in application database
-            var appDbUser = new User
-            {
-                Id = authUser.Id,
-                Username = authUser.UserName! // Cant be null due to identity constraints
-            };
-            _applicationContext.Users.Add(appDbUser);
-            var task = _applicationContext.SaveChangesAsync();
+            _applicationContext.Users.Add(user);
+            await _applicationContext.SaveChangesAsync();
         }
         else
         {
@@ -87,20 +84,17 @@ public class AuthRepository : IAuthRepository
                 nameof(IdentityErrorDescriber.InvalidUserName));
             
             if (badValues) throw new BadValuesException(errorString);
-
+            
             var duplicateValues = result.Errors.Any(x => x.Code is 
                 nameof(IdentityErrorDescriber.DuplicateUserName) or
                 nameof(IdentityErrorDescriber.DuplicateEmail));
-
+            
             if (duplicateValues) throw new EntityAlreadyExistsException(errorString);
         }
+
+        // Null out password so it doesnt get passed around application
+        user.Password = null;
         
-        var createdUser = new UserDto
-        {
-            Id = authUser.Id,
-            Username = authUser.UserName,
-        };
-        
-        return result.Succeeded ? createdUser : null;
+        return user;
     }
 }

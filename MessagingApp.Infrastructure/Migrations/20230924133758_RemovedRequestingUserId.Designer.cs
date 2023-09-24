@@ -3,6 +3,7 @@ using System;
 using MessagingApp.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MessagingApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230924133758_RemovedRequestingUserId")]
+    partial class RemovedRequestingUserId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,27 +55,17 @@ namespace MessagingApp.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Username")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("User", (string)null);
-                });
-
-            modelBuilder.Entity("MessagingApp.Domain.Aggregates.UserFriend", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("FriendId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("UserId", "FriendId");
-
-                    b.HasIndex("FriendId");
-
-                    b.ToTable("UserFriend", (string)null);
                 });
 
             modelBuilder.Entity("MessagingApp.Domain.Aggregates.FriendRequest", b =>
@@ -94,23 +87,11 @@ namespace MessagingApp.Infrastructure.Migrations
                     b.Navigation("ToUser");
                 });
 
-            modelBuilder.Entity("MessagingApp.Domain.Aggregates.UserFriend", b =>
+            modelBuilder.Entity("MessagingApp.Domain.Aggregates.User", b =>
                 {
-                    b.HasOne("MessagingApp.Domain.Aggregates.User", "Friend")
-                        .WithMany()
-                        .HasForeignKey("FriendId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MessagingApp.Domain.Aggregates.User", "User")
+                    b.HasOne("MessagingApp.Domain.Aggregates.User", null)
                         .WithMany("Friends")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Friend");
-
-                    b.Navigation("User");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MessagingApp.Domain.Aggregates.User", b =>

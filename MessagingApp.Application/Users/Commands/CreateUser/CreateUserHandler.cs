@@ -3,6 +3,8 @@ using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Commands.CreateUser;
 
@@ -17,8 +19,13 @@ public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
     {
         try
         {
-            // Suppress warnings as CreateUserDto does not allow null values
-            var user = new UserDto(req.Username!, req.Password!);
+            // req.Username/Password cannot be null, CreateUserRequest does not allow null values
+            var user = new User 
+            {
+                Username = req.Username,
+                Password = req.Password
+            };
+            
             var createdUser = await _authRepository.CreateUser(user);
 
             // Not null if created successfully
