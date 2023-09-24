@@ -35,6 +35,9 @@ public class User
     {
         Username = username;
         Password = password;
+        Friends = new List<User>();
+        SentFriendRequests = new List<FriendRequest>();
+        ReceivedFriendRequests = new List<FriendRequest>();
     }
     
     public User(Guid id, string? username)

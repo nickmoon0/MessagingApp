@@ -1,12 +1,10 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces.Repositories;
+﻿using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Aggregates;
 using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace MessagingApp.Infrastructure.Data.Repositories.Security;
+namespace MessagingApp.Infrastructure.Data.Repositories;
 
 public class AuthRepository : IAuthRepository
 {
