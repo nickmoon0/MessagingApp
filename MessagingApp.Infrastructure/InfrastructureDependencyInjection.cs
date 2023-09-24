@@ -34,7 +34,6 @@ public static class InfrastructureDependencyInjection
         // Register repositories
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IFriendRequestRepository, UserRepository>();
         
         // Register services
         services.AddSingleton<ITokenService, TokenService>();
