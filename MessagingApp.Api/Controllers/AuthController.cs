@@ -8,7 +8,7 @@ namespace MessagingApp.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AuthController : ControllerBase
+public class AuthController : BaseController
 {
     private readonly ILogger<AuthController> _logger;
     private readonly IMediator _mediator;
