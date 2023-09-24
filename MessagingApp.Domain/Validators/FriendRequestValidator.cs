@@ -8,18 +8,18 @@ public class FriendRequestValidator : AbstractValidator<FriendRequest>
 {
     public FriendRequestValidator(Guid requestingUserId)
     {
-        RuleFor(x => x.FromUser)
+        RuleFor(x => x.FromUserId)
             .NotNull()
             .WithMessage("FromUser cannot be null");
-        RuleFor(x => x.ToUser)
+        RuleFor(x => x.ToUserId)
             .NotNull()
             .WithMessage("ToUser cannot be null");
         
-        RuleFor(x => x.FromUser)
-            .NotEqual(x => x.ToUser)
+        RuleFor(x => x.FromUserId)
+            .NotEqual(x => x.ToUserId)
             .WithMessage("User cannot send a friend request to themselves");
 
-        RuleFor(x => x.FromUser)
+        RuleFor(x => x.FromUserId)
             .Equal(requestingUserId)
             .WithMessage("User is not authorised to send friend request");
     }
