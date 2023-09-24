@@ -1,6 +1,5 @@
-﻿using System.Security.Authentication;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace MessagingApp.Api.Controllers;
 
@@ -10,7 +9,7 @@ public abstract class BaseController : ControllerBase
     {
         get
         {
-            var uidString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+            var uidString = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
                             ?? throw new InvalidOperationException();
             return Guid.Parse(uidString);
         }
