@@ -3,7 +3,6 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
-using MessagingApp.Infrastructure.Data.Models.Security;
 using Microsoft.AspNetCore.Identity;
 
 namespace MessagingApp.Infrastructure.Data.Repositories.Security;

@@ -1,7 +1,7 @@
 ﻿using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Infrastructure.Data.Contexts;
-using MessagingApp.Infrastructure.Data.Models.Security;
+using MessagingApp.Infrastructure.Data.Models;
 using MessagingApp.Infrastructure.Data.Repositories;
 using MessagingApp.Infrastructure.Data.Repositories.Security;
 using MessagingApp.Infrastructure.Services;

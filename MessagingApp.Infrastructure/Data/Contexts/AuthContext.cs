@@ -1,4 +1,4 @@
-﻿using MessagingApp.Infrastructure.Data.Models.Security;
+﻿using MessagingApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
