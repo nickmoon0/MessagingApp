@@ -5,11 +5,9 @@ namespace MessagingApp.Domain.Aggregates;
 public class FriendRequest
 {
     public Guid Id { get; set; }
-
-    public Guid RequestingUserId { get; set; }
-
     public Guid FromUserId { get; set; }
     public Guid ToUserId { get; set; }
+    
     public DateTime RequestDate { get; set; }
     public FriendRequestStatus Status { get; set; }
 

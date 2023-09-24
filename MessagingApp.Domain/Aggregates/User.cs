@@ -11,14 +11,13 @@ public class User
     public string? Password { get; set; }
     public string? HashedPassword { get; set; }
 
-    public List<User> Friends { get; set; }
+    public List<UserFriend> Friends { get; set; }
     public List<FriendRequest> SentFriendRequests { get; set; }
     public List<FriendRequest> ReceivedFriendRequests { get; set; }
 
     public User(Guid id)
     {
         Id = id;
-        Friends = new List<User>();
         SentFriendRequests = new List<FriendRequest>();
         ReceivedFriendRequests = new List<FriendRequest>();
     }
@@ -27,7 +26,6 @@ public class User
     {
         Username = username;
         Password = password;
-        Friends = new List<User>();
         SentFriendRequests = new List<FriendRequest>();
         ReceivedFriendRequests = new List<FriendRequest>();
     }
@@ -36,7 +34,6 @@ public class User
     {
         Id = id;
         Username = username;
-        Friends = new List<User>();
         SentFriendRequests = new List<FriendRequest>();
         ReceivedFriendRequests = new List<FriendRequest>();
     }
