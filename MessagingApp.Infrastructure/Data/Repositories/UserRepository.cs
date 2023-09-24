@@ -1,8 +1,6 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Interfaces.Repositories;
+﻿using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Domain.Aggregates;
 using MessagingApp.Infrastructure.Data.Contexts;
-using MessagingApp.Infrastructure.Data.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data.Repositories;
 
@@ -14,17 +12,17 @@ public class UserRepository : IFriendRequestRepository, IUserRepository
         _context = context;
     }
     
-    public async Task<List<FriendRequestDto>> GetSentFriendRequests(UserDto user)
+    public Task<List<FriendRequest>> GetSentFriendRequests(User user)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<List<FriendRequestDto>> GetReceivedFriendRequests(UserDto user)
+    public Task<List<FriendRequest>> GetReceivedFriendRequests(User user)
     {
         throw new NotImplementedException();
     }
 
-    public Task SetFriendRequestStatus(FriendRequestDto friendRequest)
+    public Task SetFriendRequestStatus(FriendRequest friendRequest)
     {
         throw new NotImplementedException();
     }
