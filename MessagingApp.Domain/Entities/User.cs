@@ -16,6 +16,7 @@ public class User
     public User(Guid id)
     {
         Id = id;
+        Friends = new List<UserFriend>();
         SentFriendRequests = new List<FriendRequest>();
         ReceivedFriendRequests = new List<FriendRequest>();
     }
@@ -24,6 +25,7 @@ public class User
     {
         Username = username;
         Password = password;
+        Friends = new List<UserFriend>();
         SentFriendRequests = new List<FriendRequest>();
         ReceivedFriendRequests = new List<FriendRequest>();
     }
@@ -32,6 +34,7 @@ public class User
     {
         Id = id;
         Username = username;
+        Friends = new List<UserFriend>();
         SentFriendRequests = new List<FriendRequest>();
         ReceivedFriendRequests = new List<FriendRequest>();
     }
