@@ -8,16 +8,8 @@ public class User
     public Guid Id { get; set; }
     public string? Username { get; set; }
 
-    private string _password;
-    public string? Password
-    {
-        set
-        {
-            if (value == null) throw new InvalidOperationException();
-            _password = BCrypt.Net.BCrypt.HashPassword(value);
-        }
-    }
-    public string? HashedPassword => _password;
+    public string? Password { get; set; }
+    public string? HashedPassword { get; set; }
 
     public List<User> Friends { get; set; }
     public List<FriendRequest> SentFriendRequests { get; set; }
