@@ -14,8 +14,12 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {
         // Register user handlers
-        AddUserHandlers(services);
-        AddFriendRequestHandlers(services);
+        services.AddTransient<IHandler<CreateUserCommand, CreateUserResponse>, CreateUserHandler>();
+        services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserResponse?>, RetrieveUserHandler>();
+        services.AddTransient<IHandler<AuthenticateUserQuery, string>, AuthenticateUserHandler>();
+        services
+            .AddTransient<IHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>,
+                CreateFriendRequestHandler>();
         
         // Register mediator
         services.AddTransient<IMediator, Mediator>();
@@ -26,23 +30,6 @@ public static class ApplicationDependencyInjection
     {
         services.AddTransient<IValidator<RetrieveUserQuery>, ValidateRetrieveUserQuery>();
         
-        return services;
-    }
-
-    private static IServiceCollection AddUserHandlers(IServiceCollection services)
-    {
-        services.AddTransient<IHandler<CreateUserCommand, CreateUserResponse>, CreateUserHandler>();
-        services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserResponse?>, RetrieveUserHandler>();
-        services.AddTransient<IHandler<AuthenticateUserQuery, string>, AuthenticateUserHandler>();
-        return services;
-    }
-
-    private static IServiceCollection AddFriendRequestHandlers(IServiceCollection services)
-    {
-        services
-            .AddTransient<IHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>,
-                CreateFriendRequestHandler>();
-
         return services;
     }
 }
