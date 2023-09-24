@@ -32,10 +32,12 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
         };
 
         var userValid = await _authRepository.UserValid(user);
-
+        user = await _authRepository.GetUserByUsername(user.Username);
+        
         if (userValid)
         {
-            return new Result<string>(_tokenService.GenerateToken(user));
+            // user cant be null if it is valid
+            return new Result<string>(_tokenService.GenerateToken(user!));
         }
         
         var authException = new AuthenticationException("Invalid user credentials");
