@@ -16,8 +16,10 @@ public class User
 
     public void SendFriendRequest(FriendRequest request, Guid requestingUser)
     {
-        var validator = new FriendRequestValidator(requestingUser);
+        // Ensures the request is valid
+        var validator = new FriendRequestValidator(requestingUser, SentFriendRequests, ReceivedFriendRequests);
         var valResult = validator.Validate(request);
+        
         if (!valResult.IsValid)
         {
             throw new InvalidOperationException();
