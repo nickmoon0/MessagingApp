@@ -7,8 +7,8 @@ namespace MessagingApp.Domain.Validators;
 public class SendFriendRequestValidator : AbstractValidator<FriendRequest>
 {
     public SendFriendRequestValidator(Guid requestingUserId, 
-        List<FriendRequest> sentRequests, 
-        List<FriendRequest> receivedRequests)
+        IReadOnlyCollection<FriendRequest> sentRequests, 
+        IReadOnlyCollection<FriendRequest> receivedRequests)
     {
         // Check properties have valid values
         RuleFor(x => x.FromUserId)
