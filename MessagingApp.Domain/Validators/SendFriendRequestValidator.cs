@@ -4,9 +4,9 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Domain.Validators;
 
-public class FriendRequestValidator : AbstractValidator<FriendRequest>
+public class SendFriendRequestValidator : AbstractValidator<FriendRequest>
 {
-    public FriendRequestValidator(Guid requestingUserId, 
+    public SendFriendRequestValidator(Guid requestingUserId, 
         List<FriendRequest> sentRequests, 
         List<FriendRequest> receivedRequests)
     {
