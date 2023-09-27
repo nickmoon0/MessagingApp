@@ -39,4 +39,10 @@ public class UserRepository : IUserRepository
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
     }
+    
+    public async Task<FriendRequest?> GetFriendRequestById(Guid id)
+    {
+        var friendRequest = await _context.FriendRequests.SingleOrDefaultAsync(x => x.Id == id);
+        return friendRequest;
+    }
 }

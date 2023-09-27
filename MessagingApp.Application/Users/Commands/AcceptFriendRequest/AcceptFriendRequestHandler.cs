@@ -9,19 +9,17 @@ namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 public class AcceptFriendRequestHandler : IHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IFriendRequestRepository _friendRequestRepository;
 
-    public AcceptFriendRequestHandler(IUserRepository userRepository, IFriendRequestRepository friendRequestRepository)
+    public AcceptFriendRequestHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _friendRequestRepository = friendRequestRepository;
     }
 
     public async Task<Result<AcceptFriendRequestResponse>> Handle(AcceptFriendRequestCommand req)
     {
         try
         {
-            var friendRequest = await _friendRequestRepository.GetFriendRequestById(req.FriendRequestId);
+            var friendRequest = await _userRepository.GetFriendRequestById(req.FriendRequestId);
             var toUser = await _userRepository.GetUserById(req.ToUserId);
 
             if (friendRequest == null || toUser == null)
