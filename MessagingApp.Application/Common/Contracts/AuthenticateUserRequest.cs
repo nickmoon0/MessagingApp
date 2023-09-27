@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
+﻿namespace MessagingApp.Application.Common.Contracts;
 
 public class AuthenticateUserRequest
 {

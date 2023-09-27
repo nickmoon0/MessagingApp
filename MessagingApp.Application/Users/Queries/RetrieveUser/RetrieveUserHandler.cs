@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LanguageExt.Common;
+using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
