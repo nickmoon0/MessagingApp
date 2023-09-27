@@ -34,11 +34,11 @@ public class SendFriendRequestValidator : AbstractValidator<FriendRequest>
                 var sentReq = sentRequests.Any(x => 
                     x.FromUserId == request.FromUserId && 
                     x.ToUserId == request.ToUserId && 
-                    x.Status != FriendRequestStatus.Pending);
+                    x.Status == FriendRequestStatus.Pending);
                 var receivedReq = receivedRequests.Any(x => 
                     x.FromUserId == request.ToUserId && 
                     x.ToUserId == request.FromUserId && 
-                    x.Status != FriendRequestStatus.Pending);
+                    x.Status == FriendRequestStatus.Pending);
                 
                 if (sentReq)
                 {
