@@ -1,26 +1,32 @@
-﻿using FluentValidation;
-using LanguageExt.Common;
+﻿using LanguageExt.Common;
+using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Commands.CreateUser;
 
 public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
 {
-    private readonly IUserRepository _userRepository;
-    public CreateUserHandler(IUserRepository userRepository)
+    private readonly IAuthRepository _authRepository;
+    public CreateUserHandler(IAuthRepository authRepository)
     {
-        _userRepository = userRepository;
+        _authRepository = authRepository;
     }
     public async Task<Result<CreateUserResponse>> Handle(CreateUserCommand req)
     {
         try
         {
-            // Suppress warnings as CreateUserDto does not allow null values
-            var user = new User(req.Username!, req.Password!);
-            var createdUser = await _userRepository.CreateUser(user);
+            // req.Username/Password cannot be null, CreateUserRequest does not allow null values
+            var user = new User 
+            {
+                Username = req.Username,
+                Password = req.Password
+            };
+            
+            var createdUser = await _authRepository.CreateUser(user);
 
             // Not null if created successfully
             if (createdUser != null)

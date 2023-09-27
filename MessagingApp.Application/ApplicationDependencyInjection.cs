@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Interfaces.Mediator;
+using MessagingApp.Application.FriendRequests.Commands.AcceptFriendRequest;
+using MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateUser;
 using MessagingApp.Application.Users.Queries.AuthenticateUser;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
@@ -12,10 +14,17 @@ public static class ApplicationDependencyInjection
 {
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {
-        // Register handlers
+        // Register user handlers
         services.AddTransient<IHandler<CreateUserCommand, CreateUserResponse>, CreateUserHandler>();
         services.AddTransient<IHandler<RetrieveUserQuery, RetrieveUserResponse?>, RetrieveUserHandler>();
         services.AddTransient<IHandler<AuthenticateUserQuery, string>, AuthenticateUserHandler>();
+        
+        // Register friend request handlers
+        services.AddTransient<IHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>,
+            CreateFriendRequestHandler>();
+        services.AddTransient<IHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>,
+            AcceptFriendRequestHandler>();
+        
         // Register mediator
         services.AddTransient<IMediator, Mediator>();
         return services;

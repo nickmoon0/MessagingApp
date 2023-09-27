@@ -7,11 +7,11 @@ namespace MessagingApp.Application.Users.Queries.RetrieveUser;
 
 public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserResponse?>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IAuthRepository _authRepository;
     private readonly IValidator<RetrieveUserQuery> _validator;
-    public RetrieveUserHandler(IUserRepository userRepository, IValidator<RetrieveUserQuery> validator)
+    public RetrieveUserHandler(IAuthRepository authRepository, IValidator<RetrieveUserQuery> validator)
     {
-        _userRepository = userRepository;
+        _authRepository = authRepository;
         _validator = validator;
     }
     
@@ -25,19 +25,19 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserRespo
         }
         
         // Return RetrieveUserDto so that hashed password is never leaked
-        RetrieveUserResponse? userDto = null;
+        RetrieveUserResponse? userResponse = null;
         
         // Suppress warning as validator ensures these are not null
         var user = req.Username == null ?
-            await _userRepository.GetUserById((Guid)req.Id!) : await _userRepository.GetUserByUsername(req.Username);
+            await _authRepository.GetUserById((Guid)req.Id!) : await _authRepository.GetUserByUsername(req.Username);
         
         if (user is not null)
-            userDto = new RetrieveUserResponse
+            userResponse = new RetrieveUserResponse
             {
                 Username = user.Username!, // Username will always be populated if user != null
                 Id = user.Id
             };
         
-        return new Result<RetrieveUserResponse?>(userDto);
+        return new Result<RetrieveUserResponse?>(userResponse);
     }
 }

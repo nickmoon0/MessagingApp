@@ -1,34 +1,43 @@
 ﻿using System.Security.Authentication;
 using FluentValidation;
 using LanguageExt.Common;
+using MessagingApp.Application.Common.DTOs;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
+using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
 public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IAuthRepository _authRepository;
     private readonly ITokenService _tokenService;
     
-    public AuthenticateUserHandler(IUserRepository userRepository, ITokenService tokenService)
+    public AuthenticateUserHandler(IAuthRepository authRepository, ITokenService tokenService)
     {
-        _userRepository = userRepository;
+        _authRepository = authRepository;
         _tokenService = tokenService;
     }
     
     public async Task<Result<string>> Handle(AuthenticateUserQuery req)
     {
-        var user = new User(req.Username, req.Password);
+        // req.Username/Password cannot be null, AuthenticateUserRequest does not allow null values
+        var user = new User 
+        {
+            Username = req.Username, 
+            Password = req.Password
+        };
 
-        var userValid = await _userRepository.UserValid(user);
-
+        var userValid = await _authRepository.UserValid(user);
+        user = await _authRepository.GetUserByUsername(user.Username);
+        
         if (userValid)
         {
-            return new Result<string>(_tokenService.GenerateToken(user));
+            // user cant be null if it is valid
+            return new Result<string>(_tokenService.GenerateToken(user!));
         }
         
         var authException = new AuthenticationException("Invalid user credentials");

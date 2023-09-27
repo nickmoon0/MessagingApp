@@ -1,16 +1,18 @@
-﻿namespace MessagingApp.Domain.Entities;
+﻿namespace MessagingApp.Application.Common.DTOs;
 
-public class User
+public class UserDto
 {
     public Guid Id { get; set; }
     public string? Username { get; set; }
     public string? Password { get; set; }
-    
-    public User() {}
 
-    public User(string? username, string? password)
+    public UserDto() {}
+    
+    public UserDto(string? username, string? password)
     {
         Username = username;
         Password = password;
     }
+    
+    
 }

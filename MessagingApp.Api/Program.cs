@@ -1,4 +1,5 @@
 using System.Text;
+using MessagingApp.Api.Middleware;
 using MessagingApp.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add additional config files
 builder.Configuration.AddJsonFile("appsettings.Local.json");
+
+// Add middleware services
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add services to the container.
 builder.Services.AddValidators();
@@ -62,6 +66,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

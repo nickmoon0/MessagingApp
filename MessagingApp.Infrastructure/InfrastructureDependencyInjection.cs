@@ -1,7 +1,7 @@
 ﻿using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Infrastructure.Data.Contexts;
-using MessagingApp.Infrastructure.Data.Entities;
+using MessagingApp.Infrastructure.Data.Models;
 using MessagingApp.Infrastructure.Data.Repositories;
 using MessagingApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
@@ -19,18 +19,22 @@ public static class InfrastructureDependencyInjection
     {
         // Register contexts
         var authConnString = configuration.GetConnectionString("AuthDb");
+        var appConnString = configuration.GetConnectionString("AppDb");
         
         services.AddDbContext<AuthContext>(opt =>
             opt.UseMySql(authConnString, ServerVersion.AutoDetect(authConnString)));
-    
+        services.AddDbContext<ApplicationContext>(opt =>
+            opt.UseMySql(appConnString, ServerVersion.AutoDetect(appConnString)));
+        
         // Register identities
         services.AddIdentity<AuthUser, AuthRole>()
             .AddEntityFrameworkStores<AuthContext>()
             .AddDefaultTokenProviders();
         
         // Register repositories
+        services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
-        
+        services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
         // Register services
         services.AddSingleton<ITokenService, TokenService>();
         

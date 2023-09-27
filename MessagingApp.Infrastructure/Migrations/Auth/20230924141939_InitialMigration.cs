@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MessagingApp.Infrastructure.Migrations
+namespace MessagingApp.Infrastructure.Migrations.Auth
 {
     /// <inheritdoc />
-    public partial class UpdatedKeyType : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

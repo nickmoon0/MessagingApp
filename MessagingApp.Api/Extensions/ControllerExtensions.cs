@@ -49,6 +49,8 @@ public static class ControllerExtensions
             AuthenticationException => new UnauthorizedResult(),
             BadValuesException => new BadRequestResult(),
             EntityAlreadyExistsException => new ConflictResult(),
+            EntityNotFoundException => new NotFoundResult(),
+            InvalidOperationException => new BadRequestResult(),
             MissingConfigException => new StatusCodeResult(Status500InternalServerError),
             UnauthorizedAccessException => new UnauthorizedResult(),
             ValidationException => new BadRequestResult(),

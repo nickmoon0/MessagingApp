@@ -4,12 +4,12 @@ namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
 public class AuthenticateUserQuery : IRequest<string>
 {
-    public string? Username { get; init; }
-    public string? Password { get; init; }
+    public string Username { get; init; }
+    public string Password { get; init; }
 
-    public AuthenticateUserQuery(AuthenticateUserDto authenticateUserDto)
+    public AuthenticateUserQuery(AuthenticateUserRequest authenticateUserRequest)
     {
-        Username = authenticateUserDto.Username;
-        Password = authenticateUserDto.Password;
+        Username = authenticateUserRequest.Username;
+        Password = authenticateUserRequest.Password;
     }
 }
