@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Domain.Validators;
 
@@ -39,6 +40,11 @@ public class User
             throw new InvalidOperationException();
         }
 
+        // Get friend request and change status to accepted
+        var storedReq = ReceivedFriendRequests.Single(x => x.Id == request.Id);
+        storedReq.Status = FriendRequestStatus.Accepted;
+        
+        // Create friend and add to friends list 
         var userFriend = new UserFriend
         {
             UserId = request.ToUserId,
