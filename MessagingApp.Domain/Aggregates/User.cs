@@ -1,4 +1,5 @@
-﻿using MessagingApp.Domain.Entities;
+﻿using FluentValidation.Results;
+using MessagingApp.Domain.Entities;
 using MessagingApp.Domain.Validators;
 
 namespace MessagingApp.Domain.Aggregates;
@@ -30,6 +31,20 @@ public class User
 
     public void AcceptFriendRequest(FriendRequest request, Guid requestingUser)
     {
-        throw new NotImplementedException();
+        var validator = new AcceptFriendRequestValidator(requestingUser, ReceivedFriendRequests);
+        var valResult = validator.Validate(request);
+
+        if (!valResult.IsValid)
+        {
+            throw new InvalidOperationException();
+        }
+
+        var userFriend = new UserFriend
+        {
+            UserId = request.ToUserId,
+            FriendId = request.FromUserId
+        };
+        
+        Friends.Add(userFriend);
     }
 }
