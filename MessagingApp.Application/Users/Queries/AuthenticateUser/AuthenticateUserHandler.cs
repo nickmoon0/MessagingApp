@@ -1,13 +1,9 @@
 ﻿using System.Security.Authentication;
-using FluentValidation;
 using LanguageExt.Common;
-using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
-using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 

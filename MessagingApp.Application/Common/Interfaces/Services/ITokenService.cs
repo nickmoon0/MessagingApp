@@ -1,6 +1,4 @@
-﻿using MessagingApp.Application.Common.DTOs;
-using MessagingApp.Domain.Aggregates;
-using MessagingApp.Domain.Entities;
+﻿using MessagingApp.Domain.Aggregates;
 
 namespace MessagingApp.Application.Common.Interfaces.Services;
 
