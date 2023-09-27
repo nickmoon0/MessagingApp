@@ -2,8 +2,8 @@
 using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.FriendRequests.Commands.AcceptFriendRequest;
-using MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
+using MessagingApp.Application.Users.Commands.AcceptFriendRequest;
+using MessagingApp.Application.Users.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateUser;
 using MessagingApp.Application.Users.Queries.AuthenticateUser;
 using MessagingApp.Application.Users.Queries.RetrieveUser;

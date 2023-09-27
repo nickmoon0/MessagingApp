@@ -1,7 +1,6 @@
 ﻿using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

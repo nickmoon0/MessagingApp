@@ -4,7 +4,7 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
-namespace MessagingApp.Application.FriendRequests.Commands.AcceptFriendRequest;
+namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 
 public class AcceptFriendRequestHandler : IHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>
 {

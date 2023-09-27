@@ -1,7 +1,7 @@
 ﻿using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 
-namespace MessagingApp.Application.FriendRequests.Commands.AcceptFriendRequest;
+namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 
 public class AcceptFriendRequestCommand : IRequest<AcceptFriendRequestResponse>
 {

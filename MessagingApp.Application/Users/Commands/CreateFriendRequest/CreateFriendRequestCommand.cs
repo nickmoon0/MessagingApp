@@ -1,7 +1,7 @@
 ﻿using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 
-namespace MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
+namespace MessagingApp.Application.Users.Commands.CreateFriendRequest;
 
 public class CreateFriendRequestCommand : IRequest<CreateFriendRequestResponse>
 {
