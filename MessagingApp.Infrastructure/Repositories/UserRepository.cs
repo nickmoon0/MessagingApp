@@ -4,7 +4,7 @@ using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace MessagingApp.Infrastructure.Data.Repositories;
+namespace MessagingApp.Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {

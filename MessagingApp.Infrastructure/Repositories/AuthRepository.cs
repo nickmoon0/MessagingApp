@@ -5,7 +5,7 @@ using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace MessagingApp.Infrastructure.Data.Repositories;
+namespace MessagingApp.Infrastructure.Repositories;
 
 public class AuthRepository : IAuthRepository
 {
