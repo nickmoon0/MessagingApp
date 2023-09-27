@@ -1,4 +1,5 @@
-﻿using MessagingApp.Application.Common.Interfaces.Mediator;
+﻿using MessagingApp.Application.Common.Contracts;
+using MessagingApp.Application.Common.Interfaces.Mediator;
 
 namespace MessagingApp.Application.Users.Queries.RetrieveUser;
 

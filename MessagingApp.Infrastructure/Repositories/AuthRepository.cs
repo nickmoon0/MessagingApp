@@ -5,7 +5,7 @@ using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace MessagingApp.Infrastructure.Data.Repositories;
+namespace MessagingApp.Infrastructure.Repositories;
 
 public class AuthRepository : IAuthRepository
 {
@@ -20,10 +20,17 @@ public class AuthRepository : IAuthRepository
         _signInManager = signInManager;
         _applicationContext = applicationContext;
     }
-    public Task<User?> GetUserById(Guid id)
+    public async Task<User?> GetUserById(Guid id)
     {
-        //var authUser = await _userManager.FindByIdAsync(id);
-        throw new NotImplementedException();
+        var authUser = await _userManager.FindByIdAsync(id.ToString());
+        if (authUser == null) return null;
+        
+        var user = new User 
+        {
+            Id = authUser.Id, 
+            Username = authUser.UserName
+        };
+        return user;
     }
 
     public async Task<User?> GetUserByUsername(string username)

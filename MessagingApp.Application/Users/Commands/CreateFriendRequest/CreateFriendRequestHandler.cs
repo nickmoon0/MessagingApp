@@ -1,11 +1,12 @@
 ﻿using LanguageExt.Common;
+using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
 
-namespace MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
+namespace MessagingApp.Application.Users.Commands.CreateFriendRequest;
 
 public class CreateFriendRequestHandler : IHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>
 {

@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Application.Users.Commands.CreateUser;
+﻿namespace MessagingApp.Application.Common.Contracts;
 
 public class CreateUserResponse
 {

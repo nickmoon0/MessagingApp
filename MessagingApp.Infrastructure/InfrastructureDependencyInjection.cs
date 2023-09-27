@@ -2,7 +2,7 @@
 using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
-using MessagingApp.Infrastructure.Data.Repositories;
+using MessagingApp.Infrastructure.Repositories;
 using MessagingApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +34,7 @@ public static class InfrastructureDependencyInjection
         // Register repositories
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
+
         // Register services
         services.AddSingleton<ITokenService, TokenService>();
         

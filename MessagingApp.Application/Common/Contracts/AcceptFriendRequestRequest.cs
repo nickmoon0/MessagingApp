@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Application.FriendRequests.Commands.AcceptFriendRequest;
+﻿namespace MessagingApp.Application.Common.Contracts;
 
 public class AcceptFriendRequestRequest
 {

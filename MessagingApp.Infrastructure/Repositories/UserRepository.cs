@@ -4,7 +4,7 @@ using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace MessagingApp.Infrastructure.Data.Repositories;
+namespace MessagingApp.Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {
@@ -38,5 +38,11 @@ public class UserRepository : IUserRepository
     {
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
+    }
+    
+    public async Task<FriendRequest?> GetFriendRequestById(Guid id)
+    {
+        var friendRequest = await _context.FriendRequests.SingleOrDefaultAsync(x => x.Id == id);
+        return friendRequest;
     }
 }

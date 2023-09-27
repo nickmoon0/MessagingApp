@@ -1,4 +1,4 @@
-﻿namespace MessagingApp.Application.Users.Queries.RetrieveUser;
+﻿namespace MessagingApp.Application.Common.Contracts;
 
 public class RetrieveUserRequest
 {
