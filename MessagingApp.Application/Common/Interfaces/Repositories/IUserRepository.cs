@@ -5,6 +5,7 @@ namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
 public interface IUserRepository
 {
+    public Task<User?> GetUserByUsername(string username, bool includeNavProperties = true);
     public Task<User?> GetUserById(Guid id, bool includeNavProperties = true);
     public Task UpdateUser(User user);
     public Task<FriendRequest?> GetFriendRequestById(Guid id);

@@ -13,7 +13,28 @@ public class UserRepository : IUserRepository
     {
         _context = context;
     }
-    
+
+    public async Task<User?> GetUserByUsername(string username, bool includeNavProperties = true)
+    {
+        User? user;
+        
+        if (includeNavProperties)
+        {
+            user = await _context.Users
+                .Include(x => x.Friends)
+                .Include(x => x.SentFriendRequests)
+                .Include(x => x.ReceivedFriendRequests)
+                .SingleOrDefaultAsync(u => u.Username == username);
+        }
+        else
+        {
+            user = await _context.Users
+                .SingleOrDefaultAsync(u => u.Username == username);
+        }
+        
+        return user;
+    }
+
     public async Task<User?> GetUserById(Guid id, bool includeNavProperties = true)
     {
         User? user;
