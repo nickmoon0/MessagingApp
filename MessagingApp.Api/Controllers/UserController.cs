@@ -22,9 +22,14 @@ public class UserController : BaseController
     
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> GetUser(RetrieveUserRequest retrieveUserRequest)
+    public async Task<IActionResult> GetUser([FromQuery] Guid? uid, [FromQuery] string? username)
     {
-        var query = new RetrieveUserQuery(retrieveUserRequest);
+        var request = new RetrieveUserRequest
+        {
+            Id = uid,
+            Username = username
+        };
+        var query = new RetrieveUserQuery(request);
         var result = await _mediator.Send(query);
         return result.ToOk();
     }
