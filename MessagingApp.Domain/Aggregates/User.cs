@@ -53,4 +53,15 @@ public class User
         
         Friends.Add(userFriend);
     }
+
+    public void AddFriend(Guid userToAdd)
+    {
+        var userFriend = new UserFriend
+        {
+            UserId = Id,
+            FriendId = userToAdd
+        };
+        
+        Friends.Add(userFriend);
+    }
 }
