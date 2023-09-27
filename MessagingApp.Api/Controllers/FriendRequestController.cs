@@ -1,7 +1,6 @@
 ﻿using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.FriendRequests.Commands.CreateFriendRequest;
-using MessagingApp.Application.Users.Queries.RetrieveUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,22 +8,25 @@ namespace MessagingApp.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController : BaseController
+public class FriendRequestController : BaseController
 {
     private readonly IMediator _mediator;
-    private readonly ILogger<UserController> _logger;
-    public UserController(IMediator mediator, ILogger<UserController> logger)
+    private readonly ILogger<FriendRequestController> _logger;
+    
+    public FriendRequestController(IMediator mediator, ILogger<FriendRequestController> logger)
     {
         _mediator = mediator;
         _logger = logger;
     }
     
-    [HttpGet]
+    [HttpPost]
     [Authorize]
-    public async Task<IActionResult> GetUser(RetrieveUserRequest retrieveUserRequest)
+    public async Task<IActionResult> SendFriendRequest(CreateFriendRequestRequest createFriendRequest)
     {
-        var query = new RetrieveUserQuery(retrieveUserRequest);
-        var result = await _mediator.Send(query);
+        var command = new CreateFriendRequestCommand(createFriendRequest, UserId);
+        var result = await _mediator.Send(command);
         return result.ToOk();
     }
+    
+    
 }
