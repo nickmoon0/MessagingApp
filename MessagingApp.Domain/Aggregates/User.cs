@@ -1,5 +1,4 @@
-﻿using FluentValidation.Results;
-using MessagingApp.Domain.Common;
+﻿using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Domain.Validators;
 
@@ -12,7 +11,7 @@ public class User
 
     public string? Password { get; set; }
 
-    public List<UserFriend> Friends { get; set; } = new();
+    public HashSet<UserFriend> Friends { get; set; } = new();
     public List<FriendRequest> SentFriendRequests { get; set; } = new();
     public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
 
@@ -50,8 +49,11 @@ public class User
             UserId = request.ToUserId,
             FriendId = request.FromUserId
         };
-        
-        Friends.Add(userFriend);
+
+        if (!Friends.Add(userFriend))
+        {
+            throw new Exception("Failed to add friend when accepting friend request");
+        }
     }
 
     public void AddFriend(Guid userToAdd)
@@ -61,7 +63,10 @@ public class User
             UserId = Id,
             FriendId = userToAdd
         };
-        
-        Friends.Add(userFriend);
+
+        if (!Friends.Add(userFriend))
+        {
+            throw new Exception("Failed to add friend");
+        }
     }
 }

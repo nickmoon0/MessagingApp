@@ -9,4 +9,18 @@ public class UserFriend
 
     public Guid FriendId { get; set; }
     public User Friend { get; set; } = null!;
+    
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+            return false;
+
+        var other = (UserFriend) obj;
+        return UserId == other.UserId && FriendId == other.FriendId;
+    }
+    
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(UserId, FriendId);
+    }
 }

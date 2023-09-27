@@ -2,8 +2,6 @@
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
-using MessagingApp.Domain.Common;
-using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.FriendRequests.Commands.AcceptFriendRequest;
 
