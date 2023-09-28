@@ -1,4 +1,5 @@
-﻿using MessagingApp.Application.Common.Interfaces.Services;
+﻿using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
 using MessagingApp.Infrastructure.Repositories;
@@ -31,8 +32,8 @@ public static class InfrastructureDependencyInjection
             .AddDefaultTokenProviders();
         
         // Register repositories
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthRepository, AuthRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         // Register services
         services.AddSingleton<ITokenService, TokenService>();

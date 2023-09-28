@@ -1,4 +1,5 @@
-﻿using MessagingApp.Application.Common.Interfaces.Services;
+﻿using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
@@ -6,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Repositories;
 
-public class UserService : IUserService
+public class UserRepository : IUserRepository
 {
     private readonly ApplicationContext _context;
-    public UserService(ApplicationContext context)
+    public UserRepository(ApplicationContext context)
     {
         _context = context;
     }
