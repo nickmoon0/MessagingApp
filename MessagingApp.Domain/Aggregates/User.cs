@@ -15,8 +15,8 @@ public class User
     public List<FriendRequest> SentFriendRequests { get; set; } = new();
     public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
 
-    public ICollection<Message> SentMessages { get; set; } = null!;
-    public ICollection<Message> ReceivedMessages { get; set; } = null!;
+    public List<Message> SentMessages { get; set; } = new();
+    public List<Message> ReceivedMessages { get; set; } = new();
     
     public void SendFriendRequest(FriendRequest request, Guid requestingUser)
     {
