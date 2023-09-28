@@ -1,5 +1,5 @@
 ﻿using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
 using MessagingApp.Infrastructure.Data.Contexts;
 using MessagingApp.Infrastructure.Data.Models;
@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MessagingApp.Infrastructure.Repositories;
 
-public class AuthRepository : IAuthRepository
+public class AuthService : IAuthService
 {
     private readonly UserManager<AuthUser> _userManager;
     private readonly SignInManager<AuthUser> _signInManager;
     private readonly ApplicationContext _applicationContext;
-    public AuthRepository(UserManager<AuthUser> userManager, 
+    public AuthService(UserManager<AuthUser> userManager, 
         SignInManager<AuthUser> signInManager, 
         ApplicationContext applicationContext)
     {

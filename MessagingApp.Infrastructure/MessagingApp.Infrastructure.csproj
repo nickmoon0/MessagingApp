@@ -19,17 +19,10 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     </ItemGroup>
-
+    
     <ItemGroup>
-      <ProjectReference Include="..\MessagingApp.Application\MessagingApp.Application.csproj" />
-      <ProjectReference Include="..\MessagingApp.Domain\MessagingApp.Domain.csproj" />
-
-
-
-
+        <ProjectReference Include="..\MessagingApp.Application\MessagingApp.Application.csproj" />
+        <ProjectReference Include="..\MessagingApp.Domain\MessagingApp.Domain.csproj" />
     </ItemGroup>
-
-
-
 
 </Project>

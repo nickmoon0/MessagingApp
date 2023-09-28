@@ -1,9 +1,8 @@
 ﻿using MessagingApp.Domain.Aggregates;
-using MessagingApp.Domain.Entities;
 
-namespace MessagingApp.Application.Common.Interfaces.Repositories;
+namespace MessagingApp.Application.Common.Interfaces.Services;
 
-public interface IAuthRepository
+public interface IAuthService
 {
     public Task<User?> GetUserById(Guid id);
     public Task<User?> GetUserByUsername(string username);
