@@ -2,25 +2,25 @@
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
 
 namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 
 public class AcceptFriendRequestHandler : IHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
 
-    public AcceptFriendRequestHandler(IUserRepository userRepository)
+    public AcceptFriendRequestHandler(IUserService userService)
     {
-        _userRepository = userRepository;
+        _userService = userService;
     }
 
     public async Task<Result<AcceptFriendRequestResponse>> Handle(AcceptFriendRequestCommand req)
     {
         try
         {
-            var friendRequest = await _userRepository.GetFriendRequestById(req.FriendRequestId);
-            var toUser = await _userRepository.GetUserById(req.ToUserId);
+            var friendRequest = await _userService.GetFriendRequestById(req.FriendRequestId);
+            var toUser = await _userService.GetUserById(req.ToUserId);
 
             if (friendRequest == null || toUser == null)
             {
@@ -28,7 +28,7 @@ public class AcceptFriendRequestHandler : IHandler<AcceptFriendRequestCommand, A
                 return new Result<AcceptFriendRequestResponse>(notFoundEx);
             }
             
-            var fromUser = await _userRepository.GetUserById(friendRequest.FromUserId);
+            var fromUser = await _userService.GetUserById(friendRequest.FromUserId);
             if (fromUser == null)
             {
                 var notFoundEx = new EntityNotFoundException("Sending user does not exist");
@@ -38,8 +38,8 @@ public class AcceptFriendRequestHandler : IHandler<AcceptFriendRequestCommand, A
             toUser.AcceptFriendRequest(friendRequest, req.RequestingUserId);
             fromUser.AddFriend(toUser.Id);
             
-            await _userRepository.UpdateUser(toUser);
-            await _userRepository.UpdateUser(fromUser);
+            await _userService.UpdateUser(toUser);
+            await _userService.UpdateUser(fromUser);
             return new Result<AcceptFriendRequestResponse>(new AcceptFriendRequestResponse());
         }
         catch (InvalidOperationException ex)

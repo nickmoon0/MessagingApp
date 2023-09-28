@@ -2,19 +2,19 @@
 using LanguageExt.Common;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
 
 namespace MessagingApp.Application.Users.Queries.RetrieveUser;
 
 public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserResponse?>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
     
     private readonly IValidator<RetrieveUserQuery> _validator;
-    public RetrieveUserHandler(IUserRepository userRepository, IValidator<RetrieveUserQuery> validator)
+    public RetrieveUserHandler(IUserService userService, IValidator<RetrieveUserQuery> validator)
     {
         _validator = validator;
-        _userRepository = userRepository;
+        _userService = userService;
     }
     
     public async Task<Result<RetrieveUserResponse?>> Handle(RetrieveUserQuery req)
@@ -31,8 +31,8 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserRespo
         
         // Suppress warning as validator ensures these are not null
         var user = req.Username == null ?
-            await _userRepository.GetUserById((Guid)req.Id!, false) : 
-            await _userRepository.GetUserByUsername(req.Username, false);
+            await _userService.GetUserById((Guid)req.Id!, false) : 
+            await _userService.GetUserByUsername(req.Username, false);
         
         if (user is not null)
             userResponse = new RetrieveUserResponse

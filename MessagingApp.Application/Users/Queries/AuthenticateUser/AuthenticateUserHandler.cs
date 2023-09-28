@@ -1,7 +1,6 @@
 ﻿using System.Security.Authentication;
 using LanguageExt.Common;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
 
@@ -9,12 +8,12 @@ namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
 public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
 {
-    private readonly IAuthRepository _authRepository;
+    private readonly IAuthService _authService;
     private readonly ITokenService _tokenService;
     
-    public AuthenticateUserHandler(IAuthRepository authRepository, ITokenService tokenService)
+    public AuthenticateUserHandler(IAuthService authService, ITokenService tokenService)
     {
-        _authRepository = authRepository;
+        _authService = authService;
         _tokenService = tokenService;
     }
     
@@ -27,8 +26,8 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
             Password = req.Password
         };
 
-        var userValid = await _authRepository.UserValid(user);
-        user = await _authRepository.GetUserByUsername(user.Username);
+        var userValid = await _authService.UserValid(user);
+        user = await _authService.GetUserByUsername(user.Username);
         
         if (userValid)
         {

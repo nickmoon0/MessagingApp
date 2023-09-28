@@ -2,17 +2,17 @@
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
-using MessagingApp.Application.Common.Interfaces.Repositories;
+using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
 
 namespace MessagingApp.Application.Users.Commands.CreateUser;
 
 public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
 {
-    private readonly IAuthRepository _authRepository;
-    public CreateUserHandler(IAuthRepository authRepository)
+    private readonly IAuthService _authService;
+    public CreateUserHandler(IAuthService authService)
     {
-        _authRepository = authRepository;
+        _authService = authService;
     }
     public async Task<Result<CreateUserResponse>> Handle(CreateUserCommand req)
     {
@@ -25,7 +25,7 @@ public class CreateUserHandler : IHandler<CreateUserCommand, CreateUserResponse>
                 Password = req.Password
             };
             
-            var createdUser = await _authRepository.CreateUser(user);
+            var createdUser = await _authService.CreateUser(user);
 
             // Not null if created successfully
             if (createdUser != null)
