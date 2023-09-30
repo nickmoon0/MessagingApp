@@ -39,7 +39,7 @@ public class SendMessageHandler : IHandler<SendMessageCommand, SendMessageRespon
             var createdMessage = sendingUser.SendMessage(message, req.RequestingUserId);
             await _userRepository.UpdateUser(sendingUser);
 
-            var response = new SendMessageResponse(createdMessage.Id, createdMessage.Text);
+            var response = new SendMessageResponse(createdMessage.Id, createdMessage.Text, createdMessage.Timestamp);
             return new Result<SendMessageResponse>(response);
         }
         catch (InvalidOperationException ex)
