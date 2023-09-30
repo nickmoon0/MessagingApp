@@ -87,4 +87,12 @@ public class User
         SentMessages.Add(message);
         return message;
     }
+
+    public Message? GetMessageById(Guid messageId)
+    {
+        var messageSent = SentMessages.SingleOrDefault(x => x.Id == messageId);
+        var messageReceived = ReceivedMessages.SingleOrDefault(x => x.Id == messageId);
+
+        return messageSent ?? messageReceived;
+    }
 }
