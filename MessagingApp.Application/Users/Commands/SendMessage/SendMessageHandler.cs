@@ -36,10 +36,11 @@ public class SendMessageHandler : IHandler<SendMessageCommand, SendMessageRespon
                 throw new EntityNotFoundException("User could not be found when sending message");
             }
 
-            sendingUser.SendMessage(message, req.RequestingUserId);
+            var createdMessage = sendingUser.SendMessage(message, req.RequestingUserId);
             await _userRepository.UpdateUser(sendingUser);
-            
-            return new Result<SendMessageResponse>(new SendMessageResponse());
+
+            var response = new SendMessageResponse(createdMessage.Id, createdMessage.Text);
+            return new Result<SendMessageResponse>(response);
         }
         catch (InvalidOperationException ex)
         {

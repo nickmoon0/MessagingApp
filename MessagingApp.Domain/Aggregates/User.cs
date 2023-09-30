@@ -74,7 +74,7 @@ public class User
         }
     }
 
-    public void SendMessage(Message message, Guid requestingUser)
+    public Message SendMessage(Message message, Guid requestingUser)
     {
         var validator = new SendMessageValidator(requestingUser, Friends);
         var valResult = validator.Validate(message);
@@ -85,5 +85,6 @@ public class User
         }
         
         SentMessages.Add(message);
+        return message;
     }
 }

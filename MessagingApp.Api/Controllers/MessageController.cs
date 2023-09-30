@@ -23,6 +23,6 @@ public class MessageController : BaseController
     {
         var command = new SendMessageCommand(sendMessageRequest, UserId);
         var result = await _mediator.Send(command);
-        return result.ToCreated("/message");
+        return result.ToCreated($"/message", x => x);
     }
 }
