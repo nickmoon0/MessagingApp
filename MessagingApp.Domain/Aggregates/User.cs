@@ -73,4 +73,17 @@ public class User
             throw new Exception("Failed to add friend");
         }
     }
+
+    public void SendMessage(Message message, Guid requestingUser)
+    {
+        var validator = new SendMessageValidator(requestingUser, Friends);
+        var valResult = validator.Validate(message);
+
+        if (!valResult.IsValid)
+        {
+            throw new InvalidOperationException();
+        }
+        
+        SentMessages.Add(message);
+    }
 }
