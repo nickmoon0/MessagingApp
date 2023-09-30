@@ -45,6 +45,8 @@ public class UserRepository : IUserRepository
                 .Include(x => x.Friends)
                 .Include(x => x.SentFriendRequests)
                 .Include(x => x.ReceivedFriendRequests)
+                .Include(x => x.SentMessages)
+                .Include(x => x.ReceivedMessages)
                 .SingleOrDefaultAsync(u => u.Id == id);
         }
         else

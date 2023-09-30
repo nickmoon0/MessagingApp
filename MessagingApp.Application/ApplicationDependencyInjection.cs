@@ -5,6 +5,7 @@ using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateUser;
+using MessagingApp.Application.Users.Commands.SendMessage;
 using MessagingApp.Application.Users.Queries.AuthenticateUser;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
 
@@ -25,6 +26,9 @@ public static class ApplicationDependencyInjection
             CreateFriendRequestHandler>();
         services.AddTransient<IHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>,
             AcceptFriendRequestHandler>();
+        
+        // Register messaging handlers
+        services.AddTransient<IHandler<SendMessageCommand, SendMessageResponse>, SendMessageHandler>();
         
         // Register mediator
         services.AddTransient<IMediator, Mediator>();
