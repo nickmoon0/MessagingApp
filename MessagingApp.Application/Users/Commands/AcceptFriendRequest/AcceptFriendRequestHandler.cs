@@ -39,6 +39,9 @@ public class AcceptFriendRequestHandler : BaseHandler<AcceptFriendRequestCommand
 
         await _userRepository.UpdateUser(toUser);
         await _userRepository.UpdateUser(fromUser);
-        return new Result<AcceptFriendRequestResponse>(new AcceptFriendRequestResponse());
+
+        if (fromUser.Username == null) throw new Exception("Username could not be found");
+        var response = new AcceptFriendRequestResponse(fromUser.Id, fromUser.Username);
+        return new Result<AcceptFriendRequestResponse>(response);
     }
 }
