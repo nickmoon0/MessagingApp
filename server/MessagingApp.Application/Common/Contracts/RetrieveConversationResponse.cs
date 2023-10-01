@@ -7,8 +7,8 @@ public class RetrieveConversationResponse
     public Guid SendingUserId { get; set; }
     public Guid ReceivingUserId { get; set; }
 
-    public IEnumerable<ConversationMessage> SentMessages { get; set; }
-    public IEnumerable<ConversationMessage> ReceivedMessages { get; set; }
+    public IEnumerable<ConversationMessage> SentMessages { get; set; } = null!;
+    public IEnumerable<ConversationMessage> ReceivedMessages { get; set; } = null!;
 
     public RetrieveConversationResponse(Guid sendingUserId, Guid receivingUserId, 
         IEnumerable<Message> messages)
