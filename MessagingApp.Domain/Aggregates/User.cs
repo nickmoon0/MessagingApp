@@ -1,5 +1,7 @@
 ﻿using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
+using MessagingApp.Domain.Exceptions;
+using MessagingApp.Domain.Services;
 using MessagingApp.Domain.Validators;
 
 namespace MessagingApp.Domain.Aggregates;
@@ -27,7 +29,7 @@ public class User
         
         if (!valResult.IsValid)
         {
-            throw new InvalidOperationException(valResult.Errors.First().ErrorMessage);
+            throw ValidationErrorService.GetException(valResult);
         }
         
         SentFriendRequests.Add(request);
@@ -40,7 +42,7 @@ public class User
 
         if (!valResult.IsValid)
         {
-            throw new InvalidOperationException(valResult.Errors.First().ErrorMessage);
+            throw ValidationErrorService.GetException(valResult);
         }
 
         // Get friend request and change status to accepted
@@ -56,7 +58,7 @@ public class User
 
         if (!Friends.Add(userFriend))
         {
-            throw new Exception("Failed to add friend when accepting friend request");
+            throw new InternalServerErrorException("Failed to add friend when accepting friend request", ErrorCodes.InternalServerError);
         }
     }
 
@@ -70,7 +72,7 @@ public class User
 
         if (!Friends.Add(userFriend))
         {
-            throw new Exception("Failed to add friend");
+            throw new InternalServerErrorException("Failed to add friend", ErrorCodes.InternalServerError);
         }
     }
 
@@ -81,7 +83,7 @@ public class User
 
         if (!valResult.IsValid)
         {
-            throw new InvalidOperationException(valResult.Errors.First().ErrorMessage);
+            throw ValidationErrorService.GetException(valResult);
         }
         
         SentMessages.Add(message);
