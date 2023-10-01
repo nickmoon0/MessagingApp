@@ -8,7 +8,7 @@ using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace MessagingApp.Api.Extensions;
 
-public static class ControllerExtensions
+public static class ControllerResponseExtensions
 {
     public static IActionResult ToOk<TResult, TContract>(
         this Result<TResult> result, Func<TResult, TContract> mapper)
