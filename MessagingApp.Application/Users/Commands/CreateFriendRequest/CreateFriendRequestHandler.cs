@@ -1,46 +1,35 @@
 ﻿using LanguageExt.Common;
+using MessagingApp.Application.Common.BaseClasses;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
-using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Commands.CreateFriendRequest;
 
-public class CreateFriendRequestHandler : IHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>
+public class CreateFriendRequestHandler : BaseHandler<CreateFriendRequestCommand, CreateFriendRequestResponse>
 {
     private readonly IUserRepository _userRepository;
     public CreateFriendRequestHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
-    public async Task<Result<CreateFriendRequestResponse>> Handle(CreateFriendRequestCommand req)
+
+    protected override async Task<Result<CreateFriendRequestResponse>> HandleRequest(CreateFriendRequestCommand request)
     {
-        try
-        {
-            var friendRequest = new FriendRequest(req.FromUser, req.ToUser, FriendRequestStatus.Pending);
-            var fromUser = await _userRepository.GetUserById(req.FromUser);
-            var toUser = await _userRepository.GetUserById(req.ToUser);
+        var friendRequest = new FriendRequest(request.FromUser, request.ToUser, FriendRequestStatus.Pending);
+        var fromUser = await _userRepository.GetUserById(request.FromUser);
+        var toUser = await _userRepository.GetUserById(request.ToUser);
 
-            if (fromUser == null || toUser == null)
-            {
-                var notFoundException = new EntityNotFoundException("User could not be found");
-                return new Result<CreateFriendRequestResponse>(notFoundException);
-            }
+        if (fromUser == null || toUser == null)
+        {
+            var notFoundException = new EntityNotFoundException("User could not be found");
+            return new Result<CreateFriendRequestResponse>(notFoundException);
+        }
 
-            fromUser.SendFriendRequest(friendRequest, req.RequestingUser);
-            await _userRepository.UpdateUser(fromUser);
-            return new Result<CreateFriendRequestResponse>(new CreateFriendRequestResponse());
-        }
-        catch (InvalidOperationException ex)
-        {
-            return new Result<CreateFriendRequestResponse>(ex);
-        }
-        catch (Exception ex)
-        {
-            return new Result<CreateFriendRequestResponse>(ex);
-        }
+        fromUser.SendFriendRequest(friendRequest, request.RequestingUser);
+        await _userRepository.UpdateUser(fromUser);
+        return new Result<CreateFriendRequestResponse>(new CreateFriendRequestResponse());
     }
 }
