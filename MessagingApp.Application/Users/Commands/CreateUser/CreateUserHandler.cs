@@ -3,7 +3,6 @@ using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
-using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
 
 namespace MessagingApp.Application.Users.Commands.CreateUser;

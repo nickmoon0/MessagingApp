@@ -9,4 +9,6 @@ public interface IUserRepository
     public Task<User?> GetUserById(Guid id, bool includeNavProperties = true);
     public Task UpdateUser(User user);
     public Task<FriendRequest?> GetFriendRequestById(Guid id);
+    public Task<IEnumerable<Message>> GetConversation(Guid sendingUser, Guid receivingUser);
+    public Task<Message?> GetMessageById(Guid requestingUser, Guid id);
 }

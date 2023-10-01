@@ -5,7 +5,10 @@ using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateUser;
+using MessagingApp.Application.Users.Commands.SendMessage;
 using MessagingApp.Application.Users.Queries.AuthenticateUser;
+using MessagingApp.Application.Users.Queries.RetrieveConversation;
+using MessagingApp.Application.Users.Queries.RetrieveMessageById;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
 
 // ReSharper disable once CheckNamespace
@@ -25,6 +28,13 @@ public static class ApplicationDependencyInjection
             CreateFriendRequestHandler>();
         services.AddTransient<IHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>,
             AcceptFriendRequestHandler>();
+        
+        // Register messaging handlers
+        services.AddTransient<IHandler<SendMessageCommand, SendMessageResponse>, SendMessageHandler>();
+        services.AddTransient<IHandler<RetrieveMessageByIdQuery, GetMessageResponse>, RetrieveMessageByIdHandler>();
+        services
+            .AddTransient<IHandler<RetrieveConversationQuery, RetrieveConversationResponse>,
+                RetrieveConversationHandler>();
         
         // Register mediator
         services.AddTransient<IMediator, Mediator>();

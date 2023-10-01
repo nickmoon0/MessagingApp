@@ -7,8 +7,11 @@ namespace MessagingApp.Infrastructure.Data.Contexts;
 public class ApplicationContext : DbContext
 {
     public DbSet<User> Users { get; set; } = null!;
+
+    public DbSet<UserFriend> UserFriends { get; set; } = null!;
     public DbSet<FriendRequest> FriendRequests { get; set; } = null!;
-    
+    public DbSet<Message> Messages { get; set; } = null!;
+
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,5 +59,23 @@ public class ApplicationContext : DbContext
             .WithMany()
             .HasForeignKey(uf => uf.FriendId)
             .OnDelete(DeleteBehavior.Restrict); // To prevent cascade delete
+        
+        // Define Message Entity
+        modelBuilder.Entity<Message>()
+            .ToTable(nameof(Message))
+            .HasKey(msg => msg.Id);
+        
+        // Define relationships for Message
+        modelBuilder.Entity<Message>()
+            .HasOne(msg => msg.SendingUser)
+            .WithMany(user => user.SentMessages) 
+            .HasForeignKey(msg => msg.SendingUserId)
+            .OnDelete(DeleteBehavior.Restrict); 
+
+        modelBuilder.Entity<Message>()
+            .HasOne(msg => msg.ReceivingUser)
+            .WithMany(user => user.ReceivedMessages) 
+            .HasForeignKey(msg => msg.ReceivingUserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

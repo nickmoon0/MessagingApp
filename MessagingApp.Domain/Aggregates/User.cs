@@ -15,6 +15,9 @@ public class User
     public List<FriendRequest> SentFriendRequests { get; set; } = new();
     public List<FriendRequest> ReceivedFriendRequests { get; set; } = new();
 
+    public List<Message> SentMessages { get; set; } = new();
+    public List<Message> ReceivedMessages { get; set; } = new();
+    
     public void SendFriendRequest(FriendRequest request, Guid requestingUser)
     {
         // Ensures the request is valid
@@ -69,5 +72,19 @@ public class User
         {
             throw new Exception("Failed to add friend");
         }
+    }
+
+    public Message SendMessage(Message message, Guid requestingUser)
+    {
+        var validator = new SendMessageValidator(requestingUser, Friends);
+        var valResult = validator.Validate(message);
+
+        if (!valResult.IsValid)
+        {
+            throw new InvalidOperationException();
+        }
+        
+        SentMessages.Add(message);
+        return message;
     }
 }
