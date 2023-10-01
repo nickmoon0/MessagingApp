@@ -4,18 +4,18 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
-namespace MessagingApp.Application.Users.Queries.GetMessageById;
+namespace MessagingApp.Application.Users.Queries.RetrieveMessageById;
 
-public class GetMessageByIdHandler : IHandler<GetMessageByIdQuery, GetMessageResponse>
+public class RetrieveMessageByIdHandler : IHandler<RetrieveMessageByIdQuery, GetMessageResponse>
 {
     private readonly IUserRepository _userRepository;
 
-    public GetMessageByIdHandler(IUserRepository userRepository)
+    public RetrieveMessageByIdHandler(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
 
-    public async Task<Result<GetMessageResponse>> Handle(GetMessageByIdQuery req)
+    public async Task<Result<GetMessageResponse>> Handle(RetrieveMessageByIdQuery req)
     {
         try
         {
@@ -25,7 +25,7 @@ public class GetMessageByIdHandler : IHandler<GetMessageByIdQuery, GetMessageRes
                 var ex = new EntityNotFoundException("User does not exist");
                 return new Result<GetMessageResponse>(ex);
             }
-            var message = user.GetMessageById(req.MessageId);
+            var message = await _userRepository.GetMessageById(user.Id, req.MessageId);
             if (message == null)
             {
                 var ex = new EntityNotFoundException("Message does not exist");

@@ -24,6 +24,10 @@ public class SendMessageValidator : AbstractValidator<Message>
             .NotEmpty()
             .WithMessage("Sending user cannot be null or empty");
 
+        RuleFor(x => x.ReceivingUserId)
+            .NotEqual(requestingUser)
+            .WithMessage("User cannot send message to themselves");
+        
         // Ensure sender of message is the user requesting the message to be sent
         RuleFor(x => x.SendingUserId)
             .Equal(requestingUser)
