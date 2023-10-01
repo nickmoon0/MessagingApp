@@ -27,7 +27,7 @@ public class User
         
         if (!valResult.IsValid)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException(valResult.Errors.First().ErrorMessage);
         }
         
         SentFriendRequests.Add(request);
@@ -40,7 +40,7 @@ public class User
 
         if (!valResult.IsValid)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException(valResult.Errors.First().ErrorMessage);
         }
 
         // Get friend request and change status to accepted
@@ -81,7 +81,7 @@ public class User
 
         if (!valResult.IsValid)
         {
-            throw new InvalidOperationException();
+            throw new InvalidOperationException(valResult.Errors.First().ErrorMessage);
         }
         
         SentMessages.Add(message);
