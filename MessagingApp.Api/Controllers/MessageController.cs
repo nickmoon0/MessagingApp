@@ -2,7 +2,7 @@
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Users.Commands.SendMessage;
-using MessagingApp.Application.Users.Queries.GetMessageById;
+using MessagingApp.Application.Users.Queries.RetrieveMessageById;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,9 +29,9 @@ public class MessageController : BaseController
 
     [HttpGet("{messageId:guid}")]
     [Authorize]
-    public async Task<IActionResult> GetMessageById([FromRoute] Guid messageId)
+    public async Task<IActionResult> RetrieveMessageById([FromRoute] Guid messageId)
     {
-        var query = new GetMessageByIdQuery(messageId, UserId);
+        var query = new RetrieveMessageByIdQuery(messageId, UserId);
         var result = await _mediator.Send(query);
         return result.ToOk();
     }
