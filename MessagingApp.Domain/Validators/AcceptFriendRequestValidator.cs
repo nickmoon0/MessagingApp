@@ -12,18 +12,18 @@ public class AcceptFriendRequestValidator : AbstractValidator<FriendRequest>
     {
         RuleFor(x => x.ToUserId)
             .Equal(requestingUser)
-            .WithErrorCode(DomainErrorCodes.BadRequest)
+            .WithErrorCode(ErrorCodes.BadRequest)
             .WithMessage("Cannot accept a request that was not sent to user");
 
         RuleFor(x => x.Id)
             .NotEqual(Guid.Empty)
             .NotNull()
-            .WithErrorCode(DomainErrorCodes.BadRequest)
+            .WithErrorCode(ErrorCodes.BadRequest)
             .WithMessage("FriendRequest ID Guid cannot be null or empty");
 
         RuleFor(x => x.Status)
             .Equal(FriendRequestStatus.Pending)
-            .WithErrorCode(DomainErrorCodes.BadRequest)
+            .WithErrorCode(ErrorCodes.BadRequest)
             .WithMessage("Cannot accept a friend request that is already accepted or declined");
         
         RuleFor(x => x)
@@ -34,7 +34,7 @@ public class AcceptFriendRequestValidator : AbstractValidator<FriendRequest>
                 
                 var valFailure = new ValidationFailure(nameof(request.Id), "Friend request does not exist")
                 {
-                    ErrorCode = DomainErrorCodes.NotFound
+                    ErrorCode = ErrorCodes.NotFound
                 };
                 context.AddFailure(valFailure);
             });

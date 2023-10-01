@@ -15,22 +15,22 @@ public class SendFriendRequestValidator : AbstractValidator<FriendRequest>
         // Check properties have valid values
         RuleFor(x => x.FromUserId)
             .NotNull()
-            .WithErrorCode(DomainErrorCodes.BadRequest)
+            .WithErrorCode(ErrorCodes.BadRequest)
             .WithMessage("FromUser cannot be null");
         
         RuleFor(x => x.ToUserId)
             .NotNull()
-            .WithErrorCode(DomainErrorCodes.BadRequest)
+            .WithErrorCode(ErrorCodes.BadRequest)
             .WithMessage("ToUser cannot be null");
         
         RuleFor(x => x.FromUserId)
             .NotEqual(x => x.ToUserId)
-            .WithErrorCode(DomainErrorCodes.BadRequest)
+            .WithErrorCode(ErrorCodes.BadRequest)
             .WithMessage("User cannot send a friend request to themselves");
 
         RuleFor(x => x.FromUserId)
             .Equal(requestingUserId)
-            .WithErrorCode(DomainErrorCodes.Unauthorised)
+            .WithErrorCode(ErrorCodes.Unauthorised)
             .WithMessage("User is not authorised to send friend request");
         
         RuleFor(x => x)
@@ -50,7 +50,7 @@ public class SendFriendRequestValidator : AbstractValidator<FriendRequest>
                     var valFailure = new ValidationFailure(nameof(request.ToUserId),
                         "This friend request has already been sent.")
                     {
-                        ErrorCode = DomainErrorCodes.BadRequest
+                        ErrorCode = ErrorCodes.BadRequest
                     };
                     context.AddFailure(valFailure);
                 }
@@ -59,7 +59,7 @@ public class SendFriendRequestValidator : AbstractValidator<FriendRequest>
                     var valFailure = new ValidationFailure(nameof(request.FromUserId),
                         "A friend request from this user has already been received.")
                     {
-                        ErrorCode = DomainErrorCodes.BadRequest
+                        ErrorCode = ErrorCodes.BadRequest
                     };
                     context.AddFailure(valFailure);
                 }
