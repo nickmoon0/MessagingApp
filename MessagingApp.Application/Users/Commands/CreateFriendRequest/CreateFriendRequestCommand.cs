@@ -10,10 +10,10 @@ public class CreateFriendRequestCommand : IRequest<CreateFriendRequestResponse>
 
     public Guid RequestingUser { get; set; }
 
-    public CreateFriendRequestCommand(CreateFriendRequestRequest request, Guid requestingUser)
+    public CreateFriendRequestCommand(Guid toUserId, Guid requestingUser)
     {
-        FromUser = request.FromUser;
-        ToUser = request.ToUser;
+        FromUser = requestingUser;
+        ToUser = toUserId;
         RequestingUser = requestingUser;
     }
 }

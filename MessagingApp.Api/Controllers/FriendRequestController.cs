@@ -32,15 +32,6 @@ public class FriendRequestController : BaseController
         var result = await _mediator.Send(query);
         return result.ToOk();
     }
-    
-    [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> SendFriendRequest(CreateFriendRequestRequest createFriendRequest)
-    {
-        var command = new CreateFriendRequestCommand(createFriendRequest, UserId);
-        var result = await _mediator.Send(command);
-        return result.ToOk();
-    }
 
     [HttpPut("accept/{friendRequestId:guid}")]
     [Authorize]
