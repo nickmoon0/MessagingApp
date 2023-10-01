@@ -18,11 +18,13 @@ public class MessageController : BaseController
         _mediator = mediator;
     }
     
-    [HttpPost]
+    [HttpPost("{receivingUserId:guid}")]
     [Authorize]
-    public async Task<IActionResult> SendMessage(SendMessageRequest sendMessageRequest)
+    public async Task<IActionResult> SendMessage(
+        [FromBody] SendMessageRequest sendMessageRequest,
+        [FromRoute] Guid receivingUserId)
     {
-        var command = new SendMessageCommand(sendMessageRequest, UserId);
+        var command = new SendMessageCommand(sendMessageRequest, receivingUserId, UserId);
         var result = await _mediator.Send(command);
         return result.ToCreated($"/message", x => x);
     }

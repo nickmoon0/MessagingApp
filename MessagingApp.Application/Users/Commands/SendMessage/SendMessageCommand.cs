@@ -11,11 +11,11 @@ public class SendMessageCommand : IRequest<SendMessageResponse>
     public Guid ReceivingUserId { get; set; }
     public Guid RequestingUserId { get; set; }
 
-    public SendMessageCommand(SendMessageRequest request, Guid requestingUserId)
+    public SendMessageCommand(SendMessageRequest request, Guid receivingUserId, Guid requestingUserId)
     {
         Text = request.Text;
-        SendingUserId = request.SendingUserId;
-        ReceivingUserId = request.ReceivingUserId;
+        SendingUserId = requestingUserId;
+        ReceivingUserId = receivingUserId;
         RequestingUserId = requestingUserId;
     }
 }
