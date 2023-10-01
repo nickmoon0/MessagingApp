@@ -51,7 +51,7 @@ public static class ControllerResponseExtensions
             EntityAlreadyExistsException => CreateErrorResult(Status409Conflict, ex.Message),
             EntityNotFoundException => CreateErrorResult(Status404NotFound, ex.Message),
             InvalidOperationException => CreateErrorResult(Status400BadRequest, ex.Message),
-            MissingConfigException => CreateErrorResult(Status500InternalServerError, "Missing configuration."),
+            MissingConfigException => CreateErrorResult(Status500InternalServerError, "Internal server error."),
             UnauthorizedAccessException => CreateErrorResult(Status401Unauthorized, ex.Message),
             ValidationException => CreateErrorResult(Status400BadRequest, ex.Message),
             _ => CreateErrorResult(Status500InternalServerError, "Internal server error.")
@@ -68,7 +68,7 @@ public static class ControllerResponseExtensions
         return new JsonResult(errorResult) { StatusCode = statusCode };
     }
 
-    public class ErrorResult
+    private class ErrorResult
     {
         public int StatusCode { get; set; }
         public string ErrorMessage { get; set; } = null!;
