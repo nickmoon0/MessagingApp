@@ -66,9 +66,10 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<FriendRequest>> GetUsersFriendRequests(Guid userId, FriendRequestStatus status)
     {
-        var friendRequests = _context.FriendRequests.Where(x =>
+        var friendRequests = await _context.FriendRequests.Where(x =>
             (x.FromUserId == userId && x.Status == status) ||
-            (x.ToUserId == userId && x.Status == status));
+            (x.ToUserId == userId && x.Status == status))
+            .ToListAsync();
 
         return friendRequests;
     }
@@ -87,9 +88,10 @@ public class UserRepository : IUserRepository
     /// <returns></returns>
     public async Task<IEnumerable<Message>> GetConversation(Guid requestingUser, Guid conversationUser)
     {
-        var sentMessages = _context.Messages.Where(msg =>
+        var sentMessages = await _context.Messages.Where(msg =>
             (msg.SendingUserId == requestingUser && msg.ReceivingUserId == conversationUser) ||
-            (msg.SendingUserId == conversationUser && msg.ReceivingUserId == requestingUser));
+            (msg.SendingUserId == conversationUser && msg.ReceivingUserId == requestingUser))
+            .ToListAsync();
         
         return sentMessages;
     }
