@@ -30,6 +30,8 @@ public class CreateFriendRequestHandler : BaseHandler<CreateFriendRequestCommand
 
         fromUser.SendFriendRequest(friendRequest, request.RequestingUser);
         await _userRepository.UpdateUser(fromUser);
-        return new Result<CreateFriendRequestResponse>(new CreateFriendRequestResponse());
+
+        var response = new CreateFriendRequestResponse(friendRequest.Id, toUser.Id);
+        return new Result<CreateFriendRequestResponse>(response);
     }
 }
