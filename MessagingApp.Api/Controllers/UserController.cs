@@ -1,6 +1,7 @@
 ﻿using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
+using MessagingApp.Application.Users.Queries.RetrieveConversation;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,15 @@ public class UserController : BaseController
             Username = username
         };
         var query = new RetrieveUserQuery(request);
+        var result = await _mediator.Send(query);
+        return result.ToOk();
+    }
+
+    [HttpGet("messages/{conversationUserId:guid}")]
+    [Authorize]
+    public async Task<IActionResult> GetConversation([FromRoute] Guid conversationUserId)
+    {
+        var query = new RetrieveConversationQuery(UserId, conversationUserId);
         var result = await _mediator.Send(query);
         return result.ToOk();
     }
