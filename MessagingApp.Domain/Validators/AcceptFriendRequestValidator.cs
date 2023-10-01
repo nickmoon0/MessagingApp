@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
 
@@ -11,25 +12,31 @@ public class AcceptFriendRequestValidator : AbstractValidator<FriendRequest>
     {
         RuleFor(x => x.ToUserId)
             .Equal(requestingUser)
+            .WithErrorCode(DomainErrorCodes.BadRequest)
             .WithMessage("Cannot accept a request that was not sent to user");
 
         RuleFor(x => x.Id)
             .NotEqual(Guid.Empty)
             .NotNull()
+            .WithErrorCode(DomainErrorCodes.BadRequest)
             .WithMessage("FriendRequest ID Guid cannot be null or empty");
 
         RuleFor(x => x.Status)
             .Equal(FriendRequestStatus.Pending)
+            .WithErrorCode(DomainErrorCodes.BadRequest)
             .WithMessage("Cannot accept a friend request that is already accepted or declined");
         
         RuleFor(x => x)
             .Custom((request, context) =>
             {
                 var requestExists = receivedRequests.Any(x => x.Id == request.Id);
-                if (!requestExists)
+                if (requestExists) return;
+                
+                var valFailure = new ValidationFailure(nameof(request.Id), "Friend request does not exist")
                 {
-                    context.AddFailure("Friend request does not exist");
-                }
+                    ErrorCode = DomainErrorCodes.NotFound
+                };
+                context.AddFailure(valFailure);
             });
     }
 }
