@@ -25,7 +25,7 @@ public class RetrieveMessageByIdHandler : IHandler<RetrieveMessageByIdQuery, Get
                 var ex = new EntityNotFoundException("User does not exist");
                 return new Result<GetMessageResponse>(ex);
             }
-            var message = user.GetMessageById(req.MessageId);
+            var message = await _userRepository.GetMessageById(user.Id, req.MessageId);
             if (message == null)
             {
                 var ex = new EntityNotFoundException("Message does not exist");

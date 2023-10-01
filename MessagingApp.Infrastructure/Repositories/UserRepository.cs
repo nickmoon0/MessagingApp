@@ -84,4 +84,13 @@ public class UserRepository : IUserRepository
         
         return sentMessages;
     }
+
+    public async Task<Message?> GetMessageById(Guid requestingUser, Guid id)
+    {
+        var message = await _context.Messages.SingleOrDefaultAsync(msg => 
+            (msg.SendingUserId == requestingUser && msg.Id == id) ||
+            (msg.ReceivingUserId == requestingUser && msg.Id == id));
+
+        return message;
+    }
 }
