@@ -9,6 +9,7 @@ using MessagingApp.Application.Users.Commands.SendMessage;
 using MessagingApp.Application.Users.Queries.AuthenticateUser;
 using MessagingApp.Application.Users.Queries.RetrieveConversation;
 using MessagingApp.Application.Users.Queries.RetrieveMessageById;
+using MessagingApp.Application.Users.Queries.RetrievePendingFriendRequests;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
 
 // ReSharper disable once CheckNamespace
@@ -28,7 +29,9 @@ public static class ApplicationDependencyInjection
             CreateFriendRequestHandler>();
         services.AddTransient<IHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>,
             AcceptFriendRequestHandler>();
-        
+        services
+            .AddTransient<IHandler<RetrievePendingFriendRequestsQuery, RetrievePendingFriendRequestsResponse>,
+                RetrievePendingFriendRequestHandler>();
         // Register messaging handlers
         services.AddTransient<IHandler<SendMessageCommand, SendMessageResponse>, SendMessageHandler>();
         services.AddTransient<IHandler<RetrieveMessageByIdQuery, GetMessageResponse>, RetrieveMessageByIdHandler>();

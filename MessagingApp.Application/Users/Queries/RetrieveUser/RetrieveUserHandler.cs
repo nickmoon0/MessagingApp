@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LanguageExt.Common;
+using MessagingApp.Application.Common.BaseClasses;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
@@ -7,7 +8,7 @@ using MessagingApp.Application.Common.Interfaces.Services;
 
 namespace MessagingApp.Application.Users.Queries.RetrieveUser;
 
-public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserResponse?>
+public class RetrieveUserHandler : BaseHandler<RetrieveUserQuery, RetrieveUserResponse?>
 {
     private readonly IUserRepository _userRepository;
     
@@ -17,10 +18,10 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserRespo
         _validator = validator;
         _userRepository = userRepository;
     }
-    
-    public async Task<Result<RetrieveUserResponse?>> Handle(RetrieveUserQuery req)
+
+    protected override async Task<Result<RetrieveUserResponse?>> HandleRequest(RetrieveUserQuery request)
     {
-        var valResult = await _validator.ValidateAsync(req);
+        var valResult = await _validator.ValidateAsync(request);
         if (!valResult.IsValid)
         {
             var valException = new ValidationException(valResult.Errors);
@@ -31,9 +32,9 @@ public class RetrieveUserHandler : IHandler<RetrieveUserQuery, RetrieveUserRespo
         RetrieveUserResponse? userResponse = null;
         
         // Suppress warning as validator ensures these are not null
-        var user = req.Username == null ?
-            await _userRepository.GetUserById((Guid)req.Id!, false) : 
-            await _userRepository.GetUserByUsername(req.Username, false);
+        var user = request.Username == null ?
+            await _userRepository.GetUserById((Guid)request.Id!, false) : 
+            await _userRepository.GetUserByUsername(request.Username, false);
         
         if (user is not null)
             userResponse = new RetrieveUserResponse

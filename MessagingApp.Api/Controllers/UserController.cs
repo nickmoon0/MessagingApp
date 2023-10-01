@@ -1,6 +1,7 @@
 ﻿using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
+using MessagingApp.Application.Users.Commands.CreateFriendRequest;
 using MessagingApp.Application.Users.Commands.SendMessage;
 using MessagingApp.Application.Users.Queries.RetrieveConversation;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
@@ -32,6 +33,15 @@ public class UserController : BaseController
         };
         var query = new RetrieveUserQuery(request);
         var result = await _mediator.Send(query);
+        return result.ToOk();
+    }
+    
+    [HttpPost("{toUserId:guid}/add")]
+    [Authorize]
+    public async Task<IActionResult> SendFriendRequest([FromRoute] Guid toUserId)
+    {
+        var command = new CreateFriendRequestCommand(toUserId, UserId);
+        var result = await _mediator.Send(command);
         return result.ToOk();
     }
     

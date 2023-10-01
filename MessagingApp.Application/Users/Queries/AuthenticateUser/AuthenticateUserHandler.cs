@@ -1,5 +1,6 @@
 ﻿using System.Security.Authentication;
 using LanguageExt.Common;
+using MessagingApp.Application.Common.BaseClasses;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
@@ -7,7 +8,7 @@ using MessagingApp.Domain.Aggregates;
 
 namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
 
-public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
+public class AuthenticateUserHandler : BaseHandler<AuthenticateUserQuery, string>
 {
     private readonly IAuthRepository _authRepository;
     private readonly ITokenService _tokenService;
@@ -17,14 +18,14 @@ public class AuthenticateUserHandler : IHandler<AuthenticateUserQuery, string>
         _authRepository = authRepository;
         _tokenService = tokenService;
     }
-    
-    public async Task<Result<string>> Handle(AuthenticateUserQuery req)
+
+    protected override async Task<Result<string>> HandleRequest(AuthenticateUserQuery request)
     {
         // req.Username/Password cannot be null, AuthenticateUserRequest does not allow null values
         var user = new User 
         {
-            Username = req.Username, 
-            Password = req.Password
+            Username = request.Username, 
+            Password = request.Password
         };
 
         var userValid = await _authRepository.UserValid(user);

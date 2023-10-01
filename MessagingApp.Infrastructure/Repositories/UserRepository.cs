@@ -1,6 +1,6 @@
 ﻿using MessagingApp.Application.Common.Interfaces.Repositories;
-using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
 using MessagingApp.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +62,15 @@ public class UserRepository : IUserRepository
     {
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<FriendRequest>> GetUsersFriendRequests(Guid userId, FriendRequestStatus status)
+    {
+        var friendRequests = _context.FriendRequests.Where(x =>
+            (x.FromUserId == userId && x.Status == status) ||
+            (x.ToUserId == userId && x.Status == status));
+
+        return friendRequests;
     }
     
     public async Task<FriendRequest?> GetFriendRequestById(Guid id)

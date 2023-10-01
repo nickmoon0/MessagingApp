@@ -1,4 +1,5 @@
 ﻿using LanguageExt.Common;
+using MessagingApp.Application.Common.BaseClasses;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Mediator;
@@ -7,7 +8,7 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Commands.SendMessage;
 
-public class SendMessageHandler : IHandler<SendMessageCommand, SendMessageResponse>
+public class SendMessageHandler : BaseHandler<SendMessageCommand, SendMessageResponse>
 {
     private readonly IUserRepository _userRepository;
     
@@ -16,39 +17,28 @@ public class SendMessageHandler : IHandler<SendMessageCommand, SendMessageRespon
         _userRepository = userRepository;
     }
     
-    public async Task<Result<SendMessageResponse>> Handle(SendMessageCommand req)
+    protected override async Task<Result<SendMessageResponse>> HandleRequest(SendMessageCommand request)
     {
-        try
+        var message = new Message()
         {
-            var message = new Message()
-            {
-                ReceivingUserId = req.ReceivingUserId,
-                SendingUserId = req.SendingUserId,
-                Text = req.Text,
-                Timestamp = DateTime.Now
-            };
+            ReceivingUserId = request.ReceivingUserId,
+            SendingUserId = request.SendingUserId,
+            Text = request.Text,
+            Timestamp = DateTime.Now
+        };
 
-            var sendingUser = await _userRepository.GetUserById(req.SendingUserId);
-            var receivingUser = await _userRepository.GetUserById(req.ReceivingUserId);
+        var sendingUser = await _userRepository.GetUserById(request.SendingUserId);
+        var receivingUser = await _userRepository.GetUserById(request.ReceivingUserId);
 
-            if (sendingUser == null || receivingUser == null)
-            {
-                throw new EntityNotFoundException("User could not be found when sending message");
-            }
-
-            var createdMessage = sendingUser.SendMessage(message, req.RequestingUserId);
-            await _userRepository.UpdateUser(sendingUser);
-
-            var response = new SendMessageResponse(createdMessage.Id, createdMessage.Text, createdMessage.Timestamp);
-            return new Result<SendMessageResponse>(response);
-        }
-        catch (InvalidOperationException ex)
+        if (sendingUser == null || receivingUser == null)
         {
-            return new Result<SendMessageResponse>(ex);
+            throw new EntityNotFoundException("User could not be found when sending message");
         }
-        catch (Exception ex)
-        {
-            return new Result<SendMessageResponse>(ex);
-        }
+
+        var createdMessage = sendingUser.SendMessage(message, request.RequestingUserId);
+        await _userRepository.UpdateUser(sendingUser);
+
+        var response = new SendMessageResponse(createdMessage.Id, createdMessage.Text, createdMessage.Timestamp);
+        return new Result<SendMessageResponse>(response);
     }
 }

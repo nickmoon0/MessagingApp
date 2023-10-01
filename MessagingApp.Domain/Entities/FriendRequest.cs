@@ -22,5 +22,6 @@ public class FriendRequest
     {
         FromUserId = fromUserId;
         ToUserId = toUserId;
+        Status = status;
     }
 }

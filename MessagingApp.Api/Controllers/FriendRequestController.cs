@@ -3,6 +3,8 @@ using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 using MessagingApp.Application.Users.Commands.CreateFriendRequest;
+using MessagingApp.Application.Users.Queries.RetrievePendingFriendRequests;
+using MessagingApp.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,13 +22,14 @@ public class FriendRequestController : BaseController
         _mediator = mediator;
         _logger = logger;
     }
-    
-    [HttpPost]
+
+
+    [HttpGet]
     [Authorize]
-    public async Task<IActionResult> SendFriendRequest(CreateFriendRequestRequest createFriendRequest)
+    public async Task<IActionResult> RetrievePendingFriendRequests()
     {
-        var command = new CreateFriendRequestCommand(createFriendRequest, UserId);
-        var result = await _mediator.Send(command);
+        var query = new RetrievePendingFriendRequestsQuery(UserId);
+        var result = await _mediator.Send(query);
         return result.ToOk();
     }
 
