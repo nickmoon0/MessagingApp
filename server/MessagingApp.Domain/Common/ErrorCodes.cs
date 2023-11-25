@@ -1,5 +1,8 @@
 ﻿namespace MessagingApp.Domain.Common;
 
+/// <summary>
+/// Constant error codes which can be returned and mapped to exceptions
+/// </summary>
 public static class ErrorCodes
 {
     public const string NotFound = nameof(NotFound);

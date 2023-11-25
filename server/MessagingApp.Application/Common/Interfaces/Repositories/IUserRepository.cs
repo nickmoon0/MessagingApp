@@ -4,6 +4,9 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
+/// <summary>
+/// Repository for handling all application user operations. Auth operations are not defined here.
+/// </summary>
 public interface IUserRepository
 {
     public Task<User?> GetUserByUsername(string username, bool includeNavProperties = true);
