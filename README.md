@@ -9,7 +9,7 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 ### Backend
 
 - **Architecture**: Clean Architecture principles were applied.
-- **Patterns**: Utilizes CQRS and the mediator pattern. Currently, the mediator is implemented manually, with plans to replace it with MediatR.
+- **Patterns**: Utilizes CQRS and the mediator pattern
 - **API**: RESTful API in ASP.NET Core 8.
 - **Infrastructure**: Developed with MySQL and EF Core.
 
