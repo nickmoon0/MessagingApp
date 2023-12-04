@@ -5,6 +5,13 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Domain.Validators;
 
+/// <summary>
+/// Checks for:
+///     - Friend request has to be sent to accepting user
+///     - Friend request ID cannot be null or empty
+///     - Friend request cant be accepted or declined already
+///     - Friend request has to exist
+/// </summary>
 public class AcceptFriendRequestValidator : AbstractValidator<FriendRequest>
 {
     public AcceptFriendRequestValidator(Guid requestingUser,

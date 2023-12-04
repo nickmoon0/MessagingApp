@@ -2,6 +2,9 @@
 
 namespace MessagingApp.Application.Common.Interfaces.Repositories;
 
+/// <summary>
+/// Repository for handling authentication. Application operations are not defined here
+/// </summary>
 public interface IAuthRepository
 {
     public Task<User?> GetUserById(Guid id);

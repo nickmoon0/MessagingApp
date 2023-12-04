@@ -20,6 +20,12 @@ public class User
     public List<Message> SentMessages { get; set; } = new();
     public List<Message> ReceivedMessages { get; set; } = new();
     
+    /// <summary>
+    /// Sends a friend request to a given user
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="requestingUser">The user who created the request</param>
+    /// <exception cref="DomainException">Thrown if validation fails</exception>
     public void SendFriendRequest(FriendRequest request, Guid requestingUser)
     {
         // Ensures the request is valid
@@ -35,6 +41,13 @@ public class User
         SentFriendRequests.Add(request);
     }
 
+    /// <summary>
+    /// Accepts a friend request
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="requestingUser">User who requested that the request be accepted</param>
+    /// <exception cref="DomainException">Thrown if validation fails</exception>
+    /// <exception cref="InternalServerErrorException">Thrown if user fails to be added to friends list</exception>
     public void AcceptFriendRequest(FriendRequest request, Guid requestingUser)
     {
         var validator = new AcceptFriendRequestValidator(requestingUser, ReceivedFriendRequests);
@@ -58,10 +71,16 @@ public class User
 
         if (!Friends.Add(userFriend))
         {
-            throw new InternalServerErrorException("Failed to add friend when accepting friend request", ErrorCodes.InternalServerError);
+            throw new InternalServerErrorException("Failed to add friend when accepting friend request", 
+                ErrorCodes.InternalServerError);
         }
     }
 
+    /// <summary>
+    /// Adds a friend when a friend request has been accepted
+    /// </summary>
+    /// <param name="userToAdd"></param>
+    /// <exception cref="InternalServerErrorException">Thrown if user fails to be added to friends list</exception>
     public void AddFriend(Guid userToAdd)
     {
         var userFriend = new UserFriend
@@ -76,6 +95,13 @@ public class User
         }
     }
 
+    /// <summary>
+    /// Sends a message to a given user
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="requestingUser"></param>
+    /// <returns></returns>
+    /// <exception cref="DomainException">Thrown if validation fails</exception>
     public Message SendMessage(Message message, Guid requestingUser)
     {
         var validator = new SendMessageValidator(requestingUser, Friends);

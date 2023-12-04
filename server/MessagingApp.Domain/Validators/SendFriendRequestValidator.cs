@@ -5,6 +5,14 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Domain.Validators;
 
+/// <summary>
+/// Checks for:
+///     - User Ids cannot be null
+///     - User cannot send a friend request to themselves
+///     - User has to be authorised to send a friend request from requesting user
+///     - Cant send a duplicate request
+///     - Cant send a request to someone you are already friends with
+/// </summary>
 public class SendFriendRequestValidator : AbstractValidator<FriendRequest>
 {
     public SendFriendRequestValidator(Guid requestingUserId, 
