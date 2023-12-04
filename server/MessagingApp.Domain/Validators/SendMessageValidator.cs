@@ -5,6 +5,14 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Domain.Validators;
 
+/// <summary>
+/// Checks for:
+///     - Message cant be null or empty
+///     - Receiving and sending user cannot be null
+///     - Users cant send messages to themselves
+///     - User must be authorised to send message from sending user
+///     - Must be friends with receiving user to send them a message
+/// </summary>
 public class SendMessageValidator : AbstractValidator<Message>
 {
     public SendMessageValidator(
