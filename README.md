@@ -23,7 +23,7 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 
 ### Steps
 
-### Project Setup
+#### Local Config Setup
 1. Add a new configuration file named "appsettings.Local.json" in the root of the `MessagingApp.Api` project with the following content:
    ```json
    {
