@@ -10,7 +10,7 @@ public class DesignTimeAppContextFactory : IDesignTimeDbContextFactory<Applicati
     {
         // Set up configuration
         IConfiguration configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory() + @"\..\MessagingApp.Api")
+            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../", "MessagingApp.Api"))
             .AddJsonFile("appsettings.Local.json") // Ensure this file contains the connection string
             .Build();
 
