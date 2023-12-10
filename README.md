@@ -23,12 +23,38 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 
 ### Steps
 
+### Project Setup
+1. Add a new configuration file named "appsettings.Local.json" in the root of the `MessagingApp.Api` project with the following content:
+   ```json
+   {
+      "Logging": {
+         "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+         }
+      },
+      "ConnectionStrings": {
+         "AppDb": "server=localhost;port=3306;user=root;password=password1;database=AppDb",
+         "AuthDb": "server=localhost;port=3307;user=root;password=password1;database=AuthDb"
+      },
+      "Jwt": {
+         "Issuer": "http://localhost",
+         "Audience": "http://localhost",
+         "TokenLife": 30,
+         "Key": ""
+      }
+   }
+   ```
+   - Please note: token life is stored in minutes
+2. Generate a token key with the command: `openssl rand -base64 172`
+3. Copy the key into `Jwt:Key`
+
 #### MySQL Setup
 
 1. Clone the repository.
 2. Navigate to the server directory: `cd MessagingApp/server`.
 3. Start Docker containers: `docker compose up -d`.
-4. Update databases:
+4. In the `MessagingApp.Infrastructure` project, update databases with:
    - `dotnet ef database update --context ApplicationContext`
    - `dotnet ef database update --context AuthContext`
 
