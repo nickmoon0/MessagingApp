@@ -1,5 +1,5 @@
 ﻿using LanguageExt.Common;
-using MessagingApp.Application.Common.BaseClasses;
+using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
@@ -7,15 +7,15 @@ using MessagingApp.Domain.Aggregates;
 
 namespace MessagingApp.Application.Users.Commands.CreateUser;
 
-public class CreateUserHandler : BaseHandler<CreateUserCommand, CreateUserResponse>
+public class CreateUserHandler : IRequestHandler<CreateUserCommand, Result<CreateUserResponse>>
 {
     private readonly IAuthRepository _authRepository;
     public CreateUserHandler(IAuthRepository authRepository)
     {
         _authRepository = authRepository;
     }
-
-    protected override async Task<Result<CreateUserResponse>> HandleRequest(CreateUserCommand request)
+    
+    public async Task<Result<CreateUserResponse>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         // req.Username/Password cannot be null, CreateUserRequest does not allow null values
         var user = new User 

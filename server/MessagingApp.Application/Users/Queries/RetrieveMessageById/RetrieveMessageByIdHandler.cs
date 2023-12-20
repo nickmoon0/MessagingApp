@@ -1,13 +1,12 @@
 ﻿using LanguageExt.Common;
-using MessagingApp.Application.Common.BaseClasses;
+using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
 namespace MessagingApp.Application.Users.Queries.RetrieveMessageById;
 
-public class RetrieveMessageByIdHandler : BaseHandler<RetrieveMessageByIdQuery, GetMessageResponse>
+public class RetrieveMessageByIdHandler : IRequestHandler<RetrieveMessageByIdQuery, Result<GetMessageResponse>>
 {
     private readonly IUserRepository _userRepository;
 
@@ -16,7 +15,7 @@ public class RetrieveMessageByIdHandler : BaseHandler<RetrieveMessageByIdQuery, 
         _userRepository = userRepository;
     }
     
-    protected override async Task<Result<GetMessageResponse>> HandleRequest(RetrieveMessageByIdQuery request)
+    public async Task<Result<GetMessageResponse>> Handle(RetrieveMessageByIdQuery request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserById(request.RequestingUserId);  
         if (user == null)

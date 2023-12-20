@@ -1,9 +1,10 @@
-﻿using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Common.Interfaces.Mediator;
+﻿using LanguageExt.Common;
+using MediatR;
+using MessagingApp.Application.Common.Contracts;
 
 namespace MessagingApp.Application.Users.Commands.SendMessage;
 
-public class SendMessageCommand : IRequest<SendMessageResponse>
+public class SendMessageCommand : IRequest<Result<SendMessageResponse>>
 {
     public string Text { get; set; }
     

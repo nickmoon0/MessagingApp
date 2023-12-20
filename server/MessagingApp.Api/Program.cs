@@ -1,6 +1,8 @@
 using System.Text;
+using MediatR;
 using MessagingApp.Api.Middleware;
 using MessagingApp.Application.Common.Exceptions;
+using MessagingApp.Application.Common.Handlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -14,8 +16,11 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add services to the container.
 builder.Services.AddValidators();
-builder.Services.AddMediator();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(ApplicationDependencyInjection).Assembly); 
+});
 
 // Add authentication 
 
