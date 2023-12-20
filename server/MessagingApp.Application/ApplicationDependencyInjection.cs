@@ -1,6 +1,4 @@
 ﻿using FluentValidation;
-using MediatR;
-using MessagingApp.Application.Common.Handlers;
 using MessagingApp.Application.Users.Queries.RetrieveUser;
 
 // ReSharper disable once CheckNamespace

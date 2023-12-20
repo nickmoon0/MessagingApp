@@ -1,8 +1,6 @@
 using System.Text;
-using MediatR;
 using MessagingApp.Api.Middleware;
 using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Handlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
