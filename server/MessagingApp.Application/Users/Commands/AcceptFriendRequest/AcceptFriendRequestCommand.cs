@@ -1,9 +1,10 @@
-﻿using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Common.Interfaces.Mediator;
+﻿using LanguageExt.Common;
+using MediatR;
+using MessagingApp.Application.Common.Contracts;
 
 namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 
-public class AcceptFriendRequestCommand : IRequest<AcceptFriendRequestResponse>
+public class AcceptFriendRequestCommand : IRequest<Result<AcceptFriendRequestResponse>>
 {
     public Guid FriendRequestId { get; set; }
     public Guid ToUserId { get; set; }

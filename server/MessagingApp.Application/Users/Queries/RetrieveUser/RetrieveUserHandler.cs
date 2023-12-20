@@ -1,14 +1,12 @@
 ﻿using FluentValidation;
 using LanguageExt.Common;
-using MessagingApp.Application.Common.BaseClasses;
+using MediatR;
 using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
-using MessagingApp.Application.Common.Interfaces.Services;
 
 namespace MessagingApp.Application.Users.Queries.RetrieveUser;
 
-public class RetrieveUserHandler : BaseHandler<RetrieveUserQuery, RetrieveUserResponse?>
+public class RetrieveUserHandler : IRequestHandler<RetrieveUserQuery, Result<RetrieveUserResponse?>>
 {
     private readonly IUserRepository _userRepository;
     
@@ -18,10 +16,10 @@ public class RetrieveUserHandler : BaseHandler<RetrieveUserQuery, RetrieveUserRe
         _validator = validator;
         _userRepository = userRepository;
     }
-
-    protected override async Task<Result<RetrieveUserResponse?>> HandleRequest(RetrieveUserQuery request)
+    
+    public async Task<Result<RetrieveUserResponse?>> Handle(RetrieveUserQuery request, CancellationToken cancellationToken)
     {
-        var valResult = await _validator.ValidateAsync(request);
+        var valResult = await _validator.ValidateAsync(request, cancellationToken);
         if (!valResult.IsValid)
         {
             var valException = new ValidationException(valResult.Errors);

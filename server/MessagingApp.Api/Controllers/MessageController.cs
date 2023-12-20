@@ -1,5 +1,5 @@
-﻿using MessagingApp.Api.Extensions;
-using MessagingApp.Application.Common.Interfaces.Mediator;
+﻿using MediatR;
+using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Users.Queries.RetrieveMessageById;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

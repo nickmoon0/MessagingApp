@@ -1,9 +1,10 @@
-﻿using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Common.Interfaces.Mediator;
+﻿using LanguageExt.Common;
+using MediatR;
+using MessagingApp.Application.Common.Contracts;
 
 namespace MessagingApp.Application.Users.Queries.RetrieveMessageById;
 
-public class RetrieveMessageByIdQuery : IRequest<GetMessageResponse>
+public class RetrieveMessageByIdQuery : IRequest<Result<GetMessageResponse>>
 {
     public Guid MessageId { get; set; }
     public Guid RequestingUserId { get; set; }
