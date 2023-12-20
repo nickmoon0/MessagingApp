@@ -26,7 +26,7 @@ public class User
     /// <param name="request"></param>
     /// <param name="requestingUser">The user who created the request</param>
     /// <exception cref="DomainException">Thrown if validation fails</exception>
-    public void SendFriendRequest(FriendRequest request, Guid requestingUser)
+    public ActionResult<FriendRequest> SendFriendRequest(FriendRequest request, Guid requestingUser)
     {
         // Ensures the request is valid
         var validator = new SendFriendRequestValidator(
@@ -35,10 +35,11 @@ public class User
         
         if (!valResult.IsValid)
         {
-            throw ValidationErrorService.GetException(valResult);
+            return new ActionResult<FriendRequest>(ValidationErrorService.GetException(valResult));
         }
         
         SentFriendRequests.Add(request);
+        return new ActionResult<FriendRequest>(request);
     }
 
     /// <summary>
@@ -48,7 +49,7 @@ public class User
     /// <param name="requestingUser">User who requested that the request be accepted</param>
     /// <exception cref="DomainException">Thrown if validation fails</exception>
     /// <exception cref="InternalServerErrorException">Thrown if user fails to be added to friends list</exception>
-    public void AcceptFriendRequest(FriendRequest request, Guid requestingUser)
+    public ActionResult<FriendRequest> AcceptFriendRequest(FriendRequest request, Guid requestingUser)
     {
         var validator = new AcceptFriendRequestValidator(requestingUser, ReceivedFriendRequests);
         var valResult = validator.Validate(request);
@@ -71,9 +72,12 @@ public class User
 
         if (!Friends.Add(userFriend))
         {
-            throw new InternalServerErrorException("Failed to add friend when accepting friend request", 
-                ErrorCodes.InternalServerError);
+            return new ActionResult<FriendRequest>(new InternalServerErrorException(
+                "Failed to add friend when accepting friend request", 
+                ErrorCodes.InternalServerError));
         }
+
+        return new ActionResult<FriendRequest>(storedReq);
     }
 
     /// <summary>
@@ -81,7 +85,7 @@ public class User
     /// </summary>
     /// <param name="userToAdd"></param>
     /// <exception cref="InternalServerErrorException">Thrown if user fails to be added to friends list</exception>
-    public void AddFriend(Guid userToAdd)
+    public ActionResult<UserFriend> AddFriend(Guid userToAdd)
     {
         var userFriend = new UserFriend
         {
@@ -91,8 +95,11 @@ public class User
 
         if (!Friends.Add(userFriend))
         {
-            throw new InternalServerErrorException("Failed to add friend", ErrorCodes.InternalServerError);
+            return new ActionResult<UserFriend>(new 
+                InternalServerErrorException("Failed to add friend", ErrorCodes.InternalServerError));
         }
+
+        return new ActionResult<UserFriend>(userFriend);
     }
 
     /// <summary>
@@ -102,17 +109,17 @@ public class User
     /// <param name="requestingUser"></param>
     /// <returns></returns>
     /// <exception cref="DomainException">Thrown if validation fails</exception>
-    public Message SendMessage(Message message, Guid requestingUser)
+    public ActionResult<Message> SendMessage(Message message, Guid requestingUser)
     {
         var validator = new SendMessageValidator(requestingUser, Friends);
         var valResult = validator.Validate(message);
 
         if (!valResult.IsValid)
         {
-            throw ValidationErrorService.GetException(valResult);
+            return new ActionResult<Message>(ValidationErrorService.GetException(valResult));
         }
         
         SentMessages.Add(message);
-        return message;
+        return new ActionResult<Message>(message);
     }
 }

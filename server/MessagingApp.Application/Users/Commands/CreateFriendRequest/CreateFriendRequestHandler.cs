@@ -2,6 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
+using MessagingApp.Application.Common.Helpers;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Entities;
@@ -28,7 +29,10 @@ public class CreateFriendRequestHandler : IRequestHandler<CreateFriendRequestCom
             return new Result<CreateFriendRequestResponse>(notFoundException);
         }
 
-        fromUser.SendFriendRequest(friendRequest, request.RequestingUser);
+        var result = fromUser.SendFriendRequest(friendRequest, request.RequestingUser);
+        if (!result.Success)
+            return new Result<CreateFriendRequestResponse>(ExceptionHelper.ResolveException(result.Error!));
+        
         await _userRepository.UpdateUser(fromUser);
 
         var response = new CreateFriendRequestResponse(friendRequest.Id, toUser.Id);

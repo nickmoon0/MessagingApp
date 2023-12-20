@@ -2,6 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
+using MessagingApp.Application.Common.Helpers;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 
@@ -34,7 +35,12 @@ public class SendMessageHandler : IRequestHandler<SendMessageCommand, Result<Sen
             throw new EntityNotFoundException("User could not be found when sending message");
         }
         
-        var createdMessage = sendingUser.SendMessage(message, request.RequestingUserId);
+        var result = sendingUser.SendMessage(message, request.RequestingUserId);
+        if (!result.Success)
+            return new Result<SendMessageResponse>(ExceptionHelper.ResolveException(result.Error!));
+        
+        // Result wont be nul if operation was a success
+        var createdMessage = result.Result!;
         await _userRepository.UpdateUser(sendingUser);
 
         var response = new SendMessageResponse(createdMessage.Id, createdMessage.Text, createdMessage.Timestamp);

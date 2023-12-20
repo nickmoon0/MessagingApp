@@ -2,6 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
+using MessagingApp.Application.Common.Helpers;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
 namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
@@ -34,10 +35,15 @@ public class AcceptFriendRequestHandler :
             var notFoundEx = new EntityNotFoundException("Sending user does not exist");
             return new Result<AcceptFriendRequestResponse>(notFoundEx);
         }
-
-        toUser.AcceptFriendRequest(friendRequest, request.RequestingUserId);
-        fromUser.AddFriend(toUser.Id);
-
+        
+        var acceptResult = toUser.AcceptFriendRequest(friendRequest, request.RequestingUserId);
+        if (!acceptResult.Success)
+            return new Result<AcceptFriendRequestResponse>(ExceptionHelper.ResolveException(acceptResult.Error!));
+        
+        var addResult = fromUser.AddFriend(toUser.Id);
+        if (!addResult.Success)
+            return new Result<AcceptFriendRequestResponse>(ExceptionHelper.ResolveException(addResult.Error!));
+        
         await _userRepository.UpdateUser(toUser);
         await _userRepository.UpdateUser(fromUser);
 
