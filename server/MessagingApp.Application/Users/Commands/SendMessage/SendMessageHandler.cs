@@ -1,14 +1,13 @@
 ﻿using LanguageExt.Common;
-using MessagingApp.Application.Common.BaseClasses;
+using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
-using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Application.Users.Commands.SendMessage;
 
-public class SendMessageHandler : BaseHandler<SendMessageCommand, SendMessageResponse>
+public class SendMessageHandler : IRequestHandler<SendMessageCommand, Result<SendMessageResponse>>
 {
     private readonly IUserRepository _userRepository;
     
@@ -16,8 +15,8 @@ public class SendMessageHandler : BaseHandler<SendMessageCommand, SendMessageRes
     {
         _userRepository = userRepository;
     }
-    
-    protected override async Task<Result<SendMessageResponse>> HandleRequest(SendMessageCommand request)
+
+    public async Task<Result<SendMessageResponse>> Handle(SendMessageCommand request, CancellationToken cancellationToken)
     {
         var message = new Message()
         {
@@ -34,7 +33,7 @@ public class SendMessageHandler : BaseHandler<SendMessageCommand, SendMessageRes
         {
             throw new EntityNotFoundException("User could not be found when sending message");
         }
-
+        
         var createdMessage = sendingUser.SendMessage(message, request.RequestingUserId);
         await _userRepository.UpdateUser(sendingUser);
 

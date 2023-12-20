@@ -1,12 +1,13 @@
 ﻿using LanguageExt.Common;
-using MessagingApp.Application.Common.BaseClasses;
+using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
 namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
 
-public class AcceptFriendRequestHandler : BaseHandler<AcceptFriendRequestCommand, AcceptFriendRequestResponse>
+public class AcceptFriendRequestHandler : 
+    IRequestHandler<AcceptFriendRequestCommand, Result<AcceptFriendRequestResponse>>
 {
     private readonly IUserRepository _userRepository;
 
@@ -15,7 +16,7 @@ public class AcceptFriendRequestHandler : BaseHandler<AcceptFriendRequestCommand
         _userRepository = userRepository;
     }
     
-    protected override async Task<Result<AcceptFriendRequestResponse>> HandleRequest(AcceptFriendRequestCommand request)
+    public async Task<Result<AcceptFriendRequestResponse>> Handle(AcceptFriendRequestCommand request, CancellationToken cancellationToken)
     {
         var friendRequest = await _userRepository.GetFriendRequestById(request.FriendRequestId);
         var toUser = await _userRepository.GetUserById(request.ToUserId);

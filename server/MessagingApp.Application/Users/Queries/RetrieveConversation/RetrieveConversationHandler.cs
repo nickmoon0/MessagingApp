@@ -1,12 +1,11 @@
 ﻿using LanguageExt.Common;
-using MessagingApp.Application.Common.BaseClasses;
+using MediatR;
 using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Common.Interfaces.Mediator;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
 namespace MessagingApp.Application.Users.Queries.RetrieveConversation;
 
-public class RetrieveConversationHandler : BaseHandler<RetrieveConversationQuery, RetrieveConversationResponse>
+public class RetrieveConversationHandler : IRequestHandler<RetrieveConversationQuery, Result<RetrieveConversationResponse>>
 {
     private readonly IUserRepository _userRepository;
 
@@ -15,7 +14,7 @@ public class RetrieveConversationHandler : BaseHandler<RetrieveConversationQuery
         _userRepository = userRepository;
     }
 
-    protected override async Task<Result<RetrieveConversationResponse>> HandleRequest(RetrieveConversationQuery request)
+    public async Task<Result<RetrieveConversationResponse>> Handle(RetrieveConversationQuery request, CancellationToken cancellationToken)
     {
         var messages = await _userRepository.GetConversation(
             request.RequestingUserId, request.UserId);
