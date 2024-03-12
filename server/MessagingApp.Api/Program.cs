@@ -14,10 +14,16 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add services to the container.
 builder.Services.AddValidators();
+builder.Services.AddMediator();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddMediatR(cfg =>
+builder.Services.AddCors(options =>
 {
-    cfg.RegisterServicesFromAssembly(typeof(ApplicationDependencyInjection).Assembly); 
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // Adjust the port if your React app uses a different one
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
 // Add authentication 
@@ -65,6 +71,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigin"); // Apply CORS policy
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

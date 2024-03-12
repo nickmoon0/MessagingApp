@@ -1,0 +1,104 @@
+  .loginSpacing 
+  {
+    margin-bottom: 8px;
+  }
+
+  .textSize 
+  {
+    font-size: 10px;
+  }
+
+  .LoginTitleAlign 
+  {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+
+.login-container 
+{
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically */
+    gap: 10px; /* Adjust the space between the Avatar and chat bubble */
+    /* Remove the fixed margins */
+  }
+
+  .bubble-avatar-container 
+  {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+  .chat-bubble 
+  {
+    background-color: #f0f0f0; /* Light grey background, adjust as needed */
+    border-radius: 30px; /* Increased for rounder corners */
+    padding: 20px;
+    width: 300px; /* Adjust width as needed */
+    height: auto;
+    margin: 0 auto; /* Center in the available space */
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    transform: translateX(90px); /* Move 100px to the right */
+  }
+  
+  
+  .chat-bubble::after 
+  {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -4%; /* Adjust this to move the tail left or right */
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: #f0f0f0; /* Matches the bubble background color */
+    border-bottom: 0;
+    transform: rotate(45deg); /* Centers the tail based on its width */
+    margin-bottom: -3px; /* Adjust if needed */
+    margin-right: 10px;
+  }
+
+/* loginCss.css */
+.error-message-container {
+  min-height: 10px; /* Reserve space for error message */
+  margin-top: 12px; /* Maintain 20px gap from the last input field */
+  margin-bottom: -12px;
+  color: red; /* Adjust color as needed */
+  transition: opacity 0.3s ease;
+  opacity: 0; /* Initially hidden */
+}
+
+.error-message-container.visible {
+  opacity: 1; /* Make visible when there's an error */
+}
+
+/* loginCss.css */
+.reject-button {
+  background-color: transparent; /* Make button background transparent */
+  border-color: #717172; /* Red border color */
+  color: #717172; /* Red text color */
+}
+
+.reject-button:hover {
+  background-color: #FF4D4F; /* Red background on hover */
+  border-color: #FF4D4F; /* Red border color */
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* loginCss.css */
+.accept-button {
+  background-color: transparent; /* Make button background transparent */
+  border-color: #717172; /* Red border color */
+  color: #717172; /* Red text color */
+}
+
+.accept-button:hover {
+  background-color: #0fc524 !important;
+  border-color: #0fc524 !important;
+  color: #FFFFFF !important;
+}

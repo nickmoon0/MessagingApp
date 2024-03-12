@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    margin-right: 150px; /* Adds space outside the container on the left side */
+  }
+  
+  .body {
+    background-image: linear-gradient(to bottom, #33ccff,#0099ff);
+  }
+
+  /* styles/center.css */
+.ant-segmented {
+  --antd-wave-shadow-color: #1890ff; /* Change the wave effect color to blue */
+}
+
+.ant-segmented-item-selected {
+  background-color: #1890ff !important; /* Blue background for selected segment */
+  color: white !important; /* White text color for contrast */
+}
+
+.ant-segmented-item:hover {
+  border-color: #1890ff !important; /* Blue border color on hover */
+}
+
+.rounded-search .ant-input-affix-wrapper {
+  border-radius: 20px !important;
+}
+
+.rounded-search .ant-input {
+  border-radius: 20px !important;
+}
+
+
+.custom-menu .ant-menu-item-selected {
+  background-color: #0099ff !important; /* Optionally, also style the selected item */
+  color:white;
+}
