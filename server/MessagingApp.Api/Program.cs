@@ -14,7 +14,10 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add services to the container.
 builder.Services.AddValidators();
-builder.Services.AddMediator();
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(ApplicationDependencyInjection).Assembly); 
+});
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddCors(options =>
 {

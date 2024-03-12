@@ -15,6 +15,7 @@ public class RetrievePendingFriendRequestsResponse
         requests.Select(request => 
             new FriendRequestResponse
             {
+                FriendRequestId = request.Id,
                 ToUserId = request.ToUserId, 
                 FromUserId = request.FromUserId, 
                 RequestDate = request.RequestDate
@@ -22,6 +23,7 @@ public class RetrievePendingFriendRequestsResponse
 
     public class FriendRequestResponse
     {
+        public required Guid FriendRequestId { get; set; }
         public required Guid ToUserId { get; set; }
 
         public required Guid FromUserId { get; set; }
