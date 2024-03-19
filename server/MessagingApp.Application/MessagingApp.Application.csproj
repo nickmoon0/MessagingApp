@@ -22,6 +22,5 @@
     <ItemGroup>
       <Folder Include="FriendRequestFeatures\" />
       <Folder Include="MessageFeatures\" />
-      <Folder Include="UserFeatures\" />
     </ItemGroup>
 </Project>

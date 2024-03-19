@@ -104,4 +104,15 @@ public class UserRepository : IUserRepository
 
         return message;
     }
+
+    public async Task<List<User>> GetUsersFriends(Guid requestingUser)
+    {
+        var user = await GetUserById(requestingUser);
+        if (user == null) return [];
+
+        var friendIds = user.Friends.Select(x => x.FriendId);
+        var friends = await _context.Users.Where(x => friendIds.Contains(x.Id)).ToListAsync();
+        
+        return friends;
+    }
 }
