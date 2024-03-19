@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Users.Commands.CreateFriendRequest;
-using MessagingApp.Application.Users.Commands.SendMessage;
-using MessagingApp.Application.Users.Queries.RetrieveConversation;
-using MessagingApp.Application.Users.Queries.RetrieveUser;
+using MessagingApp.Application.FriendRequestFeatures.CreateFriendRequest;
+using MessagingApp.Application.MessageFeatures.RetrieveConversation;
+using MessagingApp.Application.MessageFeatures.SendMessage;
+using MessagingApp.Application.UserFeatures.RetrieveFriends;
+using MessagingApp.Application.UserFeatures.RetrieveUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -63,5 +64,14 @@ public class UserController : BaseController
         var command = new SendMessageCommand(sendMessageRequest, receivingUserId, UserId);
         var result = await _mediator.Send(command);
         return result.ToCreated($"/message", x => x);
+    }
+
+    [HttpGet("friends")]
+    [Authorize]
+    public async Task<IActionResult> GetFriends()
+    {
+        var query = new RetrieveFriendsQuery { UserId = UserId };
+        var result = await _mediator.Send(query);
+        return result.ToOk();
     }
 }

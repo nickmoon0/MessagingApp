@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Users.Commands.CreateUser;
-using MessagingApp.Application.Users.Queries.AuthenticateUser;
+using MessagingApp.Application.UserFeatures.AuthenticateUser;
+using MessagingApp.Application.UserFeatures.CreateUser;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessagingApp.Api.Controllers;

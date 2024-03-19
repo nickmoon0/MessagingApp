@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using MessagingApp.Api.Extensions;
 using MessagingApp.Application.Common.Contracts;
-using MessagingApp.Application.Users.Commands.AcceptFriendRequest;
-using MessagingApp.Application.Users.Queries.RetrievePendingFriendRequests;
+using MessagingApp.Application.FriendRequestFeatures.AcceptFriendRequest;
+using MessagingApp.Application.FriendRequestFeatures.RetrievePendingFriendRequests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
