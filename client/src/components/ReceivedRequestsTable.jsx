@@ -24,15 +24,15 @@ const ReceivedRequestsTable = ({ requests, onAccept }) => {
               shape="circle"
               icon={<CloseOutlined />}
               style={{ marginRight: 8}}
-              className="reject-button" // Apply the CSS class
+              className="reject-button" 
             />
             <Button 
             
               auto
               shape="circle"
-              onClick={() => onAccept(record.id)}
+              onClick={() =>onAccept(record.id)}
               icon={<CheckOutlined />}
-              className="accept-button" // Apply the CSS class
+              className="accept-button"
             />
           </>
             
@@ -41,16 +41,11 @@ const ReceivedRequestsTable = ({ requests, onAccept }) => {
       align: 'right',
       },
     ];
-  
-    // Prepare the data for the table
-    // Note: Ant Design's Table component automatically assigns a 'key' property to each data row,
-    // but if your data does not have a 'key' property, you need to add it.
-    // Since you're already using 'id' as a key in your original map, this step might be redundant
-    // if your request objects already include an 'id' that can serve as a unique key.
+
     const data = requests.map(request => ({
-      key: request.id, // This is necessary for Ant Design's Table
+      key: request.friendRequestId, 
       username: request.username,
-      id: request.id, // Include other data you might want to use in the 'render' function
+      id: request.friendRequestId,
     }));
   
     return (

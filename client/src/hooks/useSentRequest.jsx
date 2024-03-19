@@ -1,15 +1,17 @@
-// src/hooks/useSentRequests.js
 import { useState, useEffect } from 'react';
 import { fetchSentFriendRequests, fetchUserById } from '../api/userService';
+import { notification } from 'antd';
 
 const useSentRequests = () => {
   const [sentRequests, setSentRequests] = useState([]);
 
   useEffect(() => {
     const getSentFriendRequests = async () => {
-      try {
+      try 
+      {
         const response = await fetchSentFriendRequests();
-        if (response.friendRequests && Array.isArray(response.friendRequests)) {
+        if (response.friendRequests && Array.isArray(response.friendRequests)) 
+        {
           const requestsWithUsernames = await Promise.all(
             response.friendRequests.map(async (request) => {
               const userResponse = await fetchUserById(request.toUserId);
@@ -17,10 +19,14 @@ const useSentRequests = () => {
             })
           );
           setSentRequests(requestsWithUsernames);
-        } else {
-          console.error('Received data is not in the expected format:', response);
+        } 
+        else 
+        {
+          console.error('Received data is not in expected format:', response);
         }
-      } catch (error) {
+      } 
+      catch (error) 
+      {
         console.error('Failed to fetch sent friend requests:', error);
       }
     };
@@ -32,7 +38,18 @@ const useSentRequests = () => {
     setSentRequests((prevRequests) => [...prevRequests, newRequest]);
   };
 
-  return { sentRequests, handleRequestSent };
+  const handleCancelRequest = (requestId) => {
+    // Remove the request from the state, simulating a successful cancellation
+    setSentRequests(currentRequests => currentRequests.filter(request => request.id !== requestId));
+    // Optionally show a notification
+    notification.success({
+      message: 'Request Cancelled',
+      description: 'The friend request has been successfully cancelled.',
+    });
+  };
+
+  return { sentRequests, handleRequestSent, handleCancelRequest };
 };
+
 
 export default useSentRequests;

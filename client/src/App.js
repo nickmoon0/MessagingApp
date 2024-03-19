@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
@@ -9,17 +8,20 @@ import Home from './pages/DashBoard/Home';
 import HeaderComponent from './components/HeaderComponent';
 import SidebarComponent from './components/SidebarComponent';
 import './styles/center.css';
+import { UserProvider } from './context/UserContext'; 
+import { SelectedTabProvider } from './context/SelectedTabContext';
+
 
 const { Content } = Layout;
 
 const AppContent = () => {
   const location = useLocation();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const isDashboardRoute = ['/home', '/friends'].includes(location.pathname);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate('/'); // Use navigate('/'); if you have the hook available
+    navigate('/'); 
   };
 
   return (
@@ -41,11 +43,15 @@ const AppContent = () => {
 };
 
 function App() {
-    return (
-      <Router>
-        <AppContent /> {/* Render the content within Router to use useLocation */}
-      </Router>
-    );
-  }
+  return (
+    <Router>
+      <UserProvider>
+        <SelectedTabProvider>
+          <AppContent />
+        </SelectedTabProvider>
+      </UserProvider>
+    </Router>
+  );
+}
 
 export default App;

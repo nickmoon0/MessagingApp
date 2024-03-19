@@ -2,7 +2,8 @@ import React from 'react';
 import { Table, Button, Tooltip } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
-const SentRequestsTable = ({ data }) => {
+
+const SentRequestsTable = ({ data, onCancelRequest }) => {
   const columns = [
     {
       title: `Pending Requests - ${data.length}`, // Dynamically set the title
@@ -22,7 +23,7 @@ const SentRequestsTable = ({ data }) => {
               type="danger"
               shape="circle"
               icon={<CloseOutlined />}
-              onClick={() => {/* handle reject action here */}}
+              onClick={() => onCancelRequest(record.key)}
               className="reject-button"
               style={{ marginRight: "7px" }}
             />
@@ -41,7 +42,7 @@ const SentRequestsTable = ({ data }) => {
     <Table
       size="small"
       columns={columns}
-      dataSource={data}
+      dataSource={data.map(item => ({...item, key: item.id}))}
       pagination={false}
       aria-label="Sent Friend Requests"
     />

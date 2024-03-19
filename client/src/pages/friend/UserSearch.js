@@ -24,23 +24,21 @@ function UserSearch({ onRequestSent }) {
   const handleCancel = () => setIsModalVisible(false);
 
   return (
-    <div>
-         
+    <div>    
       <div className="top-right-button">
-      <Button
-          
-          size="default"
-          icon={<PlusOutlined />}
-          className="custom-float-button"
-          onClick={showModal}
-          style={{
-            top: 48,
-            right: 25,
-            borderRadius:'10px'
-          }}
-        >
-          Add Friend
-        </Button>
+        <Button   
+            size="default"
+            icon={<PlusOutlined />}
+            className="custom-float-button"
+            onClick={showModal}
+            style={{
+              top: 48,
+              right: 25,
+              borderRadius:'10px'
+            }}
+          >
+            Add Friend
+          </Button>
       </div>
       <SearchModal isModalVisible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}>
         <Input

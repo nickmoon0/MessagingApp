@@ -1,4 +1,3 @@
-// hooks/useFormState.js
 import { useState } from 'react';
 
 export const useFormState = (initialFormData, onSubmit) => {
@@ -12,12 +11,15 @@ export const useFormState = (initialFormData, onSubmit) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await onSubmit(formData); // Adjust based on how you're handling API calls
-    } catch (error) {
+    try 
+    {
+      await onSubmit(formData); 
+    } 
+    catch (error) 
+    {
       setError(error.message);
     }
   };
 
-  return { formData, handleChange, handleSubmit, error };
+  return { formData, handleChange, handleSubmit, error};
 };

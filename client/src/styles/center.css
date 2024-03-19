@@ -4,25 +4,24 @@
     align-items: center;
     height: 100vh;
     text-align: center;
-    margin-right: 150px; /* Adds space outside the container on the left side */
-  }
-  
+    margin-right: 150px; 
+}
   .body {
     background-image: linear-gradient(to bottom, #33ccff,#0099ff);
   }
 
   /* styles/center.css */
 .ant-segmented {
-  --antd-wave-shadow-color: #1890ff; /* Change the wave effect color to blue */
+  --antd-wave-shadow-color: #1890ff; 
 }
 
 .ant-segmented-item-selected {
-  background-color: #1890ff !important; /* Blue background for selected segment */
-  color: white !important; /* White text color for contrast */
+  background-color: #1890ff !important; 
+  color: white !important; 
 }
 
 .ant-segmented-item:hover {
-  border-color: #1890ff !important; /* Blue border color on hover */
+  border-color: #1890ff !important; 
 }
 
 .rounded-search .ant-input-affix-wrapper {
@@ -35,6 +34,6 @@
 
 
 .custom-menu .ant-menu-item-selected {
-  background-color: #0099ff !important; /* Optionally, also style the selected item */
+  background-color: #0099ff !important; 
   color:white;
 }

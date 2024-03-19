@@ -39,8 +39,8 @@ function RegisterPage() {
   );
 
   return (
-      <AuthContainer>
-        <form onSubmit={handleSubmit}>
+    <AuthContainer>
+      <form onSubmit={handleSubmit}>
         <h2 className='LoginTitleAlign'>Sign up to Talk.</h2>
           <div className="loginSpacing">
           <InputField
@@ -59,14 +59,14 @@ function RegisterPage() {
           />
           {error && <p className="error-message">{error}</p>}
           <FormButton type="submit" text="Sign Up" style={{ marginTop: '27px' }} />
-        </form>
+      </form>
         <Divider style={{ marginTop: '20px' }} />
         <FormButton text="Log in" onClick={() => navigate('/')} style={{ marginTop: '17px' }} />
         <h2 
           style={{ marginTop: '12px', textAlign: 'center', fontSize: '13px' }}>
             Have an account?
-          </h2>
-          </AuthContainer>
+        </h2>
+    </AuthContainer>
   );
 }
 

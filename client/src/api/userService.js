@@ -1,5 +1,5 @@
 // userService.js
-
+import { notification } from 'antd';
 import { makeApiRequest } from './apiService';
 
 // Function to register a new user
@@ -44,7 +44,11 @@ export const acceptFriendRequest = async (friendRequestId) => {
     try {
 
         const response = await makeApiRequest(`FriendRequest/accept/${friendRequestId}`, 'PUT', null, true);
-        console.log('Friend request accepted successfully:', response);
+        notification.success({
+          message: 'Friend Request Accepted',
+          description: 'The friend request has been successfully accepted.',
+          duration: 2.5,
+      });
         return response; 
     } catch (error) {
         console.error('Error accepting friend request:', error);

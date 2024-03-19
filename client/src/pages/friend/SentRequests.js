@@ -5,19 +5,18 @@ import SentRequestsTable from '../../components/SentRequestsTable';
 import useSentRequests from '../../hooks/useSentRequest';
 
 const SentRequests = () => {
-  const { sentRequests, handleRequestSent } = useSentRequests();
+  const { sentRequests, handleRequestSent, handleCancelRequest } = useSentRequests();
 
-  // Prepare data for the table
   const dataWithKey = sentRequests.map((request) => ({
     key: request.id,
     username: request.username,
-    action: '' // Placeholder for action buttons if needed
+    action: '' 
   }));
 
   return (
     <>
       <UserSearch onRequestSent={handleRequestSent} />
-      <SentRequestsTable data={dataWithKey} />
+      <SentRequestsTable data={dataWithKey} onCancelRequest={handleCancelRequest} />
     </>
   );
 };

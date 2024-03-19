@@ -1,26 +1,38 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Menu, Divider } from 'antd';
 import { HomeOutlined, MessageOutlined, TeamOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom'; 
+import { useSelectedTab } from '../context/SelectedTabContext';
+
 
 function VerticalMenu() {
-  const navigate = useNavigate(); // Instantiate navigate function
+  const navigate = useNavigate(); 
+  const { setSelectedTab } = useSelectedTab();
 
-  // Function to handle menu item clicks
+
   const handleClick = (e) => {
-    if (e.key === 'home') {
+    if (e.key === 'home') 
+    {
       navigate('/home');
-    } else if (e.key === 'friends') {
+    } 
+    else if (e.key === 'friends') 
+    {
+      setSelectedTab('Friends');
       navigate('/friends');
     }
   };
 
   return (
+    
+
     <Menu
       mode="vertical"
       onClick={handleClick}
       className="custom-menu" 
-      style={{ width: 245, borderRight: 0, marginTop:'10px', fontWeight: 'bold' }} // Adjust width as needed, remove right border
+      style={{ 
+        width: 245, 
+        borderRight: 0, 
+        fontWeight: 'bold' }} // Adjust width as needed, remove right border
     >
       <Menu.Item key="home" icon={<HomeOutlined />}>
         Home
@@ -32,6 +44,7 @@ function VerticalMenu() {
         New Chat
       </Menu.Item>
     </Menu>
+   
   );
 }
 
