@@ -2,7 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 
-namespace MessagingApp.Application.Users.Commands.SendMessage;
+namespace MessagingApp.Application.MessageFeatures.SendMessage;
 
 public class SendMessageCommand : IRequest<Result<SendMessageResponse>>
 {

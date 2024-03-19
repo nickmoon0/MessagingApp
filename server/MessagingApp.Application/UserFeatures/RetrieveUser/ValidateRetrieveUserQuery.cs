@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace MessagingApp.Application.Users.Queries.RetrieveUser;
+namespace MessagingApp.Application.UserFeatures.RetrieveUser;
 
 public class ValidateRetrieveUserQuery : AbstractValidator<RetrieveUserQuery>
 {

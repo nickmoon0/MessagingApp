@@ -4,7 +4,7 @@ using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
-namespace MessagingApp.Application.Users.Queries.RetrieveMessageById;
+namespace MessagingApp.Application.MessageFeatures.RetrieveMessageById;
 
 public class RetrieveMessageByIdHandler : IRequestHandler<RetrieveMessageByIdQuery, Result<GetMessageResponse>>
 {

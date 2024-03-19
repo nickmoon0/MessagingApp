@@ -2,7 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 
-namespace MessagingApp.Application.Users.Queries.RetrieveUser;
+namespace MessagingApp.Application.UserFeatures.RetrieveUser;
 
 public class RetrieveUserQuery : IRequest<Result<RetrieveUserResponse?>>
 {

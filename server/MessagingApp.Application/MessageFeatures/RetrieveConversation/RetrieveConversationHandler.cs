@@ -3,7 +3,7 @@ using MediatR;
 using MessagingApp.Application.Common.Contracts;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 
-namespace MessagingApp.Application.Users.Queries.RetrieveConversation;
+namespace MessagingApp.Application.MessageFeatures.RetrieveConversation;
 
 public class RetrieveConversationHandler : IRequestHandler<RetrieveConversationQuery, Result<RetrieveConversationResponse>>
 {

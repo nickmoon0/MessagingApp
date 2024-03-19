@@ -2,7 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 
-namespace MessagingApp.Application.Users.Queries.RetrieveMessageById;
+namespace MessagingApp.Application.MessageFeatures.RetrieveMessageById;
 
 public class RetrieveMessageByIdQuery : IRequest<Result<GetMessageResponse>>
 {

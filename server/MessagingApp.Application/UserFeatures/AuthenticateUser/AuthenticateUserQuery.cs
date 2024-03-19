@@ -2,7 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 
-namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
+namespace MessagingApp.Application.UserFeatures.AuthenticateUser;
 
 public class AuthenticateUserQuery : IRequest<Result<string>>
 {

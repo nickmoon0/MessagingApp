@@ -5,7 +5,7 @@ using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Application.Common.Interfaces.Services;
 using MessagingApp.Domain.Aggregates;
 
-namespace MessagingApp.Application.Users.Queries.AuthenticateUser;
+namespace MessagingApp.Application.UserFeatures.AuthenticateUser;
 
 public class AuthenticateUserHandler : IRequestHandler<AuthenticateUserQuery, Result<string>>
 {

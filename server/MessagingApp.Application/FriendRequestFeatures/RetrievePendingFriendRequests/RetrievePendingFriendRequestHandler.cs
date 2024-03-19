@@ -5,7 +5,7 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Common;
 
-namespace MessagingApp.Application.Users.Queries.RetrievePendingFriendRequests;
+namespace MessagingApp.Application.FriendRequestFeatures.RetrievePendingFriendRequests;
 
 public class RetrievePendingFriendRequestHandler : 
     IRequestHandler<RetrievePendingFriendRequestsQuery, Result<RetrievePendingFriendRequestsResponse>>

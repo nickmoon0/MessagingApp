@@ -2,7 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 
-namespace MessagingApp.Application.Users.Commands.CreateUser;
+namespace MessagingApp.Application.UserFeatures.CreateUser;
 
 public class CreateUserCommand : IRequest<Result<CreateUserResponse>>
 {

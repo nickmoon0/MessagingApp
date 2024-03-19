@@ -6,7 +6,7 @@ using MessagingApp.Application.Common.Helpers;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Entities;
 
-namespace MessagingApp.Application.Users.Commands.SendMessage;
+namespace MessagingApp.Application.MessageFeatures.SendMessage;
 
 public class SendMessageHandler : IRequestHandler<SendMessageCommand, Result<SendMessageResponse>>
 {

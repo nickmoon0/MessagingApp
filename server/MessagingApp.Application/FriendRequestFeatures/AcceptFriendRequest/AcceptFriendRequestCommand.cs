@@ -2,7 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 
-namespace MessagingApp.Application.Users.Commands.AcceptFriendRequest;
+namespace MessagingApp.Application.FriendRequestFeatures.AcceptFriendRequest;
 
 public class AcceptFriendRequestCommand : IRequest<Result<AcceptFriendRequestResponse>>
 {

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MessagingApp.Application.Users.Queries.RetrieveUser;
+using MessagingApp.Application.UserFeatures.RetrieveUser;
 
 // ReSharper disable once CheckNamespace
 namespace Microsoft.Extensions.DependencyInjection;

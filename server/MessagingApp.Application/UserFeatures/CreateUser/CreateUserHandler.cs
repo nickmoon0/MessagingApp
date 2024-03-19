@@ -5,7 +5,7 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Aggregates;
 
-namespace MessagingApp.Application.Users.Commands.CreateUser;
+namespace MessagingApp.Application.UserFeatures.CreateUser;
 
 public class CreateUserHandler : IRequestHandler<CreateUserCommand, Result<CreateUserResponse>>
 {

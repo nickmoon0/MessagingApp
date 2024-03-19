@@ -5,9 +5,8 @@ using MessagingApp.Application.Common.Exceptions;
 using MessagingApp.Application.Common.Helpers;
 using MessagingApp.Application.Common.Interfaces.Repositories;
 using MessagingApp.Domain.Common;
-using MessagingApp.Domain.Entities;
 
-namespace MessagingApp.Application.Users.Commands.CreateFriendRequest;
+namespace MessagingApp.Application.FriendRequestFeatures.CreateFriendRequest;
 
 public class CreateFriendRequestHandler : IRequestHandler<CreateFriendRequestCommand, Result<CreateFriendRequestResponse>>
 {
@@ -19,7 +18,7 @@ public class CreateFriendRequestHandler : IRequestHandler<CreateFriendRequestCom
     
     public async Task<Result<CreateFriendRequestResponse>> Handle(CreateFriendRequestCommand request, CancellationToken cancellationToken)
     {
-        var friendRequest = new FriendRequest(request.FromUser, request.ToUser, FriendRequestStatus.Pending);
+        var friendRequest = new Domain.Entities.FriendRequest(request.FromUser, request.ToUser, FriendRequestStatus.Pending);
         var fromUser = await _userRepository.GetUserById(request.FromUser);
         var toUser = await _userRepository.GetUserById(request.ToUser);
 

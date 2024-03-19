@@ -2,7 +2,7 @@
 using MediatR;
 using MessagingApp.Application.Common.Contracts;
 
-namespace MessagingApp.Application.Users.Commands.CreateFriendRequest;
+namespace MessagingApp.Application.FriendRequestFeatures.CreateFriendRequest;
 
 public class CreateFriendRequestCommand : IRequest<Result<CreateFriendRequestResponse>>
 {
