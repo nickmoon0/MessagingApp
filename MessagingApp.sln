@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingApp.Domain", "Mess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingApp.Infrastructure", "MessagingApp.Infrastructure\MessagingApp.Infrastructure.csproj", "{F81FC06C-58CC-4D3B-9757-A73C8CA44043}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingApp.Test", "MessagingApp.Test\MessagingApp.Test.csproj", "{FD61312F-7247-4BA2-8024-41EC660C9907}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{F81FC06C-58CC-4D3B-9757-A73C8CA44043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F81FC06C-58CC-4D3B-9757-A73C8CA44043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F81FC06C-58CC-4D3B-9757-A73C8CA44043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD61312F-7247-4BA2-8024-41EC660C9907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD61312F-7247-4BA2-8024-41EC660C9907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD61312F-7247-4BA2-8024-41EC660C9907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD61312F-7247-4BA2-8024-41EC660C9907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
