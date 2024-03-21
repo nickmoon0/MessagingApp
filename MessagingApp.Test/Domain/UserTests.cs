@@ -50,4 +50,46 @@ public class UserTests
         Assert.False(user3Result.IsOk);
         Assert.False(user4Result.IsOk);
     }
+
+    [Fact]
+    public void RemoveFriend_With_ValidParameters()
+    {
+        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!");
+        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!");
+        
+        var user1 = user1Result.Value;
+        var user2 = user2Result.Value;
+
+        // Make users friends
+        Helpers.SetProperty(user1, nameof(User.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(User.Friends), new List<User> { user1 });
+
+        var removeResult = user2.RemoveFriend(user1);
+        Assert.True(removeResult.IsOk);
+        
+        Assert.DoesNotContain(user1, user2.Friends);
+        Assert.DoesNotContain(user2, user1.Friends);
+    }
+    
+    [Fact]
+    public void RemoveFriend_With_NonFriendUser()
+    {
+        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!");
+        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!");
+        var user3Result = User.CreateNewUser("TestUser3", "TestPassword3!");
+        
+        var user1 = user1Result.Value;
+        var user2 = user2Result.Value;
+        var user3 = user3Result.Value;
+        
+        // Make users friends
+        Helpers.SetProperty(user1, nameof(User.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(User.Friends), new List<User> { user1 });
+
+        var removeResult = user3.RemoveFriend(user1);
+        Assert.False(removeResult.IsOk);
+        
+        Assert.Contains(user1, user2.Friends);
+        Assert.Contains(user2, user1.Friends);
+    }
 }

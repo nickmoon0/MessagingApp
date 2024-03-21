@@ -82,6 +82,17 @@ public class User : IDomainObject
 
         return request;
     }
+
+    public Result<User, FailedToDeleteException> RemoveFriend(User friendToRemove)
+    {
+        if (!Friends.Contains(friendToRemove) || !friendToRemove.Friends.Contains(this)) 
+            return new FailedToDeleteException("Users are not friends");
+
+        Friends.Remove(friendToRemove);
+        friendToRemove.Friends.Remove(this);
+
+        return this;
+    }
     
     // Helper methods
     private static bool IsUsernameValid(string username)
