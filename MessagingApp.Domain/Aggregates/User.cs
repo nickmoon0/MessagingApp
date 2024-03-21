@@ -8,8 +8,8 @@ public class User : IDomainObject
 {
     private const string SpecialSymbols = "!@#$%^&*()[]{}-_=+`~";
     
-    public Guid Id { get; set; }
-    public bool Active { get; set; }
+    public Guid Id { get; private set; }
+    public bool Active { get; private set; }
     
     public string? Username { get; private set; }
     public string? HashedPassword { get; private set; }
@@ -24,7 +24,7 @@ public class User : IDomainObject
         Bio = bio;
     }
     public IEnumerable<FriendRequest> FriendRequests { get; set; } = [];
-    public IEnumerable<Guid> Conversations { get; set; } = [];
+    public IEnumerable<Conversation> Conversations { get; set; } = [];
 
     public static Result<User, InvalidUserException> CreateNewUser(string username, string password, string? bio = null)
     {

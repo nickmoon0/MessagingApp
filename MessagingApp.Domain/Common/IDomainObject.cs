@@ -2,6 +2,6 @@
 
 public interface IDomainObject
 {
-    public Guid Id { get; set; }
-    public bool Active { get; set; }
+    public Guid Id { get; }
+    public bool Active { get; }
 }
