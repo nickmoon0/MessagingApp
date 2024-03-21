@@ -15,6 +15,11 @@ public class User : IDomainObject
     public string? HashedPassword { get; private set; }
     public string? Bio { get; set; }
 
+        
+    public ICollection<Conversation> Conversations { get; private set; } = [];
+    public ICollection<FriendRequest> FriendRequests { get; private set; } = [];
+    public ICollection<User> Friends { get; private set; } = [];
+    
     private User() {}
 
     private User(string username, string password, string? bio)
@@ -24,15 +29,11 @@ public class User : IDomainObject
         Bio = bio;
         Active = true;
     }
-    
-    public ICollection<Conversation> Conversations { get; private set; } = [];
-    public ICollection<FriendRequest> FriendRequests { get; private set; } = [];
-    public ICollection<User> Friends { get; private set; } = [];
 
-    public static Result<User, InvalidUserException> CreateNewUser(string username, string password, string? bio = null)
+    public static Result<User, FailedToCreateEntityException> CreateNewUser(string username, string password, string? bio = null)
     {
-        if (!IsUsernameValid(username)) return new InvalidUserException("Username is not valid");
-        if (!IsPasswordValid(password)) return new InvalidUserException("Password is not valid");
+        if (!IsUsernameValid(username)) return new FailedToCreateEntityException("Username is not valid");
+        if (!IsPasswordValid(password)) return new FailedToCreateEntityException("Password is not valid");
 
         var user = new User(username, password, bio);
         return user;
@@ -57,6 +58,9 @@ public class User : IDomainObject
     public Result<FriendRequest, InvalidFriendRequestException> RespondToFriendRequest(
         FriendRequest request, FriendRequestStatus newStatus)
     {
+        if (request.ReceivingUser is null || request.SendingUser is null)
+            return new InvalidFriendRequestException("Receiving and sending user cannot be null");
+        
         // Check that this user was the receiver of the request
         if (!request.ReceivingUser.Equals(this) || !FriendRequests.Contains(request))
             return new InvalidFriendRequestException("User did not receive friend request");

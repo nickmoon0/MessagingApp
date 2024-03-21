@@ -20,11 +20,11 @@ public class Conversation : IDomainObject
         Active = true;
     }
 
-    public static Result<Conversation, InvalidConversationException> CreateDirectMessage(User user1, User user2)
+    public static Result<Conversation, FailedToCreateEntityException> CreateDirectMessage(User user1, User user2)
     {
         // Check that users are not the same
         if (user1.Id == user2.Id)
-            return new InvalidConversationException("User cannot create conversation with themselves");
+            return new FailedToCreateEntityException("User cannot create conversation with themselves");
         
         var participants = new List<User> { user1, user2 };
         var conversation = new Conversation(participants);
@@ -34,19 +34,16 @@ public class Conversation : IDomainObject
 
     public Result<Message, FailedToSendMessageException> SendMessage(User sendingUser, string content)
     {
-        if (string.IsNullOrEmpty(content)) return new FailedToSendMessageException("Message content cannot be empty");
-        
+        // Check all requirements to send a message are met
         if (!Active) return new FailedToSendMessageException("Conversation is not active");
         if (!Participants.Contains(sendingUser)) return new FailedToSendMessageException("User must be part of conversation to send a message");
 
-        var message = new Message()
-        {
-            Content = content,
-            TimeStamp = DateTime.UtcNow,
-            MessageConversation = this,
-            SendingUser = sendingUser
-        };
-        
+        // Create message and check that it was created successfully
+        var messageResult = Message.CreateMessage(sendingUser, this, content);
+        if (!messageResult.IsOk) return new FailedToSendMessageException(messageResult.Error.Message);
+
+        // Add message to conversation
+        var message = messageResult.Value;
         Messages.Add(message);
         
         return message;

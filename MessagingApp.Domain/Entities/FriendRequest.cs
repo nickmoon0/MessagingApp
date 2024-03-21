@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Common;
+using MessagingApp.Domain.Common.Exceptions;
 
 namespace MessagingApp.Domain.Entities;
 
@@ -7,7 +8,10 @@ public class FriendRequest : IDomainObject
 {
     public Guid Id { get; private set; }
     public bool Active { get; private set; }
+    public User? SendingUser { get; set; }
+    public User? ReceivingUser { get; set; }
 
+    public FriendRequestStatus Status { get; set; }
     private FriendRequest() {}
 
     private FriendRequest(User sendingUser, User receivingUser, FriendRequestStatus status)
@@ -18,17 +22,12 @@ public class FriendRequest : IDomainObject
         Active = true;
     }
 
-    public static Result<FriendRequest, Exception> CreateFriendRequest(User sendingUser, User receivingUser,
+    public static Result<FriendRequest, FailedToCreateEntityException> CreateFriendRequest(User sendingUser, User receivingUser,
         FriendRequestStatus status)
     {
         var friendRequest = new FriendRequest(sendingUser, receivingUser, status);
         return friendRequest;
     }
-    
-    public User SendingUser { get; set; }
-    public User ReceivingUser { get; set; }
-
-    public FriendRequestStatus Status { get; set; }
 }
 public enum FriendRequestStatus
 {

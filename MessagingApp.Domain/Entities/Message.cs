@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Common;
+using MessagingApp.Domain.Common.Exceptions;
 
 namespace MessagingApp.Domain.Entities;
 
@@ -7,16 +8,31 @@ public class Message : IDomainObject
 {
     public Guid Id { get; private set; }
     public bool Active { get; private set; }
+    public string? Content { get; private set; }
+    public DateTime TimeStamp { get; set; }
 
-    // TODO: Make constructors private and create objects through static method
-    public Message()
+    public Conversation? MessageConversation { get; private set; }
+    public User? SendingUser { get; private set; }
+    
+    private Message() { }
+
+    private Message(User sendingUser, Conversation conversation, string content)
     {
+        SendingUser = sendingUser;
+        MessageConversation = conversation;
+        Content = content;
+        TimeStamp = DateTime.UtcNow;
         Active = true;
     }
     
-    public string? Content { get; set; }
-    public DateTime TimeStamp { get; set; }
+    public static Result<Message, FailedToCreateEntityException> CreateMessage(
+        User sendingUser, Conversation conversation, string content)
+    {
+        if (string.IsNullOrEmpty(content))
+            return new FailedToCreateEntityException("Message content cannot be empty");
 
-    public Conversation? MessageConversation { get; set; }
-    public User? SendingUser { get; set; }
+        var message = new Message(sendingUser, conversation, content);
+        return message;
+    }
+    
 }
