@@ -17,6 +17,7 @@ public class UserTests
         Assert.Equal("TestUser1", user1.Username);
         Assert.Equal("This is a biography!", user1.Bio);        
         Assert.True(BCrypt.Net.BCrypt.Verify("TestPassword1!", user1.HashedPassword));
+        Assert.True(user1.Active);
         
         // Only check that user was created and bio is null, everything else the same as test user 1
         Assert.True(user2Result.IsOk);

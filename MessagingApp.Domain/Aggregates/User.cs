@@ -22,6 +22,7 @@ public class User : IDomainObject
         Username = username;
         HashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
         Bio = bio;
+        Active = true;
     }
     public IEnumerable<FriendRequest> FriendRequests { get; set; } = [];
     public IEnumerable<Conversation> Conversations { get; set; } = [];
