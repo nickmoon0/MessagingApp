@@ -1,4 +1,5 @@
-﻿using MessagingApp.Domain.Common;
+﻿using MessagingApp.Domain.Aggregates;
+using MessagingApp.Domain.Common;
 
 namespace MessagingApp.Domain.Entities;
 
@@ -10,7 +11,6 @@ public class Message : IDomainObject
     public string? Content { get; set; }
     public DateTime TimeStamp { get; set; }
 
-    public Guid ConversationId { get; set; }
-    public Guid SendingUserId { get; set; }
-    public Guid ReceivingUserId { get; set; }
+    public Conversation? MessageConversation { get; set; }
+    public User? SendingUser { get; set; }
 }

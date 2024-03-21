@@ -9,12 +9,12 @@ public class Conversation : IDomainObject
     public Guid Id { get; private set; }
     public bool Active { get; private set; }
 
-    public IEnumerable<User> Participants { get; set; } = [];
-    public IEnumerable<Message> Messages { get; set; } = [];
+    public ICollection<User> Participants { get; set; } = [];
+    public ICollection<Message> Messages { get; set; } = [];
     
     private Conversation() {}
 
-    private Conversation(IEnumerable<User> participants)
+    private Conversation(ICollection<User> participants)
     {
         Participants = participants;
         Active = true;
@@ -30,5 +30,25 @@ public class Conversation : IDomainObject
         var conversation = new Conversation(participants);
         
         return conversation;
+    }
+
+    public Result<Message, FailedToSendMessageException> SendMessage(User sendingUser, string content)
+    {
+        if (string.IsNullOrEmpty(content)) return new FailedToSendMessageException("Message content cannot be empty");
+        
+        if (!Active) return new FailedToSendMessageException("Conversation is not active");
+        if (!Participants.Contains(sendingUser)) return new FailedToSendMessageException("User must be part of conversation to send a message");
+
+        var message = new Message()
+        {
+            Content = content,
+            TimeStamp = DateTime.UtcNow,
+            MessageConversation = this,
+            SendingUser = sendingUser
+        };
+        
+        Messages.Add(message);
+        
+        return message;
     }
 }
