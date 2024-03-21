@@ -25,6 +25,9 @@ public class FriendRequest : IDomainObject
     public static Result<FriendRequest, FailedToCreateEntityException> CreateFriendRequest(User sendingUser, User receivingUser,
         FriendRequestStatus status)
     {
+        if (sendingUser == receivingUser)
+            return new FailedToCreateEntityException("User cannot send a friend request to themself");
+        
         var friendRequest = new FriendRequest(sendingUser, receivingUser, status);
         return friendRequest;
     }

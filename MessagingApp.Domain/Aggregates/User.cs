@@ -41,13 +41,13 @@ public class User : IDomainObject
 
     public Result<FriendRequest, InvalidFriendRequestException> SendFriendRequest(User receivingUser)
     {
-        if (this == receivingUser)
-            return new InvalidFriendRequestException("User cannot send a friend request to themself");
         if (Friends.Contains(receivingUser))
             return new InvalidFriendRequestException("Users are already friends");
-
+        
         var friendRequestResult = FriendRequest.CreateFriendRequest(this, receivingUser, FriendRequestStatus.Pending);
-        var friendRequest = friendRequestResult.Value; // Will never fail/error
+        if (!friendRequestResult.IsOk) return new InvalidFriendRequestException(friendRequestResult.Error.Message);
+        
+        var friendRequest = friendRequestResult.Value;
         
         receivingUser.FriendRequests.Add(friendRequest);
         FriendRequests.Add(friendRequest);
