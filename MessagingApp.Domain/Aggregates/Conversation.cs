@@ -1,4 +1,4 @@
-﻿using MessagingApp.Domain.Common;
+using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Common.Exceptions;
 using MessagingApp.Domain.Entities;
 
@@ -9,8 +9,8 @@ public class Conversation : IDomainObject
     public Guid Id { get; private set; }
     public bool Active { get; private set; }
 
-    public ICollection<User> Participants { get; set; } = [];
-    public ICollection<Message> Messages { get; set; } = [];
+    public ICollection<User> Participants { get; private set; } = [];
+    public ICollection<Message> Messages { get; private set; } = [];
     
     private Conversation() {}
 
