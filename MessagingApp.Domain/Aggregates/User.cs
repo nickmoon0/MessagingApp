@@ -44,7 +44,7 @@ public class User : IDomainObject
         if (Friends.Contains(receivingUser))
             return new InvalidFriendRequestException("Users are already friends");
         
-        var friendRequestResult = FriendRequest.CreateFriendRequest(this, receivingUser, FriendRequestStatus.Pending);
+        var friendRequestResult = FriendRequest.CreateFriendRequest(this, receivingUser);
         if (!friendRequestResult.IsOk) return new InvalidFriendRequestException(friendRequestResult.Error.Message);
         
         var friendRequest = friendRequestResult.Value;

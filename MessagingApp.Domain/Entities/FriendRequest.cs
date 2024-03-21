@@ -22,13 +22,12 @@ public class FriendRequest : IDomainObject
         Active = true;
     }
 
-    public static Result<FriendRequest, FailedToCreateEntityException> CreateFriendRequest(User sendingUser, User receivingUser,
-        FriendRequestStatus status)
+    public static Result<FriendRequest, FailedToCreateEntityException> CreateFriendRequest(User sendingUser, User receivingUser)
     {
         if (sendingUser == receivingUser)
             return new FailedToCreateEntityException("User cannot send a friend request to themself");
         
-        var friendRequest = new FriendRequest(sendingUser, receivingUser, status);
+        var friendRequest = new FriendRequest(sendingUser, receivingUser, FriendRequestStatus.Pending);
         return friendRequest;
     }
 }
