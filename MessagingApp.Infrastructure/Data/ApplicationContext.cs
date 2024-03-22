@@ -1,18 +1,18 @@
-﻿using MessagingApp.Domain.Aggregates;
+﻿using MessagingApp.Application.Common;
+using MessagingApp.Application.Common.Contexts;
+using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data;
 
-public class ApplicationContext : DbContext
+public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options), IApplicationContext
 {
-    public DbSet<User> Users { get; set; } = null!;
-    public DbSet<Conversation> Conversations { get; set; } = null!;
-    public DbSet<FriendRequest> FriendRequests { get; set; } = null!;
-    public DbSet<Message> Messages { get; set; } = null!;
+    public DbSet<User> Users { get; init; } = null!;
+    public DbSet<Conversation> Conversations { get; init; } = null!;
+    public DbSet<FriendRequest> FriendRequests { get; init; } = null!;
+    public DbSet<Message> Messages { get; init; } = null!;
 
-    public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
