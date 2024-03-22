@@ -1,6 +1,6 @@
 ﻿namespace MessagingApp.Domain.Common;
 
-public interface IDomainObject
+public interface IPersistedObject
 {
     public Guid Id { get; }
     public bool Active { get; }

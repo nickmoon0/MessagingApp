@@ -4,7 +4,7 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Domain.Aggregates;
 
-public class Conversation : IDomainObject
+public class Conversation : IPersistedObject
 {
     public Guid Id { get; private set; }
     public bool Active { get; private set; }

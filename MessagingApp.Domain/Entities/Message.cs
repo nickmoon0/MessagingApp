@@ -4,7 +4,7 @@ using MessagingApp.Domain.Common.Exceptions;
 
 namespace MessagingApp.Domain.Entities;
 
-public class Message : IDomainObject
+public class Message : IPersistedObject
 {
     public Guid Id { get; private set; }
     public bool Active { get; private set; }

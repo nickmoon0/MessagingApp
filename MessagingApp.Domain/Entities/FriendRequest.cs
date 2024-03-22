@@ -4,7 +4,7 @@ using MessagingApp.Domain.Common.Exceptions;
 
 namespace MessagingApp.Domain.Entities;
 
-public class FriendRequest : IDomainObject
+public class FriendRequest : IPersistedObject
 {
     public Guid Id { get; private set; }
     public bool Active { get; private set; }

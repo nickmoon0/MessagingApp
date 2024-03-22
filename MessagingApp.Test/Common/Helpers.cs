@@ -14,7 +14,7 @@ public static class Helpers
     /// <typeparam name="T"></typeparam>
     public static void SetId<T>(T entity, Guid id)
     {
-        SetProperty(entity, nameof(IDomainObject.Id), id);
+        SetProperty(entity, nameof(IPersistedObject.Id), id);
     }
 
     /// <summary>

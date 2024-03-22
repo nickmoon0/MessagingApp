@@ -4,7 +4,7 @@ using MessagingApp.Domain.Entities;
 
 namespace MessagingApp.Domain.Aggregates;
 
-public class User : IDomainObject
+public class User : IPersistedObject
 {
     private const string SpecialSymbols = "!@#$%^&*()[]{}-_=+`~";
     

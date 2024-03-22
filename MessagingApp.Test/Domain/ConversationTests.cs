@@ -126,7 +126,7 @@ public class ConversationTests
         var conversation = conversationResult.Value;
         
         Helpers.SetId(conversation, Guid.NewGuid());
-        Helpers.SetProperty(conversation, nameof(IDomainObject.Active), false);
+        Helpers.SetProperty(conversation, nameof(IPersistedObject.Active), false);
         
         var messageResult = conversation.SendMessage(user1, "Valid message content");
         Assert.False(messageResult.IsOk);
