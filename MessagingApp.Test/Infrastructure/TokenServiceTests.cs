@@ -33,8 +33,7 @@ public class TokenServiceTests
         
         ITokenContext tokenContext = new ApplicationContext(DatabaseSetup.Options);
         
-        var testUserResult = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var testUser = testUserResult.Value;
+        var testUser = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
         
         // Rotate tokens
         var tokenService = new TokenService(tokenContext, mockOptions);
@@ -59,8 +58,7 @@ public class TokenServiceTests
 
         mockOptions.Value.Returns(jwtSettings);
         
-        var testUserResult = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var testUser = testUserResult.Value;
+        var testUser = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
         
         var tokenService = new TokenService(mockContext, mockOptions);
         var methodInfo = Helpers.GetPrivateMethodInfo(tokenService, "GenerateAccessToken");
@@ -119,8 +117,7 @@ public class TokenServiceTests
 
         mockOptions.Value.Returns(jwtSettings);
         
-        var testUserResult = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var testUser = testUserResult.Value;
+        var testUser = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
         
         var tokenService = new TokenService(mockContext, mockOptions);
         var methodInfo = Helpers.GetPrivateMethodInfo(tokenService, "GenerateRefreshToken");

@@ -9,14 +9,8 @@ public class MessageTests
     [Fact]
     public void CreateMessage_With_ValidContent()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
-
-        Helpers.SetId(user1, Guid.NewGuid());
-        Helpers.SetId(user2, Guid.NewGuid());
+        var user1 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");
         
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         var conversation = conversationResult.Value;
@@ -30,14 +24,8 @@ public class MessageTests
     [Fact]
     public void CreateMessage_With_EmptyContent()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
-
-        Helpers.SetId(user1, Guid.NewGuid());
-        Helpers.SetId(user2, Guid.NewGuid());
+        var user1 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");
         
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         var conversation = conversationResult.Value;

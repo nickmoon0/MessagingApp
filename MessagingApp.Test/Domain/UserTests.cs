@@ -54,11 +54,8 @@ public class UserTests
     [Fact]
     public void RemoveFriend_With_ValidParameters()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!");
-        
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         // Make users friends
         Helpers.SetProperty(user1, nameof(User.Friends), new List<User> { user2 });
@@ -74,13 +71,9 @@ public class UserTests
     [Fact]
     public void RemoveFriend_With_NonFriendUser()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!");
-        var user3Result = User.CreateNewUser("TestUser3", "TestPassword3!");
-        
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
-        var user3 = user3Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
+        var user3 = DomainObjectFactory.CreateUser(username: "TestUser3");
         
         // Make users friends
         Helpers.SetProperty(user1, nameof(User.Friends), new List<User> { user2 });
@@ -96,11 +89,8 @@ public class UserTests
     [Fact]
     public void SendFriendRequest_With_ValidParameters()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", "Bio");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         var friendRequestResult = user1.SendFriendRequest(user2);
         Assert.True(friendRequestResult.IsOk);
@@ -115,9 +105,7 @@ public class UserTests
     [Fact]
     public void SendFriendRequest_To_Self()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user1 = user1Result.Value;
-
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
         var friendRequestResult = user1.SendFriendRequest(user1);
         Assert.False(friendRequestResult.IsOk);
     }
@@ -126,11 +114,8 @@ public class UserTests
     public void SendFriendRequest_To_Friend()
     {
         // Create users
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", "Bio");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         // Make users friends
         Helpers.SetProperty(user1, nameof(User.Friends), new List<User> { user2 });
@@ -144,11 +129,8 @@ public class UserTests
     [Fact]
     public void AcceptFriendRequest_With_ValidParameters()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", "Bio");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         var friendRequestResult = user1.SendFriendRequest(user2);
         var friendRequest = friendRequestResult.Value;
@@ -163,11 +145,8 @@ public class UserTests
     [Fact]
     public void RejectFriendRequest_With_ValidParameters()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", "Bio");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         var friendRequestResult = user1.SendFriendRequest(user2);
         var friendRequest = friendRequestResult.Value;
@@ -180,13 +159,10 @@ public class UserTests
     }
 
     [Fact]
-    public void Respond_To_FriendRequest_With_InvalidUser()
+    public void Respond_To_FriendRequest_With_SendingUser()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", "Bio");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         var friendRequestResult = user1.SendFriendRequest(user2);
         var friendRequest = friendRequestResult.Value;
@@ -198,11 +174,8 @@ public class UserTests
     [Fact]
     public void Respond_To_FriendRequest_With_InvalidStatus()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", "Bio");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         var friendRequestResult = user1.SendFriendRequest(user2);
         var friendRequest = friendRequestResult.Value;
@@ -214,11 +187,8 @@ public class UserTests
     [Fact]
     public void Respond_To_NonPending_FriendRequest()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "Bio");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", "Bio");
-
-        var user1 = user1Result.Value;
-        var user2 = user2Result.Value;
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
 
         var friendRequestResult = user1.SendFriendRequest(user2);
         var friendRequest = friendRequestResult.Value;
