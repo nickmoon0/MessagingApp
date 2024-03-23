@@ -29,23 +29,24 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
    {
       "Logging": {
          "LogLevel": {
-            "Default": "Information",
-            "Microsoft.AspNetCore": "Warning"
+         "Default": "Information",
+         "Microsoft.AspNetCore": "Warning"
          }
       },
       "ConnectionStrings": {
-         "AppDb": "server=localhost;port=3306;user=root;password=password1;database=AppDb",
-         "AuthDb": "server=localhost;port=3307;user=root;password=password1;database=AuthDb"
+        "MessagingAppDb": "server=localhost;port=3306;user=root;password=password1;database=MessagingApp"
       },
       "Jwt": {
          "Issuer": "http://localhost",
          "Audience": "http://localhost",
-         "TokenLife": 30,
+         "AccessTokenLife": 60,
+         "RefreshTokenLife": 1440,
+         "RefreshTokenLength": 64,
          "Key": ""
       }
    }
    ```
-   - Please note: token life is stored in minutes
+   - Please note: token life is stored in minutes, RefreshTokenLength is bytes
 2. Generate a token key with the command: `openssl rand -base64 172`
 3. Copy the key into `Jwt:Key`
 

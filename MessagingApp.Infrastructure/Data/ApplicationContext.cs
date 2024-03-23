@@ -1,18 +1,22 @@
 ﻿using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Contexts;
+using MessagingApp.Application.Models;
 using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MessagingApp.Infrastructure.Data;
 
-public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options), IApplicationContext
+public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options), 
+    IApplicationContext, ITokenContext
 {
     public DbSet<User> Users { get; init; } = null!;
     public DbSet<Conversation> Conversations { get; init; } = null!;
     public DbSet<FriendRequest> FriendRequests { get; init; } = null!;
     public DbSet<Message> Messages { get; init; } = null!;
 
+    public DbSet<RefreshToken> RefreshTokens { get; init; } = null!;
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -22,6 +26,7 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
         modelBuilder.Entity<Conversation>().ToTable(nameof(Conversation));
         modelBuilder.Entity<FriendRequest>().ToTable(nameof(FriendRequest));
         modelBuilder.Entity<Message>().ToTable(nameof(Message));
+        modelBuilder.Entity<RefreshToken>().ToTable(nameof(RefreshToken));
         
         // User to FriendRequests sent and received (One-to-Many, Two Ways)
         modelBuilder.Entity<FriendRequest>()

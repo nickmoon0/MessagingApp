@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Linq.Expressions;
+using System.Reflection;
 using MessagingApp.Domain.Common;
 
 namespace MessagingApp.Test.Common;
@@ -35,5 +36,14 @@ public static class Helpers
         {
             propertyInfo.SetValue(entity, value, null);
         }
+    }
+    
+    public static MethodInfo GetPrivateMethodInfo<T>(T entity, string methodName) where T : notnull
+    {
+        var methodInfo = entity.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        if (methodInfo == null)
+            throw new InvalidOperationException($"Method {methodName} does not exist");
+        
+        return methodInfo;
     }
 }
