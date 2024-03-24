@@ -1,7 +1,7 @@
 ﻿using MessagingApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace MessagingApp.Test.Infrastructure;
+namespace MessagingApp.Test.Common;
 
 public static class DatabaseSetup
 {

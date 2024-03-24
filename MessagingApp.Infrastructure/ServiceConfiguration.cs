@@ -19,12 +19,12 @@ public static class ServiceConfiguration
         services.AddDbContext<ApplicationContext>(opt =>
             opt.UseMySql(dbConnString, ServerVersion.AutoDetect(dbConnString)));
         
-        // Register individual Contexts
-        services.AddTransient<IApplicationContext, ApplicationContext>();
-        services.AddTransient<ITokenContext, ApplicationContext>();
+        // Register individual Contexts (Ensure they use the same ApplicationContext instance per request)
+        services.AddScoped<IApplicationContext>(provider => provider.GetRequiredService<ApplicationContext>());
+        services.AddScoped<ITokenContext>(provider => provider.GetRequiredService<ApplicationContext>());
 
         // Register services
-        services.AddTransient<ITokenService, TokenService>();
+        services.AddScoped<ITokenService, TokenService>();
         
         return services;
     }

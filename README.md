@@ -9,7 +9,7 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 ### Backend
 
 - **Architecture**: Clean Architecture principles were applied.
-- **Patterns**: Utilizes CQRS and the mediator pattern
+- **Patterns**: Utilizes CQRS
 - **API**: RESTful API in ASP.NET Core 8.
 - **Infrastructure**: Developed with MySQL and EF Core.
 
@@ -36,14 +36,14 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
       "ConnectionStrings": {
         "MessagingAppDb": "server=localhost;port=3306;user=root;password=password1;database=MessagingApp"
       },
-      "Jwt": {
+      "JwtSettings": {
          "Issuer": "http://localhost",
          "Audience": "http://localhost",
          "AccessTokenLife": 60,
          "RefreshTokenLife": 1440,
          "RefreshTokenLength": 64,
          "Key": ""
-      }
+    }
    }
    ```
    - Please note: token life is stored in minutes, RefreshTokenLength is bytes
@@ -55,9 +55,7 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 1. Clone the repository.
 2. Navigate to the server directory: `cd MessagingApp/server`.
 3. Start Docker containers: `docker compose up -d`.
-4. In the `MessagingApp.Infrastructure` project, update databases with:
-   - `dotnet ef database update --context ApplicationContext`
-   - `dotnet ef database update --context AuthContext`
+4. In the `MessagingApp.Infrastructure` project, update databases with: `dotnet ef database update`
 
 #### API Setup
 
