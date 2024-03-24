@@ -60,7 +60,6 @@ public class RegisterUserTests
             Bio = "This is a bio"
         };
         
-        // Mock service and context as handler should never reach the stage that its accessing either
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
         var tokenService = Substitute.For<ITokenService>();
         
@@ -82,7 +81,6 @@ public class RegisterUserTests
             Bio = "This is a bio"
         };
         
-        // Mock service and context as handler should never reach the stage that its accessing either
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
         var tokenService = Substitute.For<ITokenService>();
         
@@ -107,7 +105,6 @@ public class RegisterUserTests
             Bio = "This is a bio"
         };
         
-        // Mock service and context as handler should never reach the stage that its accessing either
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
         var tokenService = Substitute.For<ITokenService>();
         
