@@ -14,7 +14,7 @@ public class LoginUserEndpoint : IEndpoint
         .WithSummary("Authenticates user")
         .WithDescription("Checks users credentials are correct and issues tokens if they are")
         .WithRequestValidation<LoginUserEndpointRequest>()
-        .Produces(StatusCodes.Status401Unauthorized)
+        .Produces<ErrorResponse>(StatusCodes.Status401Unauthorized)
         .Produces<LoginUserEndpointResponse>();
 
     private static async Task<IResult> Handle(
@@ -28,7 +28,9 @@ public class LoginUserEndpoint : IEndpoint
         };
 
         var result = await handler.Handle(command);
-        if (!result.IsOk) return Results.Unauthorized();
+        if (!result.IsOk) return Results.Json(
+            new ErrorResponse(result.Error.Message),
+            statusCode: StatusCodes.Status401Unauthorized);
 
         var tokens = result.Value;
         return Results.Ok(new LoginUserEndpointResponse(tokens.Tokens.NewAccessToken!));
