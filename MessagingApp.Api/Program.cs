@@ -26,6 +26,9 @@ builder.ConfigureAuthentication();
 
 var app = builder.Build();
 
+// Inject config into helper class
+MessagingApp.Api.Common.Helpers.Configuration = builder.Configuration;
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

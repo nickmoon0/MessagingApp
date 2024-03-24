@@ -19,7 +19,8 @@ public class LoginUserEndpoint : IEndpoint
 
     private static async Task<IResult> Handle(
         [FromBody] LoginUserEndpointRequest request,
-        [FromServices] IHandler<LoginUserCommand, LoginUserResponse> handler)
+        [FromServices] IHandler<LoginUserCommand, LoginUserResponse> handler,
+        HttpContext context)
     {
         var command = new LoginUserCommand
         {
@@ -33,6 +34,9 @@ public class LoginUserEndpoint : IEndpoint
             statusCode: StatusCodes.Status401Unauthorized);
 
         var tokens = result.Value;
+        var refreshToken = tokens.Tokens.NewRefreshToken;
+        
+        Helpers.AddRefreshTokenCookie(context, refreshToken!.Token!);
         return Results.Ok(new LoginUserEndpointResponse(tokens.Tokens.NewAccessToken!));
     } 
     

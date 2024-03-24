@@ -19,7 +19,8 @@ public abstract class RegisterUserEndpoint : IEndpoint
     
     private static async Task<IResult> Handle(
         [FromBody] RegisterUserEndpointRequest request,
-        [FromServices] IHandler<RegisterUserCommand, RegisterUserResponse> handler)
+        [FromServices] IHandler<RegisterUserCommand, RegisterUserResponse> handler,
+        HttpContext context)
     {
         var command = new RegisterUserCommand
         {
@@ -35,6 +36,7 @@ public abstract class RegisterUserEndpoint : IEndpoint
         var response = new RegisterUserEndpointResponse(
             registration.Id, registration.Username, registration.Tokens.NewAccessToken!, registration.Bio);
         
+        Helpers.AddRefreshTokenCookie(context, registration.Tokens.NewRefreshToken!.Token!);
         return Results.Created($"/user/{result.Value.Id}", response);
     }
 }
