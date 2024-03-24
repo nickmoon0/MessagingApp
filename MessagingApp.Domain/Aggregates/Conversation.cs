@@ -20,7 +20,7 @@ public class Conversation : IPersistedObject
         Active = true;
     }
 
-    public static Result<Conversation, FailedToCreateEntityException> CreateDirectMessage(User user1, User user2)
+    public static Result<Conversation> CreateDirectMessage(User user1, User user2)
     {
         // Check that users are not the same
         if (user1.Id == user2.Id)
@@ -32,7 +32,7 @@ public class Conversation : IPersistedObject
         return conversation;
     }
 
-    public Result<Message, FailedToSendMessageException> SendMessage(User sendingUser, string content)
+    public Result<Message> SendMessage(User sendingUser, string content)
     {
         // Check all requirements to send a message are met
         if (!Active) return new FailedToSendMessageException("Conversation is not active");

@@ -57,7 +57,7 @@ public class TokenService : ITokenService
         return refreshToken;
     }
 
-    public async Task<Result<TokenSet, Exception>> RotateTokens(User user)
+    public async Task<Result<TokenSet>> RotateTokens(User user)
     {
         // Get all active tokens that belong to current user and de-active them
         var existingTokens = await _tokenContext.RefreshTokens

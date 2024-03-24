@@ -25,7 +25,7 @@ public class Message : IPersistedObject
         Active = true;
     }
     
-    public static Result<Message, FailedToCreateEntityException> CreateMessage(
+    public static Result<Message> CreateMessage(
         User sendingUser, Conversation conversation, string content)
     {
         if (string.IsNullOrEmpty(content))

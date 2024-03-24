@@ -30,7 +30,7 @@ public class User : IPersistedObject
         Active = true;
     }
 
-    public static Result<User, FailedToCreateEntityException> CreateNewUser(string username, string password, string? bio = null)
+    public static Result<User> CreateNewUser(string username, string password, string? bio = null)
     {
         if (!IsUsernameValid(username)) return new FailedToCreateEntityException("Username is not valid");
         if (!IsPasswordValid(password)) return new FailedToCreateEntityException("Password is not valid");
@@ -39,7 +39,7 @@ public class User : IPersistedObject
         return user;
     }
 
-    public Result<FriendRequest, InvalidFriendRequestException> SendFriendRequest(User receivingUser)
+    public Result<FriendRequest> SendFriendRequest(User receivingUser)
     {
         if (Friends.Contains(receivingUser))
             return new InvalidFriendRequestException("Users are already friends");
@@ -55,7 +55,7 @@ public class User : IPersistedObject
         return friendRequest;
     }
 
-    public Result<FriendRequest, InvalidFriendRequestException> RespondToFriendRequest(
+    public Result<FriendRequest> RespondToFriendRequest(
         FriendRequest request, FriendRequestStatus newStatus)
     {
         if (request.ReceivingUser is null || request.SendingUser is null)
@@ -83,7 +83,7 @@ public class User : IPersistedObject
         return request;
     }
 
-    public Result<User, FailedToDeleteException> RemoveFriend(User friendToRemove)
+    public Result<User> RemoveFriend(User friendToRemove)
     {
         if (!Friends.Contains(friendToRemove) || !friendToRemove.Friends.Contains(this)) 
             return new FailedToDeleteException("Users are not friends");

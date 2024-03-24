@@ -1,40 +1,28 @@
 ﻿namespace MessagingApp.Domain.Common;
 
-public readonly struct Result<TSuccess, TError> 
-    where TSuccess : class?
-    where TError : class? 
+public readonly struct Result<TSuccess> where TSuccess : class?
 {
     public readonly TSuccess Value;
-    public readonly TError Error;
+    public readonly Exception Error;
+    
+    public bool IsOk { get; }
 
-    private Result(TSuccess v, TError e, bool success)
+    private Result(TSuccess value, Exception error, bool success)
     {
-        Value = v;
-        Error = e;
+        Value = value;
+        Error = error;
         IsOk = success;
     }
 
-    public bool IsOk { get; }
+    public static implicit operator Result<TSuccess>(TSuccess value) => new(value, default!, true);
+    public static implicit operator Result<TSuccess>(Exception exception) => new(default!, exception, false);
 
-    public static Result<TSuccess, TError> Ok(TSuccess v)
-    {
-        return new Result<TSuccess, TError>(v, default!, true);
-    }
-
-    public static Result<TSuccess, TError> Err(TError e)
-    {
-        return new Result<TSuccess, TError>(default!, e, false);
-    }
-
-    public static implicit operator Result<TSuccess, TError>(TSuccess v) => new(v, default!, true);
-    public static implicit operator Result<TSuccess, TError>(TError e) => new(default!, e, false);
-
-    public TReturn Match<TReturn>(Func<TSuccess, TReturn> success, Func<TError, TReturn> failure) =>
+    public TReturn Match<TReturn>(Func<TSuccess, TReturn> success, Func<Exception, TReturn> failure) =>
         IsOk ? success(Value) : failure(Error);
-
+    
     public TReturn Match<TReturn>(Func<TSuccess, TReturn> success) where TReturn : class? 
         => IsOk ? success(Value) : default!;
 
-    public TReturn Match<TReturn>(Func<TError, TReturn> failure) where TReturn : class?
+    public TReturn Match<TReturn>(Func<Exception, TReturn> failure) where TReturn : class?
         => IsOk ? default! : failure(Error);
 }

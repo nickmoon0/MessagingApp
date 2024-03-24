@@ -22,7 +22,7 @@ public class FriendRequest : IPersistedObject
         Active = true;
     }
 
-    public static Result<FriendRequest, FailedToCreateEntityException> CreateFriendRequest(User sendingUser, User receivingUser)
+    public static Result<FriendRequest> CreateFriendRequest(User sendingUser, User receivingUser)
     {
         if (sendingUser == receivingUser)
             return new FailedToCreateEntityException("User cannot send a friend request to themself");
