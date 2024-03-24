@@ -25,7 +25,7 @@ public class User : IPersistedObject
     private User(string username, string password, string? bio)
     {
         Username = username;
-        HashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+        HashedPassword = BCrypt.Net.BCrypt.HashPassword(password); // TODO: Remove BCrypt from domain layer
         Bio = bio;
         Active = true;
     }
@@ -92,6 +92,14 @@ public class User : IPersistedObject
         friendToRemove.Friends.Remove(this);
 
         return this;
+    }
+
+    public bool LoginUser(string username, Func<string?, bool> comparePasswords)
+    {
+        var usernameMatches = Username == username;
+        var passwordMatches = comparePasswords(HashedPassword);
+
+        return usernameMatches && passwordMatches;
     }
     
     // Helper methods

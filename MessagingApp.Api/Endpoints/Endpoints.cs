@@ -15,7 +15,8 @@ public static class Endpoints
         endpoints.MapGroup("/auth")
             .WithTags("Authentication")
             .AllowAnonymous()
-            .MapEndpoint<RegisterUserEndpoint>();
+            .MapEndpoint<RegisterUserEndpoint>()
+            .MapEndpoint<LoginUserEndpoint>();
     }
     
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) where TEndpoint : IEndpoint

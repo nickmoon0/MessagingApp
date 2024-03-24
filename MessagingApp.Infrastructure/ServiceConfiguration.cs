@@ -25,6 +25,7 @@ public static class ServiceConfiguration
 
         // Register services
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ISecurityService, SecurityService>();
         
         return services;
     }

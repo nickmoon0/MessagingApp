@@ -14,7 +14,8 @@ public abstract class RegisterUserEndpoint : IEndpoint
         .WithSummary("Registers a user")
         .WithDescription("Registers a user with the given username and password. Bio is optional.")
         .WithRequestValidation<RegisterUserEndpointRequest>()
-        .Produces<RegisterUserEndpointResponse>(StatusCodes.Status201Created);
+        .Produces<RegisterUserEndpointResponse>(StatusCodes.Status201Created)
+        .Produces<ErrorResponse>(StatusCodes.Status400BadRequest);
     
     private static async Task<IResult> Handle(
         [FromBody] RegisterUserEndpointRequest request,
