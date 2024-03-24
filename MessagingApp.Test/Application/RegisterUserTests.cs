@@ -1,5 +1,4 @@
-﻿using MessagingApp.Application.Common.Contexts;
-using MessagingApp.Application.Common.Services;
+﻿using MessagingApp.Application.Common.Services;
 using MessagingApp.Application.Features.RegisterUser;
 using MessagingApp.Infrastructure.Data;
 using MessagingApp.Infrastructure.Services;
@@ -34,8 +33,9 @@ public class RegisterUserTests
         
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
         var tokenService = new TokenService(applicationContext, mockOptions);
-
-        var handler = new RegisterUserHandler(applicationContext, tokenService);
+        var securityService = new SecurityService();
+        
+        var handler = new RegisterUserHandler(applicationContext, tokenService, securityService);
 
         var registerResult = await handler.Handle(request);
         Assert.True(registerResult.IsOk);
@@ -62,8 +62,9 @@ public class RegisterUserTests
         
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
         var tokenService = Substitute.For<ITokenService>();
+        var securityService = new SecurityService();
         
-        var handler = new RegisterUserHandler(applicationContext, tokenService);
+        var handler = new RegisterUserHandler(applicationContext, tokenService, securityService);
         
         var registerResult = await handler.Handle(request);
         Assert.False(registerResult.IsOk);
@@ -88,8 +89,9 @@ public class RegisterUserTests
         var existingUser = DomainObjectFactory.CreateUser(username: "TestUser1");
         applicationContext.Users.Add(existingUser);
         await applicationContext.SaveChangesAsync();
+        var securityService = new SecurityService();
         
-        var handler = new RegisterUserHandler(applicationContext, tokenService);
+        var handler = new RegisterUserHandler(applicationContext, tokenService, securityService);
         
         var registerResult = await handler.Handle(request);
         Assert.False(registerResult.IsOk);
@@ -107,8 +109,9 @@ public class RegisterUserTests
         
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
         var tokenService = Substitute.For<ITokenService>();
+        var securityService = new SecurityService();
         
-        var handler = new RegisterUserHandler(applicationContext, tokenService);
+        var handler = new RegisterUserHandler(applicationContext, tokenService, securityService);
         
         var registerResult = await handler.Handle(request);
         Assert.False(registerResult.IsOk);

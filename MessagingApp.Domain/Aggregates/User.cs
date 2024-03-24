@@ -25,17 +25,18 @@ public class User : IPersistedObject
     private User(string username, string password, string? bio)
     {
         Username = username;
-        HashedPassword = BCrypt.Net.BCrypt.HashPassword(password); // TODO: Remove BCrypt from domain layer
+        HashedPassword = password;
         Bio = bio;
         Active = true;
     }
 
-    public static Result<User> CreateNewUser(string username, string password, string? bio = null)
+    public static Result<User> CreateNewUser(string username, string password, string? bio, Func<string, string> hashPassword)
     {
         if (!IsUsernameValid(username)) return new FailedToCreateEntityException("Username is not valid");
         if (!IsPasswordValid(password)) return new FailedToCreateEntityException("Password is not valid");
 
-        var user = new User(username, password, bio);
+        var hashedPassword = hashPassword(password);
+        var user = new User(username, hashedPassword, bio);
         return user;
     }
 

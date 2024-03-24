@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Domain.Aggregates;
 using MessagingApp.Domain.Entities;
+using MessagingApp.Infrastructure.Services;
 using MessagingApp.Test.Common;
 
 namespace MessagingApp.Test.Domain;
@@ -9,8 +10,10 @@ public class UserTests
     [Fact]
     public void CreateUser_With_ValidParameters()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "This is a biography!");
-        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!");
+        var securityService = new SecurityService();
+        
+        var user1Result = User.CreateNewUser("TestUser1", "TestPassword1!", "This is a biography!", securityService.HashPassword);
+        var user2Result = User.CreateNewUser("TestUser2", "TestPassword2!", null, securityService.HashPassword);
         
         // Assert User 1 was created successfully
         Assert.True(user1Result.IsOk);
@@ -30,8 +33,9 @@ public class UserTests
     [Fact]
     public void CreateUser_With_InvalidUsername()
     {
-        var user1Result = User.CreateNewUser("Test1", "TestPassword1!", "Bio"); // Too short
-        var user2Result = User.CreateNewUser("TestUser2!", "TestPassword2!", "Bio"); // Contains symbols
+        var securityService = new SecurityService();
+        var user1Result = User.CreateNewUser("Test1", "TestPassword1!", "Bio", securityService.HashPassword); // Too short
+        var user2Result = User.CreateNewUser("TestUser2!", "TestPassword2!", "Bio", securityService.HashPassword); // Contains symbols
         
         Assert.False(user1Result.IsOk);
         Assert.False(user2Result.IsOk);
@@ -40,10 +44,11 @@ public class UserTests
     [Fact]
     public void CreateUser_With_InvalidPassword()
     {
-        var user1Result = User.CreateNewUser("TestUser1", "Test1!", "Bio"); // Too short
-        var user2Result = User.CreateNewUser("TestUser2", "testpassword1!", "Bio"); // No upper
-        var user3Result = User.CreateNewUser("TestUser3", "TestPassword!", "Bio"); // No digit
-        var user4Result = User.CreateNewUser("TestUser4", "TestPassword1", "Bio"); // No symbol
+        var securityService = new SecurityService();
+        var user1Result = User.CreateNewUser("TestUser1", "Test1!", "Bio", securityService.HashPassword); // Too short
+        var user2Result = User.CreateNewUser("TestUser2", "testpassword1!", "Bio", securityService.HashPassword); // No upper
+        var user3Result = User.CreateNewUser("TestUser3", "TestPassword!", "Bio", securityService.HashPassword); // No digit
+        var user4Result = User.CreateNewUser("TestUser4", "TestPassword1", "Bio", securityService.HashPassword); // No symbol
         
         Assert.False(user1Result.IsOk);
         Assert.False(user2Result.IsOk);

@@ -12,10 +12,12 @@ public class RegisterUserHandler : IHandler<RegisterUserCommand, RegisterUserRes
 {
     private readonly IApplicationContext _applicationContext;
     private readonly ITokenService _tokenService;
-    public RegisterUserHandler(IApplicationContext applicationContext, ITokenService tokenService)
+    private readonly ISecurityService _securityService;
+    public RegisterUserHandler(IApplicationContext applicationContext, ITokenService tokenService, ISecurityService securityService)
     {
         _applicationContext = applicationContext;
         _tokenService = tokenService;
+        _securityService = securityService;
     }
     
     public async Task<Result<RegisterUserResponse>> Handle(RegisterUserCommand request)
@@ -26,7 +28,7 @@ public class RegisterUserHandler : IHandler<RegisterUserCommand, RegisterUserRes
         if (existingUsers) return new FailedToCreateEntityException("Username has been taken");
         
         // Attempt to create new user
-        var userResult = User.CreateNewUser(request.Username, request.Password, request.Bio);
+        var userResult = User.CreateNewUser(request.Username, request.Password, request.Bio, _securityService.HashPassword);
         if (!userResult.IsOk) return userResult.Error; // Domain rules failed
 
         // Create user in database
