@@ -1,6 +1,6 @@
 ﻿using MessagingApp.Api.Common;
 using MessagingApp.Api.Endpoints.Authentication;
-using MessagingApp.Api.Endpoints.FriendRequests;
+using MessagingApp.Api.Endpoints.User;
 
 namespace MessagingApp.Api.Endpoints;
 

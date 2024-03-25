@@ -4,7 +4,7 @@ using MessagingApp.Application.Common.Services;
 using MessagingApp.Application.Features.SendFriendRequest;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MessagingApp.Api.Endpoints.FriendRequests;
+namespace MessagingApp.Api.Endpoints.User;
 
 public class SendFriendRequestEndpoint : IEndpoint
 {
