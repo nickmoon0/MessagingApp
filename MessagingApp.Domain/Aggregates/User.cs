@@ -55,8 +55,6 @@ public class User : IPersistedObject
         if (!friendRequestResult.IsOk) return new InvalidFriendRequestException(friendRequestResult.Error.Message);
         
         var friendRequest = friendRequestResult.Value;
-        SentFriendRequests.Add(friendRequest);
-        receivingUser.ReceivedFriendRequests.Add(friendRequest);
         
         return friendRequest;
     }

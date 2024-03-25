@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Api.Common;
 using MessagingApp.Api.Endpoints.Authentication;
+using MessagingApp.Api.Endpoints.FriendRequests;
 using MessagingApp.Api.Endpoints.User;
 
 namespace MessagingApp.Api.Endpoints;
@@ -19,6 +20,10 @@ public static class Endpoints
             .MapEndpoint<RegisterUserEndpoint>()
             .MapEndpoint<LoginUserEndpoint>();
 
+        endpoints.MapGroup("/friendRequest")
+            .WithTags("Friend Request Actions")
+            .MapEndpoint<RespondToFriendRequestEndpoint>();
+        
         endpoints.MapGroup("/user")
             .WithTags("User Actions")
             .MapEndpoint<SendFriendRequestEndpoint>();

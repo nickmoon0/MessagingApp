@@ -28,6 +28,10 @@ public class FriendRequest : IPersistedObject
             return new FailedToCreateEntityException("User cannot send a friend request to themself");
         
         var friendRequest = new FriendRequest(sendingUser, receivingUser, FriendRequestStatus.Pending);
+        
+        sendingUser.SentFriendRequests.Add(friendRequest);
+        receivingUser.ReceivedFriendRequests.Add(friendRequest);
+        
         return friendRequest;
     }
 }
