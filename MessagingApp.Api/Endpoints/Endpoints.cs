@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Api.Common;
 using MessagingApp.Api.Endpoints.Authentication;
+using MessagingApp.Api.Endpoints.FriendRequests;
 
 namespace MessagingApp.Api.Endpoints;
 
@@ -13,10 +14,14 @@ public static class Endpoints
             .WithOpenApi();
 
         endpoints.MapGroup("/auth")
-            .WithTags("Authentication")
+            .WithTags("Authentication Actions")
             .AllowAnonymous()
             .MapEndpoint<RegisterUserEndpoint>()
             .MapEndpoint<LoginUserEndpoint>();
+
+        endpoints.MapGroup("/user")
+            .WithTags("User Actions")
+            .MapEndpoint<SendFriendRequestEndpoint>();
     }
     
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) where TEndpoint : IEndpoint

@@ -28,17 +28,17 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
         modelBuilder.Entity<Message>().ToTable(nameof(Message));
         modelBuilder.Entity<RefreshToken>().ToTable(nameof(RefreshToken));
         
-        // User to FriendRequests sent and received (One-to-Many, Two Ways)
+        // Setup friend requests
         modelBuilder.Entity<FriendRequest>()
-            .HasOne(friendReq => friendReq.SendingUser)
-            .WithMany()
+            .HasOne(f => f.SendingUser)
+            .WithMany(u => u.SentFriendRequests)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<FriendRequest>()
             .HasOne(friendReq => friendReq.ReceivingUser)
-            .WithMany()
+            .WithMany(user => user.ReceivedFriendRequests)
             .OnDelete(DeleteBehavior.Restrict);
-
+        
         // User to Conversations (Many-to-Many)
         modelBuilder.Entity<User>()
             .HasMany(user => user.Conversations)

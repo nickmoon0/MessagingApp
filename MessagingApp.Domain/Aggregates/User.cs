@@ -17,7 +17,8 @@ public class User : IPersistedObject
 
         
     public ICollection<Conversation> Conversations { get; private set; } = [];
-    public ICollection<FriendRequest> FriendRequests { get; private set; } = [];
+    public ICollection<FriendRequest> SentFriendRequests { get; private set; } = [];
+    public ICollection<FriendRequest> ReceivedFriendRequests { get; private set; } = [];
     public ICollection<User> Friends { get; private set; } = [];
     
     private User() {}
@@ -44,14 +45,18 @@ public class User : IPersistedObject
     {
         if (Friends.Contains(receivingUser))
             return new InvalidFriendRequestException("Users are already friends");
+
+        var alreadySent = SentFriendRequests.Any(x => x.SendingUser == this && x.ReceivingUser == receivingUser);
+        var alreadyReceived = receivingUser.SentFriendRequests.Any(x => x.SendingUser == receivingUser && x.ReceivingUser == this);
+        
+        if (alreadySent || alreadyReceived) return new InvalidFriendRequestException("Friend request between users already exists");
         
         var friendRequestResult = FriendRequest.CreateFriendRequest(this, receivingUser);
         if (!friendRequestResult.IsOk) return new InvalidFriendRequestException(friendRequestResult.Error.Message);
         
         var friendRequest = friendRequestResult.Value;
-        
-        receivingUser.FriendRequests.Add(friendRequest);
-        FriendRequests.Add(friendRequest);
+        SentFriendRequests.Add(friendRequest);
+        receivingUser.ReceivedFriendRequests.Add(friendRequest);
         
         return friendRequest;
     }
@@ -63,8 +68,9 @@ public class User : IPersistedObject
             return new InvalidFriendRequestException("Receiving and sending user cannot be null");
         
         // Check that this user was the receiver of the request
-        if (!request.ReceivingUser.Equals(this) || !FriendRequests.Contains(request))
+        if (!request.ReceivingUser.Equals(this) || !ReceivedFriendRequests.Contains(request))
             return new InvalidFriendRequestException("User did not receive friend request");
+        
         // Check that request is still pending
         if (request.Status != FriendRequestStatus.Pending)
             return new InvalidFriendRequestException("User has already responded to request");

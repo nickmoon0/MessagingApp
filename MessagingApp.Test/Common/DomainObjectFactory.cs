@@ -20,7 +20,8 @@ public static class DomainObjectFactory
         string? hashedPassword = null,
         string? bio = null,
         ICollection<Conversation>? conversations = null,
-        ICollection<FriendRequest>? friendRequests = null,
+        ICollection<FriendRequest>? sentFriendRequests = null,
+        ICollection<FriendRequest>? receivedFriendRequests = null,
         ICollection<User>? friends = null)
     {
         var constructor = GetConstructor<User>();
@@ -32,7 +33,8 @@ public static class DomainObjectFactory
         if (hashedPassword != null) Helpers.SetProperty(user, nameof(user.HashedPassword), hashedPassword);
         if (bio != null) Helpers.SetProperty(user, nameof(user.Bio), bio);
         if (conversations != null) Helpers.SetProperty(user, nameof(user.Conversations), conversations);
-        if (friendRequests != null) Helpers.SetProperty(user, nameof(user.FriendRequests), friendRequests);
+        if (sentFriendRequests != null) Helpers.SetProperty(user, nameof(user.SentFriendRequests), sentFriendRequests);
+        if (receivedFriendRequests != null) Helpers.SetProperty(user, nameof(user.ReceivedFriendRequests), receivedFriendRequests);
         if (friends != null) Helpers.SetProperty(user, nameof(user.Friends), friends);
 
         return user;

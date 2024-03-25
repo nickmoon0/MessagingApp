@@ -102,8 +102,8 @@ public class UserTests
 
         var friendRequest = friendRequestResult.Value;
 
-        Assert.Contains(friendRequest, user1.FriendRequests);
-        Assert.Contains(friendRequest, user2.FriendRequests);
+        Assert.Contains(friendRequest, user1.SentFriendRequests);
+        Assert.Contains(friendRequest, user2.ReceivedFriendRequests);
         Assert.Equal(FriendRequestStatus.Pending, friendRequest.Status);
     }
 

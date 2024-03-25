@@ -4,6 +4,7 @@ using MessagingApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MessagingApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240324161926_ModifiedFriendRequests")]
+    partial class ModifiedFriendRequests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,12 +186,11 @@ namespace MessagingApp.Infrastructure.Migrations
             modelBuilder.Entity("MessagingApp.Domain.Entities.FriendRequest", b =>
                 {
                     b.HasOne("MessagingApp.Domain.Aggregates.User", "ReceivingUser")
-                        .WithMany("ReceivedFriendRequests")
-                        .HasForeignKey("ReceivingUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("ReceivingUserId");
 
                     b.HasOne("MessagingApp.Domain.Aggregates.User", "SendingUser")
-                        .WithMany("SentFriendRequests")
+                        .WithMany("FriendRequests")
                         .HasForeignKey("SendingUserId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -249,9 +251,7 @@ namespace MessagingApp.Infrastructure.Migrations
 
             modelBuilder.Entity("MessagingApp.Domain.Aggregates.User", b =>
                 {
-                    b.Navigation("ReceivedFriendRequests");
-
-                    b.Navigation("SentFriendRequests");
+                    b.Navigation("FriendRequests");
                 });
 #pragma warning restore 612, 618
         }
