@@ -22,7 +22,7 @@ public class SendFriendRequestHandler : IHandler<SendFriendRequestCommand, SendF
             .Include(x => x.SentFriendRequests)
             .SingleOrDefaultAsync(x => x.Id == request.SendingUserId);
         var receivingUser = await _applicationContext.Users
-            .Include(x => x.SentFriendRequests)
+            .Include(x => x.ReceivedFriendRequests)
             .SingleOrDefaultAsync(x => x.Id == request.ReceivingUserId);
         
         if (sendingUser == null) return new FailedToRetrieveEntityException("Sending user does not exist");
