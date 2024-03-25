@@ -12,11 +12,8 @@ public class RespondToFriendRequestTests
     public async Task AcceptFriendRequest_With_ValidParameters()
     {
         // Create users
-        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
-        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
-
-        Helpers.SetId(user1, Guid.NewGuid());
-        Helpers.SetId(user2, Guid.NewGuid());
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
 
         // Create friend request
         var friendRequestResult = FriendRequest.CreateFriendRequest(user1, user2);
@@ -48,11 +45,8 @@ public class RespondToFriendRequestTests
     public async Task RejectFriendRequest_With_ValidParameters()
     {
         // Create users
-        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
-        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
-
-        Helpers.SetId(user1, Guid.NewGuid());
-        Helpers.SetId(user2, Guid.NewGuid());
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
 
         // Create friend request
         var friendRequestResult = FriendRequest.CreateFriendRequest(user1, user2);
@@ -85,11 +79,8 @@ public class RespondToFriendRequestTests
     public async Task AcceptFriendFriendRequest_After_AcceptingFriendRequest()
     {
         // Create users
-        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
-        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
-
-        Helpers.SetId(user1, Guid.NewGuid());
-        Helpers.SetId(user2, Guid.NewGuid());
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
 
         // Create friend request
         var friendRequestResult = FriendRequest.CreateFriendRequest(user1, user2);
@@ -126,13 +117,9 @@ public class RespondToFriendRequestTests
     public async Task RespondToFriendRequest_For_DifferentUsers()
     {
         // Create users
-        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1");
-        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2");
-        var user3 = DomainObjectFactory.CreateUser(username: "TestUser3");
-        
-        Helpers.SetId(user1, Guid.NewGuid());
-        Helpers.SetId(user2, Guid.NewGuid());
-        Helpers.SetId(user3, Guid.NewGuid());
+        var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
+        var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
+        var user3 = DomainObjectFactory.CreateUser(username: "TestUser3", id: Guid.NewGuid());
         
         // Create friend request
         var friendRequestResult = FriendRequest.CreateFriendRequest(user1, user2);
