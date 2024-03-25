@@ -39,6 +39,6 @@ public class SendFriendRequestEndpoint : IEndpoint
 
         return Results.Created($"/friendRequest/{friendRequest.Id}", response);
     }
-    
-    public record SendFriendRequestEndpointResponse(Guid FriendRequestId, Guid SendingUserId, Guid ReceivingUserId);
 }
+
+public record SendFriendRequestEndpointResponse(Guid FriendRequestId, Guid SendingUserId, Guid ReceivingUserId);
