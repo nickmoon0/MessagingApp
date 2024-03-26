@@ -5,12 +5,12 @@ namespace MessagingApp.Application.Models;
 
 public class RefreshToken : IPersistedObject
 {
-    public Guid Id { get; set; }
-    public bool Active { get; set; }
+    public Guid Id { get; private set; }
+    public bool Active { get; private set; }
 
-    public User? Owner { get; set; }
-    public string? Token { get; set; }
-    public DateTime ExpiryDate { get; set; }
+    public User? Owner { get; private set; }
+    public string? Token { get; private set; }
+    public DateTime ExpiryDate { get; private set; }
     
     private RefreshToken() {}
 
@@ -24,4 +24,7 @@ public class RefreshToken : IPersistedObject
 
     public static RefreshToken CreateRefreshToken(User owner, string token, DateTime expiryDate) => 
         new RefreshToken(owner, token, expiryDate);
+
+    // Could make Active set property public but this keeps coding style consistent
+    public void InactivateToken() => Active = false;
 }

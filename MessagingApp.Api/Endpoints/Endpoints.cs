@@ -18,7 +18,8 @@ public static class Endpoints
             .WithTags("Authentication Actions")
             .AllowAnonymous()
             .MapEndpoint<RegisterUserEndpoint>()
-            .MapEndpoint<LoginUserEndpoint>();
+            .MapEndpoint<LoginUserEndpoint>()
+            .MapEndpoint<RenewTokenEndpoint>();
 
         endpoints.MapGroup("/friendRequest")
             .WithTags("Friend Request Actions")

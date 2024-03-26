@@ -64,7 +64,7 @@ public class TokenService : ITokenService
             .Where(x => x.Active == true && x.Owner == user)
             .ToListAsync();
         
-        existingTokens.ForEach(x => x.Active = false);
+        existingTokens.ForEach(x => x.InactivateToken());
 
         var accessToken = GenerateAccessToken(user);
         var refreshToken = GenerateRefreshToken(user);
