@@ -53,13 +53,16 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 #### MySQL Setup
 
 1. Clone the repository.
-2. Navigate to the server directory: `cd MessagingApp/server`.
+2. Navigate to the repo: `cd MessagingApp`.
 3. Start Docker containers: `docker compose up -d`.
 4. In the `MessagingApp.Infrastructure` project, update databases with: `dotnet ef database update`
 
-#### API Setup
+### Running the Project
 
-1. Navigate to the server directory: `cd MessagingApp/server`.
+1. Navigate to the repo: `cd MessagingApp`.
 2. Build the project: `dotnet build`.
 3. Navigate to the API project: `cd MessagingApp.Api`.
 4. Run the API: `dotnet run`.
+
+## Enjoy
+![plot](./readme_icon.jpg)
