@@ -1,6 +1,7 @@
 ﻿using MessagingApp.Application.Common;
 using MessagingApp.Application.Features.GetFriendRequests;
 using MessagingApp.Application.Features.GetFriends;
+using MessagingApp.Application.Features.GetUser;
 using MessagingApp.Application.Features.LoginUser;
 using MessagingApp.Application.Features.RegisterUser;
 using MessagingApp.Application.Features.RenewTokens;
@@ -28,6 +29,7 @@ public static class ServiceConfiguration
         // User handlers
         services.AddScoped<IHandler<SendFriendRequestCommand, SendFriendRequestResponse>, SendFriendRequestHandler>();
         services.AddScoped<IHandler<GetFriendsQuery, GetFriendsResponse>, GetFriendsHandler>();
+        services.AddScoped<IHandler<GetUserQuery, GetUserResponse>, GetUserHandler>();
         
         return services;
     }
