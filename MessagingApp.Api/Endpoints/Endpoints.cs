@@ -28,7 +28,8 @@ public static class Endpoints
         
         endpoints.MapGroup("/user")
             .WithTags("User Actions")
-            .MapEndpoint<SendFriendRequestEndpoint>();
+            .MapEndpoint<SendFriendRequestEndpoint>()
+            .MapEndpoint<GetFriendsEndpoint>();
     }
     
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) where TEndpoint : IEndpoint
