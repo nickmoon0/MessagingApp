@@ -4,12 +4,12 @@ A simple client/server messaging app.
 
 ## About
 
-This project is a web-based instant messaging application. It uses C#/ASP.NET Core for the backend and React for the frontend. Data persistence is managed with two MySQL databases.
+This project is a web-based instant messaging application. It uses C#/ASP.NET Core for the backend and React for the frontend. Data persistence is managed with a MySQL database and EF Core. Real time messaging is implemented via SignalR.
 
 ### Backend
 
-- **Architecture**: Clean Architecture principles were applied.
-- **Patterns**: Utilizes CQRS
+- **Architecture**: Clean Architecture.
+- **Patterns**: Utilizes CQRS.
 - **API**: RESTful API in ASP.NET Core 8.
 - **Infrastructure**: Developed with MySQL and EF Core.
 
