@@ -23,7 +23,8 @@ public static class Endpoints
 
         endpoints.MapGroup("/friendRequest")
             .WithTags("Friend Request Actions")
-            .MapEndpoint<RespondToFriendRequestEndpoint>();
+            .MapEndpoint<RespondToFriendRequestEndpoint>()
+            .MapEndpoint<GetFriendRequestsEndpoint>();
         
         endpoints.MapGroup("/user")
             .WithTags("User Actions")
