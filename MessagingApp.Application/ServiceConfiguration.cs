@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Application.Common;
 using MessagingApp.Application.Features.GetAllConversations;
+using MessagingApp.Application.Features.GetConversation;
 using MessagingApp.Application.Features.GetFriendRequests;
 using MessagingApp.Application.Features.GetFriends;
 using MessagingApp.Application.Features.GetUser;
@@ -33,6 +34,9 @@ public static class ServiceConfiguration
         services.AddScoped<IHandler<GetUserQuery, GetUserResponse>, GetUserHandler>();
         services
             .AddScoped<IHandler<GetAllConversationsQuery, GetAllConversationsResponse>, GetAllConversationsHandler>();
+        
+        // Conversation handlers
+        services.AddScoped<IHandler<GetConversationQuery, GetConversationResponse>, GetConversationHandler>();
         
         return services;
     }

@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Api.Common;
 using MessagingApp.Api.Endpoints.Authentication;
+using MessagingApp.Api.Endpoints.Conversation;
 using MessagingApp.Api.Endpoints.FriendRequests;
 using MessagingApp.Api.Endpoints.User;
 
@@ -32,6 +33,10 @@ public static class Endpoints
             .MapEndpoint<GetFriendsEndpoint>()
             .MapEndpoint<GetUserEndpoint>()
             .MapEndpoint<GetAllConversationsEndpoint>();
+
+        endpoints.MapGroup("/conversation")
+            .WithTags("Conversation Actions")
+            .MapEndpoint<GetConversationEndpoint>();
     }
     
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) where TEndpoint : IEndpoint
