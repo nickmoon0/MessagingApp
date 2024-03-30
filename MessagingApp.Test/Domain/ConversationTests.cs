@@ -14,6 +14,11 @@ public class ConversationTests
         
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         Assert.True(conversationResult.IsOk);
+
+        var conversation = conversationResult.Value;
+        
+        Assert.Null(conversation.Name);
+        Assert.Equal(ConversationType.DirectMessage, conversation.Type);
     }
 
     [Fact]

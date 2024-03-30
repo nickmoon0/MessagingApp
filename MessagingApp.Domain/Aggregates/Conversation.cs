@@ -12,11 +12,16 @@ public class Conversation : IPersistedObject
     public ICollection<User> Participants { get; private set; } = [];
     public ICollection<Message> Messages { get; private set; } = [];
     
+    public string? Name { get; init; }
+    public ConversationType Type { get; init; }
+    
     private Conversation() {}
 
-    private Conversation(ICollection<User> participants)
+    private Conversation(ICollection<User> participants, ConversationType type, string? name = null)
     {
         Participants = participants;
+        Type = type;
+        Name = name;
         Active = true;
     }
 
@@ -27,7 +32,7 @@ public class Conversation : IPersistedObject
             return new FailedToCreateEntityException("User cannot create conversation with themselves");
         
         var participants = new List<User> { user1, user2 };
-        var conversation = new Conversation(participants);
+        var conversation = new Conversation(participants, ConversationType.DirectMessage);
         
         return conversation;
     }
@@ -48,4 +53,10 @@ public class Conversation : IPersistedObject
         
         return message;
     }
+}
+
+public enum ConversationType
+{
+    DirectMessage,
+    GroupChat
 }
