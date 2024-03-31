@@ -1,6 +1,7 @@
 using FluentValidation;
 using MessagingApp.Api;
 using MessagingApp.Api.Endpoints;
+using MessagingApp.Api.Middleware;
 using MessagingApp.Application;
 using MessagingApp.Infrastructure;
 using ServiceConfiguration = MessagingApp.Api.ServiceConfiguration;
@@ -22,6 +23,8 @@ builder.Services.RegisterSettings(builder.Configuration);
 builder.Services.RegisterHandlers();
 builder.Services.ConfigureCors();
 
+builder.Services.AddScoped<JwtParsingMiddleware>();
+
 builder.ConfigureAuthentication();
 
 var app = builder.Build();
@@ -41,6 +44,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<JwtParsingMiddleware>(); // Register after auth so that all tokens at this point have been validated
 
 app.MapEndpoints();
 

@@ -18,18 +18,16 @@ public class RespondToFriendRequestEndpoint : IEndpoint
     public static async Task<IResult> Handle(
         [FromRoute] Guid friendRequestId,
         [FromBody] RespondToFriendRequestEndpointRequest request,
-        [FromServices] ITokenService tokenService,
         [FromServices] IHandler<RespondToFriendRequestCommand, RespondToFriendRequestResponse> handler,
         HttpContext context)
     {
-        var token = Helpers.GetAccessToken(context);
-        if (!token.IsOk) return Results.StatusCode(StatusCodes.Status500InternalServerError);
-        var respondingUserId = tokenService.ExtractUserIdFromAccessToken(token.Value);
+        var respondingUserId = (Guid?)context.Items[Helpers.UserIdKey];
+        if (respondingUserId == null) return Results.StatusCode(StatusCodes.Status500InternalServerError);
 
         var command = new RespondToFriendRequestCommand
         {
             FriendRequestId = friendRequestId,
-            RespondingUserId = respondingUserId,
+            RespondingUserId = (Guid)respondingUserId,
             Response = request.Status
         };
 

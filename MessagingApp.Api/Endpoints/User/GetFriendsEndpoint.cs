@@ -17,15 +17,13 @@ public class GetFriendsEndpoint : IEndpoint
         .Produces<GetFriendsEndpointResponse>();
 
     public static async Task<IResult> Handle(
-        [FromServices] ITokenService tokenService,
         [FromServices] IHandler<GetFriendsQuery, GetFriendsResponse> handler,
         HttpContext context)
     {
-        var token = Helpers.GetAccessToken(context);
-        if (!token.IsOk) return Results.StatusCode(StatusCodes.Status401Unauthorized);
-        var userId = tokenService.ExtractUserIdFromAccessToken(token.Value);
-
-        var query = new GetFriendsQuery { UserId = userId };
+        var userId = (Guid?)context.Items[Helpers.UserIdKey];
+        if (userId == null) return Results.StatusCode(StatusCodes.Status401Unauthorized);
+        
+        var query = new GetFriendsQuery { UserId = (Guid)userId };
         var handlerResult = await handler.Handle(query);
 
         return handlerResult.IsOk

@@ -16,17 +16,15 @@ public class SendFriendRequestEndpoint : IEndpoint
 
     private static async Task<IResult> Handle(
         [FromRoute] Guid receivingUserId,
-        [FromServices] ITokenService tokenService,
         [FromServices] IHandler<SendFriendRequestCommand, SendFriendRequestResponse> handler,
         HttpContext context)
     {
-        var token = Helpers.GetAccessToken(context);
-        if (!token.IsOk) return Results.StatusCode(StatusCodes.Status500InternalServerError);
-        var sendingUserId = tokenService.ExtractUserIdFromAccessToken(token.Value);
-        
+        var sendingUserId = (Guid?)context.Items[Helpers.UserIdKey];
+        if (sendingUserId == null) return Results.StatusCode(StatusCodes.Status500InternalServerError);
+
         var command = new SendFriendRequestCommand
         {
-            SendingUserId = sendingUserId,
+            SendingUserId = (Guid)sendingUserId,
             ReceivingUserId = receivingUserId
         };
 

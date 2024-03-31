@@ -18,17 +18,15 @@ public class GetConversationEndpoint : IEndpoint
     private static async Task<IResult> Handle(
         [FromRoute] Guid conversationId,
         [FromQuery] int? numberOfMessages,
-        [FromServices] ITokenService tokenService,
         [FromServices] IHandler<GetConversationQuery, GetConversationResponse> handler,
         HttpContext context)
     {
-        var token = Helpers.GetAccessToken(context);
-        if (!token.IsOk) return Results.StatusCode(StatusCodes.Status401Unauthorized);
-        var userId = tokenService.ExtractUserIdFromAccessToken(token.Value);
+        var userId = (Guid?)context.Items[Helpers.UserIdKey];
+        if (userId == null) return Results.Unauthorized();
 
         var query = new GetConversationQuery
         {
-            UserId = userId,
+            UserId = (Guid)userId,
             ConversationId = conversationId,
             MessagesToRetrieve = numberOfMessages
         };

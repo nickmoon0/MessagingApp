@@ -78,27 +78,4 @@ public class TokenService : ITokenService
             NewRefreshToken = refreshToken
         };
     }
-    
-    public Guid ExtractUserIdFromAccessToken(string token)
-    {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_settings.Value.Key);
-        tokenHandler.ValidateToken(token, new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidIssuer = _settings.Value.Issuer,
-            ValidAudience = _settings.Value.Audience,
-            ClockSkew = TimeSpan.Zero // Immediate expiration
-        }, out var validatedToken);
-
-        var jwtToken = (JwtSecurityToken)validatedToken;
-        var userIdClaim = jwtToken.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sub);
-
-        if (userIdClaim == null) throw new InvalidOperationException("User ID was not found in JWT");
-        
-        return Guid.Parse(userIdClaim.Value);
-    }
 }

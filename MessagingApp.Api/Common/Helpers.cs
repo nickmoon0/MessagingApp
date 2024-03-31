@@ -4,6 +4,7 @@ namespace MessagingApp.Api.Common;
 
 public static class Helpers
 {
+    public static readonly object UserIdKey = new object();
     public const string RefreshTokenName = "RefreshToken";
     public static IConfiguration Configuration { get; set; } = null!; // Injected in program.cs
     

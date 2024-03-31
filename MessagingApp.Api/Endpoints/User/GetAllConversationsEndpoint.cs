@@ -16,15 +16,13 @@ public class GetAllConversationsEndpoint : IEndpoint
         .Produces<GetAllConversationsEndpointResponse>();
 
     private static async Task<IResult> Handle(
-        [FromServices] ITokenService tokenService,
         [FromServices] IHandler<GetAllConversationsQuery, GetAllConversationsResponse> handler,
         HttpContext context)
     {
-        var token = Helpers.GetAccessToken(context);
-        if (!token.IsOk) return Results.StatusCode(StatusCodes.Status401Unauthorized);
-        var userId = tokenService.ExtractUserIdFromAccessToken(token.Value);
+        var userId = (Guid?)context.Items[Helpers.UserIdKey];
+        if (userId == null) return Results.Unauthorized();
 
-        var query = new GetAllConversationsQuery { UserId = userId };
+        var query = new GetAllConversationsQuery { UserId = (Guid)userId };
         var handlerResult = await handler.Handle(query);
 
         return handlerResult.IsOk

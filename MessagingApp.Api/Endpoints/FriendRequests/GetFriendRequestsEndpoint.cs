@@ -22,20 +22,18 @@ public class GetFriendRequestsEndpoint : IEndpoint
         [FromQuery] bool? sent,
         [FromQuery] bool? received,
         [FromQuery] FriendRequestStatus? status,
-        [FromServices] ITokenService tokenService,
         [FromServices] IHandler<GetFriendRequestsQuery, GetFriendRequestsResponse> handler,
         HttpContext context)
     {
-        var token = Helpers.GetAccessToken(context);
-        if (!token.IsOk) return Results.StatusCode(StatusCodes.Status500InternalServerError);
-        var userId = tokenService.ExtractUserIdFromAccessToken(token.Value);
-
+        var userId = (Guid?)context.Items[Helpers.UserIdKey];
+        if (userId == null) return Results.Unauthorized();
+        
         if (sent == null && received == null) 
             return Results.Ok(new GetFriendRequestsResponse { ReceivedFriendRequests = [], SentFriendRequests = []});
 
         var query = new GetFriendRequestsQuery
         {
-            UserId = userId,
+            UserId = (Guid)userId,
             GetReceivedRequests = received ?? false,
             GetSentRequests = sent ?? false,
             Status = status
