@@ -17,6 +17,7 @@ public class GetConversationEndpoint : IEndpoint
 
     private static async Task<IResult> Handle(
         [FromRoute] Guid conversationId,
+        [FromQuery] int? numberOfMessages,
         [FromServices] ITokenService tokenService,
         [FromServices] IHandler<GetConversationQuery, GetConversationResponse> handler,
         HttpContext context)
@@ -28,7 +29,8 @@ public class GetConversationEndpoint : IEndpoint
         var query = new GetConversationQuery
         {
             UserId = userId,
-            ConversationId = conversationId
+            ConversationId = conversationId,
+            MessagesToRetrieve = numberOfMessages
         };
 
         var handlerResult = await handler.Handle(query);

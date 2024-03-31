@@ -19,6 +19,7 @@ public class GetConversationHandler : IHandler<GetConversationQuery, GetConversa
     {
         var conversation = await _applicationContext.Conversations
             .Include(x => x.Participants)
+            .Include(x => x.Messages)
             .SingleOrDefaultAsync(x => x.Id == request.ConversationId);
         if (conversation == null) return new FailedToRetrieveEntityException("Conversation does not exist");
 
@@ -26,15 +27,21 @@ public class GetConversationHandler : IHandler<GetConversationQuery, GetConversa
         if (conversation.Participants.All(x => x.Id != request.UserId))
             return new InvalidCredentialsException("User is not part of conversation");
         
-        var participantsEnumerable = conversation.Participants.AsEnumerable();
-        var participants = participantsEnumerable.Select(UserSummaryResponse.UserSummaryFromUser);
-
+        var messagesToRetrieve = request.MessagesToRetrieve ?? 20; // Default to 20
+        
+        var participants = conversation.Participants.Select(UserSummaryResponse.UserSummaryFromUser);
+        var messages = conversation.Messages
+            .OrderByDescending(x => x.TimeStamp)
+            .Take(messagesToRetrieve)
+            .Select(MessageResponse.MessageResponseFromMessage);
+        
         return new GetConversationResponse
         {
             Id = conversation.Id,
             Name = conversation.Name,
             Type = conversation.Type,
-            Participants = participants
+            Participants = participants,
+            Messages = messages
         };
     }
 }
