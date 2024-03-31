@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Api.Common;
 using MessagingApp.Application.Common;
+using MessagingApp.Application.Common.ResponseEntities;
 using MessagingApp.Application.Common.Services;
 using MessagingApp.Application.Features.GetFriendRequests;
 using MessagingApp.Domain.Entities;

@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Contexts;
+using MessagingApp.Application.Common.ResponseEntities;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;

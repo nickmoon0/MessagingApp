@@ -1,5 +1,6 @@
 using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Contexts;
+using MessagingApp.Application.Common.ResponseEntities;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -29,11 +30,11 @@ public class GetConversationHandler : IHandler<GetConversationQuery, GetConversa
         
         var messagesToRetrieve = request.MessagesToRetrieve ?? 20; // Default to 20
         
-        var participants = conversation.Participants.Select(UserSummaryResponse.UserSummaryFromUser);
+        var participants = conversation.Participants.Select(UserSummaryResponse.FromUser);
         var messages = conversation.Messages
             .OrderByDescending(x => x.TimeStamp)
             .Take(messagesToRetrieve)
-            .Select(MessageResponse.MessageResponseFromMessage);
+            .Select(MessageResponse.FromMessage);
         
         return new GetConversationResponse
         {

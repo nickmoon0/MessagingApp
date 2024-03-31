@@ -1,5 +1,6 @@
 using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Contexts;
+using MessagingApp.Application.Common.ResponseEntities;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ public class GetAllConversationsHandler : IHandler<GetAllConversationsQuery, Get
         // Put conversations into response
         var conversationEnumerable = user.Conversations.AsEnumerable();
         var conversations = conversationEnumerable
-            .Select(ConversationResponse.ConversationResponseFromConversation)
+            .Select(ConversationSummaryResponse.FromConversation)
             .ToList();
 
         return new GetAllConversationsResponse { Conversations = conversations };

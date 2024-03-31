@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Application.Common;
 using MessagingApp.Application.Common.Contexts;
+using MessagingApp.Application.Common.ResponseEntities;
 using MessagingApp.Domain.Common;
 using MessagingApp.Domain.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ public class GetFriendsHandler : IHandler<GetFriendsQuery, GetFriendsResponse>
             .SingleOrDefaultAsync(x => x.Id == request.UserId);
         if (user == null) return new FailedToRetrieveEntityException("User does not exist");
 
-        var friends = user.Friends.Select(FriendsResponse.FriendsResponseFromUser);
+        var friends = user.Friends.Select(UserSummaryResponse.FromUser);
 
         return new GetFriendsResponse { Friends = friends };
     }

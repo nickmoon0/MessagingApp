@@ -31,7 +31,7 @@ public class GetFriendsTests
         var response = handlerResult.Value;
 
         var friend1InResponse = response.Friends
-            .Any(x => x.UserId == friend1.Id && x.Username == friend1.Username);
+            .Any(x => x.Id == friend1.Id && x.Username == friend1.Username);
         
         Assert.Single(response.Friends); // Only one friend should be present
         Assert.True(friend1InResponse); // Check that correct friend is in response

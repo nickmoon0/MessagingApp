@@ -1,5 +1,6 @@
 using MessagingApp.Api.Common;
 using MessagingApp.Application.Common;
+using MessagingApp.Application.Common.ResponseEntities;
 using MessagingApp.Application.Common.Services;
 using MessagingApp.Application.Features.GetAllConversations;
 using Microsoft.AspNetCore.Mvc;
@@ -32,4 +33,4 @@ public class GetAllConversationsEndpoint : IEndpoint
     }
 }
 
-public record GetAllConversationsEndpointResponse(IEnumerable<ConversationResponse> Conversations);
+public record GetAllConversationsEndpointResponse(IEnumerable<ConversationSummaryResponse> Conversations);

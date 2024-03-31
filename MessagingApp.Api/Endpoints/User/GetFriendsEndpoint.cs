@@ -1,5 +1,6 @@
 ﻿using MessagingApp.Api.Common;
 using MessagingApp.Application.Common;
+using MessagingApp.Application.Common.ResponseEntities;
 using MessagingApp.Application.Common.Services;
 using MessagingApp.Application.Features.GetFriends;
 using Microsoft.AspNetCore.Mvc;
@@ -33,4 +34,4 @@ public class GetFriendsEndpoint : IEndpoint
     }
 }
 
-public record GetFriendsEndpointResponse(IEnumerable<FriendsResponse> Friends);
+public record GetFriendsEndpointResponse(IEnumerable<UserSummaryResponse> Friends);

@@ -39,7 +39,7 @@ public class GetUserTests
         Assert.Equal(user.Bio, getUserResponse.Bio);
 
         var containsCorrectFriend = getUserResponse.Friends
-            .Any(x => x.UserId == friend1.Id && x.Username == friend1.Username);
+            .Any(x => x.Id == friend1.Id && x.Username == friend1.Username);
         Assert.Single(getUserResponse.Friends);
         Assert.True(containsCorrectFriend);
     }
