@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
-import LoginPage from './pages/login/loginPage';
-import RegisterPage from './pages/register/registerPage';
+import LoginPage from './pages/Login/loginPage';
+import RegisterPage from './pages/Register/registerPage';
 import Friends from './pages/friend/Friends';
-import Home from './pages/DashBoard/Home';
+import Home from './pages/DashBoard/home';
 import HeaderComponent from './components/HeaderComponent';
-import SidebarComponent from './components/SidebarComponent';
+import SidebarComponent from './components/Sidebar/SidebarComponent';
 import './styles/center.css';
 import { UserProvider } from './context/UserContext'; 
 import { SelectedTabProvider } from './context/SelectedTabContext';
+
 
 
 const { Content } = Layout;
@@ -18,6 +19,7 @@ const AppContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isDashboardRoute = ['/home', '/friends'].includes(location.pathname);
+  
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -27,14 +29,14 @@ const AppContent = () => {
   return (
     <Layout>
       {isDashboardRoute && <HeaderComponent handleLogout={handleLogout} />}
-      <Layout style={{ paddingTop: '55px', backgroundColor: '#FFFFFF' }}>
+      <Layout style={{ backgroundColor: '#FFFFFF' }}>
         {isDashboardRoute && <SidebarComponent />}
-        <Content style={{ marginTop: 0, backgroundColor: '#FFFFFF' }}>
+        <Content className='main-content'>
           <Routes>
             <Route path="/register" element={<div className='body'><RegisterPage /></div>} />
             <Route path="/" element={<div className='body'><LoginPage /></div>} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/friends" element={<Friends />} />
+            <Route path="/home" element={<div className='padding'><Home /></div>} />
+            <Route path="/friends" element={<div className='padding'><Friends /></div>} />
           </Routes>
         </Content>
       </Layout>

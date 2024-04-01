@@ -1,15 +1,14 @@
 import React from 'react';
-import { Table, Button, Tooltip } from 'antd';
+import { Table, Button, Tooltip, Card } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-
 
 const SentRequestsTable = ({ data, onCancelRequest }) => {
   const columns = [
     {
-      title: `Pending Requests - ${data.length}`, // Dynamically set the title
+      title: `Pending Requests - ${data.length}`, 
       dataIndex: 'username',
       key: 'username',
-      render: (text) => <span style={{ fontSize: "14px" }}>{text}</span>,
+      render: (text) => <span style={{ fontSize: "14px", fontWeight:"600" }}>{text}</span>,
       onHeaderCell: () => ({ style: { bottom:"10px", fontSize: "16px", color: "black", background: '#FFFFFF' } }),
     },
     {
@@ -39,6 +38,9 @@ const SentRequestsTable = ({ data, onCancelRequest }) => {
   ];
 
   return (
+    <div style={{ display: 'flex', alignItems: 'flex-start' }}> 
+    <Card style={{ width: '15%', height: '745px', right: '25px', bottom: '25px', backgroundImage: "linear-gradient(to top,  #ffffff, #ffffff)", borderRadius: '10px' }}> </Card>
+    <div style={{ width: '90%', marginLeft: '0%', marginTop: '60px' }}> 
     <Table
       size="small"
       columns={columns}
@@ -46,6 +48,8 @@ const SentRequestsTable = ({ data, onCancelRequest }) => {
       pagination={false}
       aria-label="Sent Friend Requests"
     />
+    </div>
+    </div>
   );
 };
 

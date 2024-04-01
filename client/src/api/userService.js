@@ -1,11 +1,7 @@
-// userService.js
 import { notification } from 'antd';
 import { makeApiRequest } from './apiService';
 
-// Function to register a new user
 export const register = (userData) => makeApiRequest('Auth/Register', 'POST', userData);
-
-// Function to authenticate (login) a user
 export const authenticate = (loginData) => makeApiRequest('Auth/Authenticate', 'POST', loginData);
 
 export const handleLogin = async (loginData) => {
@@ -21,7 +17,6 @@ export const handleLogin = async (loginData) => {
 };
 
 export const fetchUser = async (userId, username) => {
-  // Construct URLSearchParams to conditionally include parameters
   const params = new URLSearchParams();
   if (userId) params.append('uid', userId);
   if (username) params.append('username', username);
@@ -41,8 +36,8 @@ export const fetchUserById = (userId) => makeApiRequest(`user?uid=${userId}`, 'G
 
 
 export const acceptFriendRequest = async (friendRequestId) => {
-    try {
-
+    try 
+    {
         const response = await makeApiRequest(`FriendRequest/accept/${friendRequestId}`, 'PUT', null, true);
         notification.success({
           message: 'Friend Request Accepted',
@@ -50,8 +45,12 @@ export const acceptFriendRequest = async (friendRequestId) => {
           duration: 2.5,
       });
         return response; 
-    } catch (error) {
+    } 
+    catch (error) 
+    {
         console.error('Error accepting friend request:', error);
         throw error; 
     }
 };
+
+export const fetchFriends = () => makeApiRequest('User/friends', 'GET', null, true);

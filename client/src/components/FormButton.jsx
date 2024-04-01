@@ -7,6 +7,7 @@ const FormButton = ({ text, onClick, type, style, isDisabled }) => (
     onClick={onClick}
     style={{
       width: '100%',
+      height: '35px',
       backgroundColor: '#338EF7',
       color: '#FAFAFA',
       fontWeight: 'bold',

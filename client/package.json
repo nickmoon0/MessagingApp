@@ -8,13 +8,17 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@nextui-org/react": "^2.2.9",
+    "@phosphor-icons/react": "^2.0.15",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.15.1",
-    "framer-motion": "^11.0.6",
+    "framer-motion": "^11.0.20",
+    "lottie-web": "^5.12.2",
+    "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.20.0",
     "react-router-dom": "^6.22.1",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
@@ -44,6 +48,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1"
   }
 }

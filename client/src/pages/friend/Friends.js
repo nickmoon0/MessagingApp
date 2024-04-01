@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserSearch from './UserSearch';
-import { Segmented, Card, Empty, notification} from 'antd';
+import { Segmented, Card,  notification} from 'antd';
 import SentRequests from './SentRequests';
 import { acceptFriendRequest } from '../../api/userService';
 import useReceivedRequests from '../../hooks/useReceivedRequests';
-import ReceivedRequestsTable from '../../components/ReceivedRequestsTable';
-import { UserOutlined, CheckOutlined, LoadingOutlined } from '@ant-design/icons';
+import ReceivedRequestsTable from '../../components/friendsTables/ReceivedRequestsTable';
 import '../../styles/center.css'; 
 import './AddFriend.css';
 import { useSelectedTab } from '../../context/SelectedTabContext';
+import { fetchFriends } from '../../api/userService';
+import FriendsListTable from '../../components/friendsTables/FriendsListTable';
+
 
 
 function Friends() {
     const { receivedRequests, handleRequestSent, setReceivedRequests } = useReceivedRequests();
-    const [requests, setRequests] = useState([]);
-
+    const [friends, setFriends] = useState([]);
     const { selectedTab, setSelectedTab } = useSelectedTab();
+
     
+    useEffect(() => {
+        if (selectedTab === 'Friends') {
+          refreshFriendsList();
+        }
+      }, [selectedTab]); 
 
     const onSegmentChange = (key) => 
     {
@@ -24,58 +31,75 @@ function Friends() {
     };
 
     const handleAcceptFriendRequest = async (friendRequestId) => {
-      try {
-        console.log("Accepting friend request with ID:", friendRequestId);
-          const response = await acceptFriendRequest(friendRequestId);
-          setRequests(response);
+        try 
+        {
+          console.log("Accepting friend request with ID:", friendRequestId);
+          await acceptFriendRequest(friendRequestId); 
           notification.success({
-              message: 'Friend Request Accepted',
-              description: 'The friend request has been successfully accepted.',
-              duration: 2.5,
+            message: 'Friend Request Accepted',
+            description: 'The friend request has been successfully accepted.',
+            duration: 2.5,
           });
           const updatedRequests = receivedRequests.filter(request => request.friendRequestId !== friendRequestId);
           setReceivedRequests(updatedRequests);
-
-      } catch (error) {
+      
+          await refreshFriendsList();
+        } 
+        catch (error) 
+        {
           notification.error({
-              message: 'Error Accepting Friend Request',
-              description: error.message,
-              duration: 2.5,
+            message: 'Error Accepting Friend Request',
+            description: error.message,
+            duration: 2.5,
           });
-      }
-  };
-  
+        }
+      };
+      
+      const refreshFriendsList = async () => {
+        try 
+        {
+          const response = await fetchFriends();
+          console.log('Refreshed friends list:', response);
+          setFriends(response.friends); 
+        } 
+        catch (error) 
+        {
+          console.error('Failed to refresh friends list:', error);
+        }
+      };
 
-    return (
+      return (
         <div>
             <UserSearch onRequestSent={handleRequestSent} />
-            <div 
-              style={{ 
-                marginLeft: "250px", 
-                marginTop: "60px", 
-                position: 'relative' }}>
-            <div className="w-full flex-col">
-                <Segmented 
-                className="custom-segmented"
-                    size="default"
-                    options={[{
-                      label: 'Friends', value: 'Friends', icon:<UserOutlined />}, 
-                      {label: 'Received', value: 'Received', icon:<CheckOutlined />},
-                      {label:'Sent',value: 'Sent', icon:<LoadingOutlined />}]}
-                    value={selectedTab}
-                    onChange={onSegmentChange}
-                    style={{ 
-                      position: 'absolute', 
-                      left: 31, 
-                      top: -32, 
-                      zIndex: 1000, 
-                      background:"#E6F1FE", 
-                      borderRadius: '10px' }} // Add some space below the segmented control 
-                />
+              <div 
+                style={{ 
+                  marginLeft: "150px", 
+                  position: 'relative'
+                  }}>
+              <div className="w-full flex-col">
+              <Segmented 
+                      className="custom-segmented"
+                      size="default"
+                      options={[{
+                        label: 'Friends', value: 'Friends'}, 
+                        {label: 'Received', value: 'Received'},
+                        {label:'Sent',value: 'Sent'}]}
+                      value={selectedTab}
+                      onChange={onSegmentChange}
+                      style={{ 
+                        position: 'absolute', 
+                        backgroundColor: '#ffffff',
+                        left: 165, 
+                        top: 70, 
+                        zIndex: 1000, 
+                        fontWeight: 500,
+                        fontSize: '15px',
+                        borderRadius: '10px' }}
+                  />
 
-                {selectedTab === 'Friends' && (
+                  {selectedTab === 'Friends' && (
                     <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
-                        <Empty style={{marginTop: '150px'}}/>
+                      <FriendsListTable friends={friends} />
                     </Card>
                 )}
                 {selectedTab === 'Received' && (
@@ -88,7 +112,6 @@ function Friends() {
                         <SentRequests />
                     </Card>
                 )}
-
             </div>
             </div>
         </div>

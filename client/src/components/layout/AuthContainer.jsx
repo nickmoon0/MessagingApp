@@ -1,20 +1,21 @@
 import React from 'react';
-import {  Avatar, AvatarIcon } from "@nextui-org/react";
 
 const AuthContainer = ({ children }) => {
-    return (<div className="body">
+    return (
+      <div className="body"> {/* This div will have the background image */}
         <div className="container">
+          <div className="login-card"> 
             <div className="login-container">
-                <div className="bubble-avatar-container">
-                    <div className="chat-bubble">
-                        {children}
-                    </div>
-                    <Avatar icon={<AvatarIcon />} style={{ marginLeft: '50px' }} size="md" color="primary" />
-                    </div>
+              <div class="login-content">
+                <div className="chat-bubble">
+                  {children}
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-  );
-};
-
-export default AuthContainer;
+      </div>
+    );
+  };
+  
+  export default AuthContainer;

@@ -1,7 +1,7 @@
 // src/pages/FriendPage/SentRequests.jsx
 import React from 'react';
 import UserSearch from './UserSearch';
-import SentRequestsTable from '../../components/SentRequestsTable';
+import SentRequestsTable from '../../components/friendsTables/SentRequestsTable';
 import useSentRequests from '../../hooks/useSentRequest';
 
 const SentRequests = () => {

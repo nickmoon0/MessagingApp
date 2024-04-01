@@ -1,11 +1,9 @@
-// UserSearch.jsx
 import React, { useState } from 'react';
 import { Input, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import SearchModal from '../../components/SearchModal';
 import UserCard from '../../components/UserCard';
 import useUserSearch from '../../hooks/useUserSearch';
-import { PlusOutlined } from '@ant-design/icons';
 import './AddFriend.css';
 
 function UserSearch({ onRequestSent }) {
@@ -18,7 +16,6 @@ function UserSearch({ onRequestSent }) {
     error,
     handleSendFriendRequest,
   } = useUserSearch(onRequestSent);
-
   const showModal = () => setIsModalVisible(true);
   const handleOk = () => setIsModalVisible(false);
   const handleCancel = () => setIsModalVisible(false);
@@ -28,13 +25,14 @@ function UserSearch({ onRequestSent }) {
       <div className="top-right-button">
         <Button   
             size="default"
-            icon={<PlusOutlined />}
             className="custom-float-button"
             onClick={showModal}
             style={{
-              top: 48,
-              right: 25,
-              borderRadius:'10px'
+              top: 37,
+              left: 20,
+              borderRadius:'10px',
+              fontWeight: 500,
+              fontSize: '16px'
             }}
           >
             Add Friend

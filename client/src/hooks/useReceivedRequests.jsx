@@ -4,7 +4,7 @@ const API_BASE_URL = 'https://localhost:7274';
 
 const useReceivedRequests = () => {
   const [receivedRequests, setReceivedRequests] = useState([]);
-    const [sentRequests, setSentRequests] = useState([]);
+    const [ sentRequests, setSentRequests] = useState([]);
 
     useEffect(() => {
       const fetchReceivedFriendRequests = async () => {
