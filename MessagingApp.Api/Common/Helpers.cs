@@ -21,17 +21,4 @@ public static class Helpers
         };
         context.Response.Cookies.Append(RefreshTokenName, token, cookieOptions);
     }
-    
-    public static Result<string> GetAccessToken(HttpContext context)
-    {
-        try
-        {
-            var token = context.Request.Headers.Authorization[0]!.Split(' ')[1];
-            return token;
-        }
-        catch (Exception)
-        {
-            return new Exception("Failed to parse token");
-        }
-    }
 }
