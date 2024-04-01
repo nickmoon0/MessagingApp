@@ -15,6 +15,8 @@ builder.Configuration.AddJsonFile("appsettings.Local.json");
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSignalR();
+
 builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Singleton);
 
 builder.Services.RegisterInfrastructure(builder.Configuration);
