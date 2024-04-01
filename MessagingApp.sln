@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingApp.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingApp.Test", "MessagingApp.Test\MessagingApp.Test.csproj", "{FD61312F-7247-4BA2-8024-41EC660C9907}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingApp.SignalR", "MessagingApp.SignalR\MessagingApp.SignalR.csproj", "{045A9992-FD67-49C9-95D7-78D089FF12DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{FD61312F-7247-4BA2-8024-41EC660C9907}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD61312F-7247-4BA2-8024-41EC660C9907}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD61312F-7247-4BA2-8024-41EC660C9907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{045A9992-FD67-49C9-95D7-78D089FF12DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{045A9992-FD67-49C9-95D7-78D089FF12DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{045A9992-FD67-49C9-95D7-78D089FF12DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{045A9992-FD67-49C9-95D7-78D089FF12DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
