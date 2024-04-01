@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    margin-right: 150px; 
+}
+  .body {
+    background-image: linear-gradient(to bottom, #33ccff,#0099ff);
+  }
+
+  /* styles/center.css */
+.ant-segmented {
+  --antd-wave-shadow-color: #1890ff; 
+}
+
+.ant-segmented-item-selected {
+  background-color: #1890ff !important; 
+  color: white !important; 
+}
+
+.ant-segmented-item:hover {
+  border-color: #1890ff !important; 
+}
+
+.rounded-search .ant-input-affix-wrapper {
+  border-radius: 20px !important;
+}
+
+.rounded-search .ant-input {
+  border-radius: 20px !important;
+}
+
+
+.custom-menu .ant-menu-item-selected {
+  background-color: #0099ff !important; 
+  color:white;
+}

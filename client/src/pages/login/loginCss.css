@@ -1,0 +1,103 @@
+  .loginSpacing 
+  {
+    margin-bottom: 8px;
+  }
+
+  .textSize 
+  {
+    font-size: 10px;
+  }
+
+  .LoginTitleAlign 
+  {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+
+.login-container 
+{
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+  }
+
+  .bubble-avatar-container 
+  {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+  .chat-bubble 
+  {
+    background-color: #f0f0f0; 
+    border-radius: 30px; 
+    padding: 20px;
+    width: 300px; 
+    height: auto;
+    margin: 0 auto; 
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transform: translateX(90px); 
+  }
+  
+  
+  .chat-bubble::after 
+  {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -4%; 
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: #f0f0f0; 
+    border-bottom: 0;
+    transform: rotate(45deg); 
+    margin-bottom: -3px; 
+    margin-right: 10px;
+  }
+
+/* loginCss.css */
+.error-message-container {
+  min-height: 10px; 
+  margin-top: 12px; 
+  margin-bottom: -12px;
+  color: red; 
+  transition: opacity 0.3s ease;
+  opacity: 0; 
+}
+
+.error-message-container.visible {
+  opacity: 1; 
+}
+
+/* loginCss.css */
+.reject-button {
+  background-color: transparent; 
+  border-color: #717172; 
+  color: #717172; 
+}
+
+.reject-button:hover {
+  background-color: #FF4D4F; 
+  border-color: #FF4D4F; 
+  color: #FFFFFF; 
+}
+
+/* loginCss.css */
+.accept-button {
+  background-color: transparent; 
+  border-color: #717172; 
+  color: #717172; 
+}
+
+.accept-button:hover {
+  background-color: #0fc524 !important;
+  border-color: #0fc524 !important;
+  color: #FFFFFF !important;
+}

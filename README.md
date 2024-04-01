@@ -4,12 +4,12 @@ A simple client/server messaging app.
 
 ## About
 
-This project is a web-based instant messaging application. It uses C#/ASP.NET Core for the backend and React for the frontend. Data persistence is managed with two MySQL databases.
+This project is a web-based instant messaging application. It uses C#/ASP.NET Core for the backend and React for the frontend. Data persistence is managed with a MySQL database and EF Core. Real time messaging is implemented via SignalR.
 
 ### Backend
 
-- **Architecture**: Clean Architecture principles were applied.
-- **Patterns**: Utilizes CQRS and the mediator pattern
+- **Architecture**: Clean Architecture.
+- **Patterns**: Utilizes CQRS.
 - **API**: RESTful API in ASP.NET Core 8.
 - **Infrastructure**: Developed with MySQL and EF Core.
 
@@ -29,38 +29,40 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
    {
       "Logging": {
          "LogLevel": {
-            "Default": "Information",
-            "Microsoft.AspNetCore": "Warning"
+         "Default": "Information",
+         "Microsoft.AspNetCore": "Warning"
          }
       },
       "ConnectionStrings": {
-         "AppDb": "server=localhost;port=3306;user=root;password=password1;database=AppDb",
-         "AuthDb": "server=localhost;port=3307;user=root;password=password1;database=AuthDb"
+        "MessagingAppDb": "server=localhost;port=3306;user=root;password=password1;database=MessagingApp"
       },
-      "Jwt": {
+      "JwtSettings": {
          "Issuer": "http://localhost",
          "Audience": "http://localhost",
-         "TokenLife": 30,
+         "AccessTokenLife": 60,
+         "RefreshTokenLife": 1440,
+         "RefreshTokenLength": 64,
          "Key": ""
-      }
+    }
    }
    ```
-   - Please note: token life is stored in minutes
+   - Please note: token life is stored in minutes, RefreshTokenLength is bytes
 2. Generate a token key with the command: `openssl rand -base64 172`
 3. Copy the key into `Jwt:Key`
 
 #### MySQL Setup
 
 1. Clone the repository.
-2. Navigate to the server directory: `cd MessagingApp/server`.
+2. Navigate to the repo: `cd MessagingApp`.
 3. Start Docker containers: `docker compose up -d`.
-4. In the `MessagingApp.Infrastructure` project, update databases with:
-   - `dotnet ef database update --context ApplicationContext`
-   - `dotnet ef database update --context AuthContext`
+4. In the `MessagingApp.Infrastructure` project, update databases with: `dotnet ef database update`
 
-#### API Setup
+### Running the Project
 
-1. Navigate to the server directory: `cd MessagingApp/server`.
+1. Navigate to the repo: `cd MessagingApp`.
 2. Build the project: `dotnet build`.
 3. Navigate to the API project: `cd MessagingApp.Api`.
 4. Run the API: `dotnet run`.
+
+## Enjoy
+![plot](./readme_icon.jpg)
