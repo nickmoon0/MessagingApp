@@ -9,6 +9,7 @@ using MessagingApp.Application.Features.RegisterUser;
 using MessagingApp.Application.Features.RenewTokens;
 using MessagingApp.Application.Features.RespondToFriendRequest;
 using MessagingApp.Application.Features.SendFriendRequest;
+using MessagingApp.Application.Features.SendMessage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MessagingApp.Application;
@@ -37,6 +38,7 @@ public static class ServiceConfiguration
         
         // Conversation handlers
         services.AddScoped<IHandler<GetConversationQuery, GetConversationResponse>, GetConversationHandler>();
+        services.AddScoped<IHandler<SendMessageCommand, SendMessageResponse>, SendMessageHandler>();
         
         return services;
     }
