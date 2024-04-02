@@ -39,7 +39,7 @@ const FriendsListTable = ({ friends }) => {
           </div>
         </div>
       ),
-      onHeaderCell: () => ({ style: { bottom: "10px", fontSize: "17px", color: "black", background: '#FFFFFF' } }),
+      onHeaderCell: () => ({ style: { bottom: "8px", fontSize: "17px", color: "black", background: '#FFFFFF' } }),
     },
   ];
 
@@ -52,7 +52,7 @@ const FriendsListTable = ({ friends }) => {
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start' }}> 
       <Card style={{ width: '15%', height: '745px', right: '25px', bottom: '62px', backgroundImage: "linear-gradient(to top,  #ffffff, #ffffff)", borderRadius: '10px' }}> </Card>
-      <div style={{ width: '90%', marginLeft: '0%', marginTop: '54px' }}> 
+      <div style={{ width: '90%', marginLeft: '0%', marginTop: '30px' }}> 
         <Table columns={columns} dataSource={data} pagination={false} size="middle" />
       </div>
     </div>

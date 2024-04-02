@@ -10,7 +10,7 @@ import './AddFriend.css';
 import { useSelectedTab } from '../../context/SelectedTabContext';
 import { fetchFriends } from '../../api/userService';
 import FriendsListTable from '../../components/friendsTables/FriendsListTable';
-import { SearchOutlined } from '@ant-design/icons';
+import { FiSearch } from "react-icons/fi";
 
 
 function Friends() {
@@ -114,26 +114,36 @@ const filteredFriends = friends.filter(friend =>
                         top: 70, 
                         zIndex: 1000, 
                         fontWeight: 500,
-                        fontSize: '15px',
+                        fontSize: '16px',
                         borderRadius: '10px' }}
                   />
 
             
                   {selectedTab === 'Friends' && (
                     <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '800px', paddingTop:'6px' }}>
+                    <div style={{ display: 'flex',
+                                  justifyContent: 'flex-end',
+                                  paddingRight: '130px',
+                                  paddingTop:'3.5px',
+                                  borderRadius:'10px',
+                                  }}>
                     {showSearch ? (
                             <>
                                 <Input.Search
                                     placeholder="Search friends"
                                     onChange={onSearchChange}
-                                    onBlur={() => setShowSearch(false)} // Optionally hide search on blur
-                                    autoFocus // Focus on the input when it appears
+                                    onBlur={() => setShowSearch(false)}
+                                    autoFocus 
+                                    allowClear
                                     style={{ width: 300 }}
                                 />
                             </>
                         ) : (
-                            <Button icon={<SearchOutlined />} onClick={handleSearchIconClick} />
+                          <Button
+                          onClick={handleSearchIconClick}
+                          style={{ backgroundColor: '#2898fb', border: 'none' }} // Set the button's background and border color to blue
+                          icon={<FiSearch style={{ color: 'white', fontSize: '20px', marginTop:'1px' }} />} // Set the icon's color to white and size to 24px
+                        />
                         )}
                       
                     </div>
