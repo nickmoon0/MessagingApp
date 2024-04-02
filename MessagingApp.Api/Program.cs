@@ -1,6 +1,7 @@
 using FluentValidation;
 using MessagingApp.Api;
 using MessagingApp.Api.Endpoints;
+using MessagingApp.Api.Hubs;
 using MessagingApp.Api.Middleware;
 using MessagingApp.Application;
 using MessagingApp.Infrastructure;
@@ -50,5 +51,7 @@ app.UseAuthorization();
 app.UseMiddleware<JwtParsingMiddleware>(); // Register after auth so that all tokens at this point have been validated
 
 app.MapEndpoints();
+
+app.MapHub<ConversationHub>("/hub/message");
 
 app.Run();

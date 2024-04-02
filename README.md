@@ -8,10 +8,9 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 
 ### Backend
 
-- **Architecture**: Clean Architecture.
-- **Patterns**: Utilizes CQRS.
-- **API**: RESTful API in ASP.NET Core 8.
-- **Infrastructure**: Developed with MySQL and EF Core.
+- **Architecture**: Projects are structured using Clean Architecture with CQRS
+- **API**: a RESTful API using Minimal API endpoints manages objects/entities states. Instant messaging is managed through a SignalR hub
+- **Infrastructure**: All data for the application is stored in a MySQL instance and accessef via EF Core
 
 ## Setting Up
 

@@ -31,6 +31,24 @@ public static class ServiceConfiguration
                 ClockSkew = TimeSpan.Zero
             };
             x.MapInboundClaims = false;
+            
+            // Setup JWT settings for SignalR
+            x.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var accessToken = context.Request.Query["token"];
+                    var path = context.HttpContext.Request.Path;
+                    
+                    // Only apply event to requests to hubs. REST endpoints should not have this logic applied
+                    if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hub"))
+                    {
+                        // Read the token out of the query string
+                        context.Token = accessToken;
+                    }
+                    return Task.CompletedTask;
+                }
+            };
         });
         builder.Services.AddAuthorization();
         
