@@ -54,11 +54,8 @@ const useReceivedRequests = () => {
   
   
   
-  // Inside Friends component
 const handleRequestSent = (newRequest) => 
 {
-  // Assuming there's a state in Friends that tracks sent requests
-  // For example: const [sentRequests, setSentRequests] = useState([]);
   setSentRequests((prevRequests) => [...prevRequests, newRequest]);
 };
 

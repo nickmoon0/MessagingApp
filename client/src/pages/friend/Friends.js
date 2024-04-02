@@ -33,9 +33,13 @@ function Friends() {
     setSearchText(e.target.value.toLowerCase());
 };
 
-// Filter friends based on search text
+// Filter da friends based on search text
 const filteredFriends = friends.filter(friend => 
     friend.username.toLowerCase().includes(searchText)
+);
+
+const filteredReceivedRequests = receivedRequests.filter(request =>
+  request.username.toLowerCase().includes(searchText)
 );
 
     useEffect(() => {
@@ -141,8 +145,8 @@ const filteredFriends = friends.filter(friend =>
                         ) : (
                           <Button
                           onClick={handleSearchIconClick}
-                          style={{ backgroundColor: '#2898fb', border: 'none' }} // Set the button's background and border color to blue
-                          icon={<FiSearch style={{ color: 'white', fontSize: '20px', marginTop:'1px' }} />} // Set the icon's color to white and size to 24px
+                          style={{ backgroundColor: '#2898fb', border: 'none' }} 
+                          icon={<FiSearch style={{ color: 'white', fontSize: '20px', marginTop:'1px' }} />} 
                         />
                         )}
                       
@@ -151,13 +155,39 @@ const filteredFriends = friends.filter(friend =>
                   </Card>
                 )}
                 {selectedTab === 'Received' && (
-                    <Card  className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
-                        <ReceivedRequestsTable requests={receivedRequests} onAccept={handleAcceptFriendRequest} />
+                      <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
+                      <div style={{ display: 'flex',
+                                    justifyContent: 'flex-end',
+                                    paddingRight: '130px',
+                                    paddingTop:'3.5px',
+                                    borderRadius:'10px',
+                                    }}>
+                      {showSearch ? (
+                              <>
+                                  <Input.Search
+                                      placeholder="Search Requests..."
+                                      onChange={onSearchChange}
+                                      onBlur={() => setShowSearch(false)}
+                                      autoFocus 
+                                      allowClear
+                                      style={{ width: 300 }}
+                                  />
+                              </>
+                          ) : (
+                            <Button
+                            onClick={handleSearchIconClick}
+                            style={{ backgroundColor: '#2898fb', border: 'none' }} // Set the button's background and border color to blue
+                            icon={<FiSearch style={{ color: 'white', fontSize: '20px', marginTop:'1px' }} />} // Set the icon's color to white and size to 24px
+                          />
+                          )}
+                        
+                      </div>
+                      <ReceivedRequestsTable requests={filteredReceivedRequests} onAccept={handleAcceptFriendRequest} />
                     </Card>
                 )}
                 {selectedTab === 'Sent' && (
                     <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
-                        <SentRequests />
+                        <SentRequests searchText={searchText} onSearchChange={onSearchChange}/>
                     </Card>
                 )}
             </div>

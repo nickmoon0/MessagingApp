@@ -8,8 +8,8 @@ const SentRequestsTable = ({ data, onCancelRequest }) => {
       title: `Pending Requests - ${data.length}`, 
       dataIndex: 'username',
       key: 'username',
-      render: (text) => <span style={{ fontSize: "14px", fontWeight:"600" }}>{text}</span>,
-      onHeaderCell: () => ({ style: { bottom:"10px", fontSize: "16px", color: "black", background: '#FFFFFF' } }),
+      render: (text) => <span style={{ fontSize: "15px", fontWeight:"600" }}>{text}</span>,
+      onHeaderCell: () => ({ style: { bottom:"8px", fontSize: "17px", color: "black", background: '#FFFFFF' } }),
     },
     {
       title: '',
@@ -32,17 +32,17 @@ const SentRequestsTable = ({ data, onCancelRequest }) => {
           </Button>
         </>
       ),
-      onHeaderCell: () => ({ style: { bottom:"10px", textAlign: 'right', fontSize: "16px", color: "#18181B", background: '#FFFFFF' } }),
+      onHeaderCell: () => ({ style: { bottom:"8px", textAlign: 'right', fontSize: "17px", color: "black", background: '#FFFFFF' } }),
       align: 'right',
     },
   ];
 
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start' }}> 
-    <Card style={{ width: '15%', height: '745px', right: '25px', bottom: '25px', backgroundImage: "linear-gradient(to top,  #ffffff, #ffffff)", borderRadius: '10px' }}> </Card>
-    <div style={{ width: '90%', marginLeft: '0%', marginTop: '60px' }}> 
+    <Card style={{ width: '15%', height: '745px', right: '25px', bottom: '62px', backgroundImage: "linear-gradient(to top,  #ffffff, #ffffff)", borderRadius: '10px' }}> </Card>
+    <div style={{ width: '90%', marginLeft: '0%', marginTop: '30px' }}> 
     <Table
-      size="small"
+      size="middle"
       columns={columns}
       dataSource={data.map(item => ({...item, key: item.id}))}
       pagination={false}
