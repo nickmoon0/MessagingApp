@@ -13,6 +13,10 @@ public class GetConversationTests
     {
         var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
         var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
+        
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
+        
         var conversation = Conversation.CreateDirectMessage(user1, user2);
         var message = Message.CreateMessage(user1, conversation.Value, "Test Message");
 
@@ -54,6 +58,10 @@ public class GetConversationTests
     {
         var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
         var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
+        
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
+        
         var conversation = Conversation.CreateDirectMessage(user1, user2);
         var message1 = Message.CreateMessage(user1, conversation.Value, "Test Message 1");
         var message2 = Message.CreateMessage(user1, conversation.Value, "Test Message 2");
@@ -107,6 +115,9 @@ public class GetConversationTests
     {
         var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
         var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
+        
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
         
         var conversation = Conversation.CreateDirectMessage(user1, user2);
 

@@ -12,6 +12,9 @@ public class ConversationTests
         var user1 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
         var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");
         
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
+        
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         Assert.True(conversationResult.IsOk);
 
@@ -21,6 +24,16 @@ public class ConversationTests
         Assert.Equal(ConversationType.DirectMessage, conversation.Type);
     }
 
+    [Fact]
+    public void CreateDirectMessage_With_UsersWhoArentFriends()
+    {
+        var user1 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
+        var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");
+        
+        var conversationResult = Conversation.CreateDirectMessage(user1, user2);
+        Assert.False(conversationResult.IsOk);
+    }
+    
     [Fact]
     public void CreateDirectMessage_With_SameUser()
     {
@@ -35,6 +48,9 @@ public class ConversationTests
     {
         var user1 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
         var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");
+        
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
         
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         var conversation = conversationResult.Value;
@@ -58,6 +74,9 @@ public class ConversationTests
         var user1 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
         var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");
         
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
+        
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         var conversation = conversationResult.Value;
         
@@ -74,6 +93,9 @@ public class ConversationTests
         var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");;
         var user3 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser3");;
         
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
+        
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         var conversation = conversationResult.Value;
         
@@ -88,6 +110,9 @@ public class ConversationTests
     {
         var user1 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser1");
         var user2 = DomainObjectFactory.CreateUser(id: Guid.NewGuid(), username: "TestUser2");
+        
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
         
         var conversationResult = Conversation.CreateDirectMessage(user1, user2);
         var conversation = conversationResult.Value;

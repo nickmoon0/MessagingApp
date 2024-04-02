@@ -31,6 +31,10 @@ public class Conversation : IPersistedObject
         if (user1.Id == user2.Id)
             return new FailedToCreateEntityException("User cannot create conversation with themselves");
         
+        // Check that users are friends
+        if (!user1.Friends.Contains(user2) || !user2.Friends.Contains(user1))
+            return new FailedToCreateEntityException("Users are not friends");
+        
         var participants = new List<User> { user1, user2 };
         var conversation = new Conversation(participants, ConversationType.DirectMessage);
         

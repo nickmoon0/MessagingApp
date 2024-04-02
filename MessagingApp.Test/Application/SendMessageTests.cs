@@ -12,6 +12,10 @@ public class SendMessageTests
     {
         var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
         var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
+        
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
+        
         var conversation = Conversation.CreateDirectMessage(user1, user2);
 
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
@@ -92,6 +96,10 @@ public class SendMessageTests
     {
         var user1 = DomainObjectFactory.CreateUser(username: "TestUser1", id: Guid.NewGuid());
         var user2 = DomainObjectFactory.CreateUser(username: "TestUser2", id: Guid.NewGuid());
+        
+        Helpers.SetProperty(user1, nameof(user1.Friends), new List<User> { user2 });
+        Helpers.SetProperty(user2, nameof(user2.Friends), new List<User> { user1 });
+        
         var conversation = Conversation.CreateDirectMessage(user1, user2);
 
         var applicationContext = new ApplicationContext(DatabaseSetup.Options);
