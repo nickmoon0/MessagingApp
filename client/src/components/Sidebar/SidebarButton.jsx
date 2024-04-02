@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Tooltip } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-const SidebarButton = ({ navigateTo, iconSrc, tooltip, borderColor, isSelected, onClick, action }) => {
+const SidebarButton = ({ navigateTo, iconSrc, tooltip, borderColor, isSelected, onClick, action, extraStyle }) => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
     const [hovering, setHovering] = useState(false);
@@ -22,7 +22,7 @@ const SidebarButton = ({ navigateTo, iconSrc, tooltip, borderColor, isSelected, 
       if (hovering) {
         timer = setTimeout(() => {
           setVisible(true);
-        }, 2500); //display after 2.5 secs
+        }, 1500); //display after 1.5 secs
       } else {
         setVisible(false); //hide tooltip when not hovering
       }
@@ -50,6 +50,7 @@ const SidebarButton = ({ navigateTo, iconSrc, tooltip, borderColor, isSelected, 
             height: '40px',
             boxShadow: isSelected ? `0 0 0 3px #FFF` : 'none',
             border: isSelected ? `2.5px solid ${borderColor}` : `2px solid transparent`,
+            ...extraStyle
           }}
         >
           <lord-icon

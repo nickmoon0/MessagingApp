@@ -22,7 +22,7 @@ function LoginPage() {
       setUser({ username: data.username });
       setTriggerAnimation(true); 
       setTimeout(() => {
-        navigate('/home'); 
+        navigate('/friends'); 
       }, 1000); 
     } else {
       throw new Error('Login failed. Please try again.');

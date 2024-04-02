@@ -44,6 +44,8 @@ const SidebarComponent = () => {
               isSelected={selectedKey === key}
               onClick={() => setSelectedKey(key)}
               action={action}
+              extraStyle={(key === 'settings') ? { marginTop: '375px' } : {}}
+
             />
           ))}
         </div>
