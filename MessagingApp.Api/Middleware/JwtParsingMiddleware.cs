@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using MessagingApp.Api.Common;
 
 namespace MessagingApp.Api.Middleware;
@@ -16,7 +17,7 @@ public class JwtParsingMiddleware : IMiddleware
             if (!string.IsNullOrEmpty(token) && handler.CanReadToken(token))
             {
                 var jwt = handler.ReadJwtToken(token);
-                var userIdClaim = jwt.Claims.FirstOrDefault(claim => claim.Type == JwtRegisteredClaimNames.Sub);
+                var userIdClaim = jwt.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier);
             
                 if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out var userId))
                 {

@@ -31,8 +31,8 @@ public class TokenService : ITokenService
         var credentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512);
 
         Claim[] claims = [
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(ClaimTypes.NameIdentifier, user.Username!)
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.Username!)
         ];
         
         var token = new JwtSecurityToken(

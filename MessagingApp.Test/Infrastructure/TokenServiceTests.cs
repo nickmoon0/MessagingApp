@@ -93,7 +93,7 @@ public class TokenServiceTests
 
 
         var hasClaims =
-            validJwtToken.Claims.Any(c => c.Type == ClaimTypes.NameIdentifier && c.Value == testUser.Username);
+            validJwtToken.Claims.Any(c => c.Type == ClaimTypes.Name && c.Value == testUser.Username);
         
         Assert.True(validJwtToken.ValidTo > DateTime.UtcNow); // Ensure token has not expired
         Assert.True(hasClaims); // Example of checking for a specific claim
