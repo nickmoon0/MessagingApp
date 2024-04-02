@@ -36,7 +36,8 @@ public static class Endpoints
 
         endpoints.MapGroup("/conversation")
             .WithTags("Conversation Actions")
-            .MapEndpoint<GetConversationEndpoint>();
+            .MapEndpoint<GetConversationEndpoint>()
+            .MapEndpoint<CreateConversationEndpoint>();
     }
     
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app) where TEndpoint : IEndpoint
