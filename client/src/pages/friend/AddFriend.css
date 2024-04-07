@@ -18,13 +18,29 @@
     right: 50px; 
     z-index: 1000; 
   }
+
   
   .fixed-size-card {
-    width: 1400px;
-    height: 630px;
-    overflow: auto; 
+    width: 1617px;
+    height: 745px;
+    overflow:hidden; 
     background-color: #FFFFFF;
+    position: relative; 
+    top: 40px;
+    right: 83px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: none;
   }
+
+  .white-square {
+    background-color: black;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px; /* Optional: adds rounded corners */
+    margin-left: 150px;
+  }
+  
   
   .card-body {
     overflow-y: auto; 
@@ -56,12 +72,25 @@
 
 
 .custom-segmented .ant-segmented-item-selected {
-  border-radius: 10px !important; 
+  border-radius: 5px !important; 
+  background-color: #2898fb !important;
   
 }
 
 .custom-float-button {
-  background-color: #0099ff !important;
+  background-color: #2898fb !important;
   color: white !important;
   border: none !important;
+}
+
+.custom-modal .ant-modal-content {
+  border-radius: 15px !important;
+}
+
+.ant-table-filter-icon:hover {
+  background: none !important;
+}
+
+.no-hover-effect .anticon:hover {
+  background: transparent !important; /* Removes any background change on hover */
 }

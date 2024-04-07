@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 html,
 body,
@@ -8,10 +7,16 @@ body,
 .content {
   height: 100%;
   width: 100%;
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .app {
   display: flex;
   position: relative;
+}
+
+.ant-tooltip-arrow {
+  display: none !important;
 }

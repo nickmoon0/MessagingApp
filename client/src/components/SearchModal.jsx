@@ -7,11 +7,13 @@ const SearchModal = ({ isModalVisible, handleOk, handleCancel, children }) => (
     visible={isModalVisible}
     onOk={handleOk}
     onCancel={handleCancel}
+    className="custom-modal"
     footer={[
-      <Button key="back" onClick={handleCancel}>
+      <Button key="back"onClick={handleCancel}>
         Close
       </Button>,
     ]}
+
   >
     {children}
   </Modal>

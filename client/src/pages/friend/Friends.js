@@ -1,98 +1,107 @@
-import React, { useState } from 'react';
-import UserSearch from './UserSearch';
-import { Segmented, Card, Empty, notification} from 'antd';
+import React, {useState} from 'react';
+import { Card, Segmented, Input, Button } from 'antd';
+import { FiSearch } from "react-icons/fi";
+import { useFriends } from '../../hooks/useFriends';
+import FriendsListTable from '../../components/friendsTables/FriendsListTable';
+import ReceivedRequestsTable from '../../components/friendsTables/ReceivedRequestsTable';
 import SentRequests from './SentRequests';
-import { acceptFriendRequest } from '../../api/userService';
+import UserSearch from './UserSearch';
 import useReceivedRequests from '../../hooks/useReceivedRequests';
-import ReceivedRequestsTable from '../../components/ReceivedRequestsTable';
-import { UserOutlined, CheckOutlined, LoadingOutlined } from '@ant-design/icons';
-import '../../styles/center.css'; 
-import './AddFriend.css';
-import { useSelectedTab } from '../../context/SelectedTabContext';
 
 
 function Friends() {
-    const { receivedRequests, handleRequestSent, setReceivedRequests } = useReceivedRequests();
-    const [requests, setRequests] = useState([]);
+  const { selectedTab, setSelectedTab, searchText, setSearchText, friends, handleAcceptFriendRequest } = useFriends();
+  const [showSearch, setShowSearch] = useState(false);
+  const { receivedRequests, handleRequestSent, setReceivedRequests } = useReceivedRequests();
 
-    const { selectedTab, setSelectedTab } = useSelectedTab();
-    
 
-    const onSegmentChange = (key) => 
-    {
-        setSelectedTab(key);
-    };
+  const handleSearchIconClick = () => setShowSearch(!showSearch);
+  const onSearchChange = (e) => setSearchText(e.target.value.toLowerCase());
 
-    const handleAcceptFriendRequest = async (friendRequestId) => {
-      try {
-        console.log("Accepting friend request with ID:", friendRequestId);
-          const response = await acceptFriendRequest(friendRequestId);
-          setRequests(response);
-          notification.success({
-              message: 'Friend Request Accepted',
-              description: 'The friend request has been successfully accepted.',
-              duration: 2.5,
-          });
-          const updatedRequests = receivedRequests.filter(request => request.friendRequestId !== friendRequestId);
-          setReceivedRequests(updatedRequests);
+  const filteredFriends = friends.filter(friend => friend.username.toLowerCase().includes(searchText));
+  const filteredReceivedRequests = receivedRequests.filter(request => request.username.toLowerCase().includes(searchText));
 
-      } catch (error) {
-          notification.error({
-              message: 'Error Accepting Friend Request',
-              description: error.message,
-              duration: 2.5,
-          });
-      }
-  };
-  
+return (
+  <div>
+    <UserSearch onRequestSent={handleRequestSent} />
+    <div style={{ marginLeft: "150px", position: 'relative' }}>
+      <Segmented
+        className="custom-segmented"
+        size="default"
+        options={[{ label: 'Friends', value: 'Friends' }, { label: 'Received', value: 'Received' }, { label: 'Sent', value: 'Sent' }]}
+        value={selectedTab}
+        onChange={setSelectedTab}
+        style={{ position: 'absolute', backgroundColor: '#ffffff', left: 168, top: 70, zIndex: 1000, fontWeight: 500, fontSize: '17.5px', borderRadius: '5px' }}
+      />
 
-    return (
-        <div>
-            <UserSearch onRequestSent={handleRequestSent} />
-            <div 
-              style={{ 
-                marginLeft: "250px", 
-                marginTop: "60px", 
-                position: 'relative' }}>
-            <div className="w-full flex-col">
-                <Segmented 
-                className="custom-segmented"
-                    size="default"
-                    options={[{
-                      label: 'Friends', value: 'Friends', icon:<UserOutlined />}, 
-                      {label: 'Received', value: 'Received', icon:<CheckOutlined />},
-                      {label:'Sent',value: 'Sent', icon:<LoadingOutlined />}]}
-                    value={selectedTab}
-                    onChange={onSegmentChange}
-                    style={{ 
-                      position: 'absolute', 
-                      left: 31, 
-                      top: -32, 
-                      zIndex: 1000, 
-                      background:"#E6F1FE", 
-                      borderRadius: '10px' }} // Add some space below the segmented control 
-                />
-
-                {selectedTab === 'Friends' && (
-                    <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
-                        <Empty style={{marginTop: '150px'}}/>
-                    </Card>
-                )}
-                {selectedTab === 'Received' && (
-                    <Card  className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
-                        <ReceivedRequestsTable requests={receivedRequests} onAccept={handleAcceptFriendRequest} />
-                    </Card>
-                )}
-                {selectedTab === 'Sent' && (
-                    <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
-                        <SentRequests />
-                    </Card>
-                )}
-
-            </div>
-            </div>
-        </div>
-    );
+      {selectedTab === 'Friends' && (
+        <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
+          <div style={{ display: 'flex',
+                        justifyContent: 'flex-end',
+                        paddingRight: '120px',
+                        paddingTop:'3.5px',
+                        borderRadius:'10px',
+                        }}>
+            {showSearch ? (
+                    <>
+                        <Input.Search
+                            placeholder="Search friends"
+                            onChange={onSearchChange}
+                            onBlur={() => setShowSearch(false)}
+                            autoFocus 
+                            allowClear
+                            style={{ width: 300 }}
+                        />
+                    </>
+                    ) : (
+                        <Button
+                        onClick={handleSearchIconClick}
+                        style={{ backgroundColor: '#2898fb', border: 'none' }} 
+                        icon={<FiSearch style={{ color: 'white', fontSize: '20px', marginTop:'1px' }} />} 
+                      />
+              )}         
+          </div>
+          <FriendsListTable friends={filteredFriends} />
+        </Card>
+      )}
+      {selectedTab === 'Received' && (
+            <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
+            <div style={{ display: 'flex',
+                          justifyContent: 'flex-end',
+                          paddingRight: '120px',
+                          paddingTop:'3.5px',
+                          borderRadius:'10px',
+                          }}>
+            {showSearch ? (
+                    <>
+                        <Input.Search
+                            placeholder="Search Requests..."
+                            onChange={onSearchChange}
+                            onBlur={() => setShowSearch(false)}
+                            autoFocus 
+                            allowClear
+                            style={{ width: 300 }}
+                        />
+                    </>
+                    ) : (
+                        <Button
+                        onClick={handleSearchIconClick}
+                        style={{ backgroundColor: '#2898fb', border: 'none' }} // Set the button's background and border color to blue
+                        icon={<FiSearch style={{ color: 'white', fontSize: '20px', marginTop:'1px' }} />} // Set the icon's color to white and size to 24px
+                      />
+                      )}      
+          </div>
+          <ReceivedRequestsTable requests={filteredReceivedRequests} onAccept={handleAcceptFriendRequest} />
+        </Card>
+      )}
+      {selectedTab === 'Sent' && (
+        <Card className="fixed-size-card" style={{ border: 'none', boxShadow: 'none' }}>
+            <SentRequests searchText={searchText} onSearchChange={onSearchChange}/>
+        </Card>
+      )}
+    </div>
+  </div>
+  );
 }
 
 export default Friends;

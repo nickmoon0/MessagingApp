@@ -4,13 +4,184 @@
     align-items: center;
     height: 100vh;
     text-align: center;
-    margin-right: 150px; 
+   
 }
-  .body {
+.body {
+  background-image: url('/public/loginPageTalk13.png'); 
+  background-size: cover;
+  background-position: center center;
+  
+}
+
+.main-content {
+  min-height: 100vh;
+  margin-top: 0;
+}
+
+.custom-button {
+  margin-bottom: '10px';
+  background: 'white';
+  color: '#27272A';
+  font-size: '20px';
+  border: 'none';
+  padding: '21px';
+  display: 'inline-flex';
+  justify-content: 'center';
+  align-items: 'center';
+}
+
+.custom-button:hover {
+  border: 2px solid white;
+}
+
+.cloud {
+  position: absolute;
+  top: 100px; 
+  left: 20%; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud2 { 
+  position: absolute;
+  top: 505px; 
+  right: 675px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud3 {
+  position: absolute;
+  top: 740px; 
+  left: 555px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud4 {
+  position: absolute;
+  top: 675px; 
+  left: 117px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  width: 160px; 
+  height: 75px; 
+}
+
+.cloud5 {
+  position: absolute;
+  top: 243px; 
+  right: 625px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud6 {
+  position: absolute;
+  top: 53px; 
+  left: 822px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud7 {
+  position: absolute;
+  top: 670px; 
+  right: 645px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  width: 210px; 
+  height: 75px; 
+}
+
+.cloud8 {
+  position: absolute;
+  top: 345px; 
+  left: 682px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  width: 185px; 
+  height: 69px; 
+}
+
+.cloud9 {
+  position: absolute;
+  top: 509px; 
+  left: 650px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud10 {
+  position: absolute;
+  top: 155px; 
+  left: 697px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud11 {
+  position: absolute;
+  top: 509px; 
+  left: 700px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 100%; 
+  height: 50px; 
+}
+
+.cloud12 {
+  position: absolute;
+  top: 50px; 
+  left: 210px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  width: 300px; 
+  height: 60px; 
+}
+
+.cloud13 {
+  position: absolute;
+  top: 65px; 
+  right: 320px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  width: 200px; 
+  height: 70px; 
+}
+
+.cloud14 {
+  position: absolute;
+  top: 105px; 
+  right: 800px; 
+  transform: translateX(-40%); 
+  z-index: 10; 
+  max-width: 95%; 
+  height: 50px; 
+}
+
+
+  .padding {
+    min-height: 100vh;
+
     background-image: linear-gradient(to bottom, #33ccff,#0099ff);
   }
 
-  /* styles/center.css */
+
 .ant-segmented {
   --antd-wave-shadow-color: #1890ff; 
 }
@@ -33,7 +204,53 @@
 }
 
 
-.custom-menu .ant-menu-item-selected {
+.custom-menu {
   background-color: #0099ff !important; 
-  color:white;
+  margin-left: 5px;
+}
+
+.custom-menu .ant-menu-item {
+  display: flex !important; 
+  justify-content: center !important; 
+  flex-direction: column !important;
+  align-items: center !important; 
+  height: 58px !important;
+  color: white !important;
+  position: relative; 
+  border-radius: 40px;
+  width: 62px;
+}
+
+.custom-menu .ant-menu-item .anticon {
+  font-size: 19px !important; 
+  position: absolute; 
+  bottom: 30px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+}
+
+.custom-menu .ant-menu-item:hover {
+  background-color: #F5F5F5CC !important;
+  color: #0099ff !important;
+  width: 62px;
+}
+.custom-menu .ant-menu-item .ant-menu-item-icon + span {
+  margin-left: -1px !important; 
+}
+
+.custom-menu .ant-menu-item span {
+  margin-top: 25px !important; 
+}
+
+
+.custom-menu .ant-menu-item-selected {
+  background-color: white !important;
+  color: #0099ff !important;
+}
+.ant-table-filter-icon:hover {
+  background: none !important;
+}
+
+.no-hover-effect .anticon:hover {
+  background: transparent !important; 
 }
