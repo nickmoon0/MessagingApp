@@ -29,7 +29,7 @@ const SentRequests = ({ searchText, onSearchChange }) => {
       <UserSearch onRequestSent={handleRequestSent} />
       <div style={{ display: 'flex',
                       justifyContent: 'flex-end',
-                      paddingRight: '130px',
+                      paddingRight: '120px',
                       paddingTop:'3.5px',
                       borderRadius:'10px',
                       }}>
@@ -52,7 +52,7 @@ const SentRequests = ({ searchText, onSearchChange }) => {
             />
             )}
 
-                      </div>
+      </div>
       <SentRequestsTable data={dataWithKey} onCancelRequest={handleCancelRequest} />
     </>
   );

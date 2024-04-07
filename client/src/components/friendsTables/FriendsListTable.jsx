@@ -14,7 +14,7 @@ const FriendsListTable = ({ friends }) => {
       key: 'username',
       render: (text) => (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <span style={{ fontSize: "15px", fontWeight: "600" }}>
+          <span style={{ fontSize: "14.5px", fontWeight: "600" }}>
             {text}
           </span>
           <div>
@@ -39,7 +39,7 @@ const FriendsListTable = ({ friends }) => {
           </div>
         </div>
       ),
-      onHeaderCell: () => ({ style: { bottom: "8px", fontSize: "17px", color: "black", background: '#FFFFFF' } }),
+      onHeaderCell: () => ({ style: { bottom: "-3px", fontSize: "18px", color: "black", background: '#FFFFFF', border: "black" } }),
     },
   ];
 
@@ -52,7 +52,7 @@ const FriendsListTable = ({ friends }) => {
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start' }}> 
       <Card style={{ width: '15%', height: '745px', right: '25px', bottom: '62px', backgroundImage: "linear-gradient(to top,  #ffffff, #ffffff)", borderRadius: '10px' }}> </Card>
-      <div style={{ width: '90%', marginLeft: '0%', marginTop: '30px' }}> 
+      <div style={{ width: '90%', marginLeft: '0%', marginTop: '15px' }}> 
         <Table columns={columns} dataSource={data} pagination={false} size="middle" />
       </div>
     </div>

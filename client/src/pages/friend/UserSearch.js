@@ -30,7 +30,7 @@ function UserSearch({ onRequestSent }) {
             style={{
               top: 37,
               left: 20,
-              borderRadius:'10px',
+              borderRadius:'5px',
               fontWeight: 500,
               fontSize: '16px'
             }}

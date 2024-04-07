@@ -8,8 +8,8 @@ const SentRequestsTable = ({ data, onCancelRequest }) => {
       title: `Pending Requests - ${data.length}`, 
       dataIndex: 'username',
       key: 'username',
-      render: (text) => <span style={{ fontSize: "15px", fontWeight:"600" }}>{text}</span>,
-      onHeaderCell: () => ({ style: { bottom:"8px", fontSize: "17px", color: "black", background: '#FFFFFF' } }),
+      render: (text) => <span style={{ fontSize: "14.5px", fontWeight:"600" }}>{text}</span>,
+      onHeaderCell: () => ({ style: { bottom:"-3px", fontSize: "18px", color: "black", background: '#FFFFFF',  border: "black" } }),
     },
     {
       title: '',
@@ -32,7 +32,7 @@ const SentRequestsTable = ({ data, onCancelRequest }) => {
           </Button>
         </>
       ),
-      onHeaderCell: () => ({ style: { bottom:"8px", textAlign: 'right', fontSize: "17px", color: "black", background: '#FFFFFF' } }),
+      onHeaderCell: () => ({ style: { bottom:"-3px", textAlign: 'right', fontSize: "18px", color: "black", background: '#FFFFFF',  border: "black" } }),
       align: 'right',
     },
   ];
@@ -40,7 +40,7 @@ const SentRequestsTable = ({ data, onCancelRequest }) => {
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start' }}> 
     <Card style={{ width: '15%', height: '745px', right: '25px', bottom: '62px', backgroundImage: "linear-gradient(to top,  #ffffff, #ffffff)", borderRadius: '10px' }}> </Card>
-    <div style={{ width: '90%', marginLeft: '0%', marginTop: '30px' }}> 
+    <div style={{ width: '90%', marginLeft: '0%', marginTop: '15px' }}> 
     <Table
       size="middle"
       columns={columns}

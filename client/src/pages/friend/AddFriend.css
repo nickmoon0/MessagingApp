@@ -29,6 +29,8 @@
     top: 40px;
     right: 83px;
     border-radius: 10px;
+    border: none;
+    box-shadow: none;
   }
 
   .white-square {
@@ -70,7 +72,7 @@
 
 
 .custom-segmented .ant-segmented-item-selected {
-  border-radius: 10px !important; 
+  border-radius: 5px !important; 
   background-color: #2898fb !important;
   
 }

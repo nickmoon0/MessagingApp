@@ -9,8 +9,8 @@ const ReceivedRequestsTable = ({ requests, onAccept }) => {
         title: `Friend Requests - ${requests.length}`,
         dataIndex: 'username',
         key: 'username',
-        render: (text) => <span style={{ fontSize: "15px", fontWeight:"600"}}>{text}</span>,
-        onHeaderCell: () => ({ style: { bottom:"8px", fontSize: "17px", color: "black", background: '#FFFFFF', fontWeight:"600" } }),
+        render: (text) => <span style={{ fontSize: "14.5px", fontWeight:"600"}}>{text}</span>,
+        onHeaderCell: () => ({ style: { bottom:"-3px", fontSize: "18px", color: "black", background: '#FFFFFF', fontWeight:"600",  border: "black" } }),
       },
       {
         title: '',
@@ -35,7 +35,7 @@ const ReceivedRequestsTable = ({ requests, onAccept }) => {
           </>
             
         ),
-        onHeaderCell: () => ({ style: { bottom:"8px", textAlign: 'right', fontSize: "17px", color: "black", background: '#FFFFFF' } }),
+        onHeaderCell: () => ({ style: { bottom:"-3px", textAlign: 'right', fontSize: "18px", color: "black", background: '#FFFFFF',  border: "black" } }),
       },
     ];
 
@@ -48,7 +48,7 @@ const ReceivedRequestsTable = ({ requests, onAccept }) => {
     return (
       <div style={{ display: 'flex', alignItems: 'flex-start' }}> 
       <Card style={{ width: '15%', height: '745px', right: '25px', bottom: '62px', backgroundImage: "linear-gradient(to top,  #ffffff, #ffffff)", borderRadius: '10px' }}> </Card>
-      <div style={{ width: '90%', marginLeft: '0%', marginTop: '30px' }}> 
+      <div style={{ width: '90%', marginLeft: '0%', marginTop: '15px' }}> 
         <Table 
           size="middle"
           columns={columns} 
