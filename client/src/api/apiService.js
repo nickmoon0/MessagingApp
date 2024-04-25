@@ -1,5 +1,5 @@
 
-const API_BASE_URL = 'https://localhost:7274';
+const API_BASE_URL = 'http://localhost:5134';
 
 const getHeaders = (requiresAuth = false) => {
   const headers = {

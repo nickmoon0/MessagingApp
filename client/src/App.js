@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import LoginPage from './pages/Login/loginPage';
 import RegisterPage from './pages/Register/registerPage';
 import Friends from './pages/friend/Friends';
-import Home from './pages/DashBoard/home';
+import Home from './pages/DashBoard/Home';
 import HeaderComponent from './components/HeaderComponent';
 import SidebarComponent from './components/Sidebar/SidebarComponent';
 import './styles/center.css';

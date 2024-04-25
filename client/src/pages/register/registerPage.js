@@ -18,6 +18,7 @@ function RegisterPage() {
   const { formData, handleChange, handleSubmit, error } = useFormState({
     username: '',
     password: '',
+    bio: ''
   }, async (data) => {
     try {
       await register(data);
@@ -73,6 +74,12 @@ function RegisterPage() {
             onChange={handleChange}
             placeholder="Password"
           />
+          <InputField
+            name="bio"
+            value={formData.bio}
+            onChange={handleChange}
+            placeholder="Bio"
+            />
           {error && <p className="error-message">{error}</p>}
           <FormButton type="submit" text="Sign Up" style={{ marginTop: '30px', borderRadius: '10px', border:'none' }} />
       </form>

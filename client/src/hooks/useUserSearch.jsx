@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchUser, sendFriendRequest, fetchUserById } from '../api/userService';
+import { fetchUserByUsername, sendFriendRequest, fetchUserById } from '../api/userService';
 import { useUser } from '../context/UserContext';
 
 
@@ -19,15 +19,12 @@ const useUserSearch = (onRequestSent) => {
         return;
       }
       try {
-        const result = await fetchUser(null, searchParam);
-        // Add a condition to check if the searched user is the current user
-        if (result && result.username === user?.username) {
-          // Set a custom error message if the user is searching for themselves
-          setError("That's you! You can't add yourself.");
-          setUsers([]);
-          setUserFound(false);
-        } else if (result && result.id) {
-          setUsers([result]);
+        const result = await fetchUserByUsername(searchParam);
+        console.log('Search result:', result);
+        const { user } = result; // Destructuring to get the 'user' object
+
+if (user && user.userId) {
+          setUsers([user]); // Use the 'user' object for the user state
           setUserFound(true);
           setError('');
         } else {
@@ -41,6 +38,7 @@ const useUserSearch = (onRequestSent) => {
         setUserFound(false);
       }
     }, 500);
+  
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchParam, user?.username]); 

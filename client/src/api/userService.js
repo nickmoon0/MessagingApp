@@ -1,28 +1,47 @@
 import { notification } from 'antd';
 import { makeApiRequest } from './apiService';
 
-export const register = (userData) => makeApiRequest('Auth/Register', 'POST', userData);
-export const authenticate = (loginData) => makeApiRequest('Auth/Authenticate', 'POST', loginData);
+
+export const register = (userData) => makeApiRequest('auth/register', 'POST', userData);
+
+
+
+export const authenticate = (loginData) => makeApiRequest('auth/login', 'POST', loginData);
 
 export const handleLogin = async (loginData) => {
   try {
-    const token = await authenticate(loginData);
-    localStorage.setItem('token', token);
-    console.log('Token stored:', localStorage.getItem('token'));
-    return true;
+    const response = await authenticate(loginData);
+    if (response && response.accessToken) {
+      localStorage.setItem('token', response.accessToken); // Make sure to store the correct token
+      console.log('Token stored:', response.accessToken); // Confirm what's stored
+      return true;
+    } else {
+      throw new Error('Authentication token was not provided.');
+    }
   } catch (error) {
     console.error('Login error:', error);
     return false;
   }
 };
 
-export const fetchUser = async (userId, username) => {
-  const params = new URLSearchParams();
-  if (userId) params.append('uid', userId);
-  if (username) params.append('username', username);
 
-  const response = await makeApiRequest(`user?${params.toString()}`, 'GET', null, true);
-  return response;
+export const fetchUserByUsername = async (username) => {
+  try {
+    // Call the makeApiRequest function with the appropriate parameters
+    const url = `user/username/${username}`;
+    const method = 'GET';
+    const data = null; // No body data is needed for GET requests
+    const requiresAuth = true; // Assuming this endpoint requires authentication
+
+    // Execute the request using the common API request function
+    const response = await makeApiRequest(url, method, data, requiresAuth);
+
+    // Since makeApiRequest already handles the response parsing, you can directly return the response
+    return response; // This data should now include the user details as specified by your API
+  } catch (error) {
+    console.error('Failed to fetch user by username:', error);
+    throw error;
+  }
 };
 
 
@@ -30,9 +49,9 @@ export const sendFriendRequest = async (toUserId) => {
   return makeApiRequest(`user/${toUserId}/add`, 'POST', null, true);
 };
 
-export const fetchSentFriendRequests = () => makeApiRequest('friendrequest', 'GET', null, true);
+export const fetchSentFriendRequests = () => makeApiRequest('friendRequest/', 'GET', null, true);
 
-export const fetchUserById = (userId) => makeApiRequest(`user?uid=${userId}`, 'GET', null, true);
+export const fetchUserById = (userId) => makeApiRequest(`user/${userId}`, 'GET', null, true);
 
 
 export const acceptFriendRequest = async (friendRequestId) => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchUserById } from '../api/userService';
-const API_BASE_URL = 'https://localhost:7274';
+const API_BASE_URL = 'http://localhost:5134';
 
 const useReceivedRequests = () => {
   const [receivedRequests, setReceivedRequests] = useState([]);
@@ -9,7 +9,7 @@ const useReceivedRequests = () => {
     useEffect(() => {
       const fetchReceivedFriendRequests = async () => {
         try {
-          const response = await fetch(`${API_BASE_URL}/friendrequest`, {
+          const response = await fetch(`${API_BASE_URL}/friendRequest?received=true`, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
