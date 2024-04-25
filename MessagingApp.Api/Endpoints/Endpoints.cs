@@ -32,7 +32,8 @@ public static class Endpoints
             .MapEndpoint<SendFriendRequestEndpoint>()
             .MapEndpoint<GetFriendsEndpoint>()
             .MapEndpoint<GetUserEndpoint>()
-            .MapEndpoint<GetAllConversationsEndpoint>();
+            .MapEndpoint<GetAllConversationsEndpoint>()
+            .MapEndpoint<GetUserByUsernameEndpoint>();
 
         endpoints.MapGroup("/conversation")
             .WithTags("Conversation Actions")

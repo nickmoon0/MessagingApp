@@ -12,8 +12,8 @@ export const handleLogin = async (loginData) => {
   try {
     const response = await authenticate(loginData);
     if (response && response.accessToken) {
-      localStorage.setItem('token', response.accessToken); // Make sure to store the correct token
-      console.log('Token stored:', response.accessToken); // Confirm what's stored
+      localStorage.setItem('token', response.accessToken);
+      console.log('Token stored:', response.accessToken); 
       return true;
     } else {
       throw new Error('Authentication token was not provided.');
@@ -27,17 +27,14 @@ export const handleLogin = async (loginData) => {
 
 export const fetchUserByUsername = async (username) => {
   try {
-    // Call the makeApiRequest function with the appropriate parameters
     const url = `user/username/${username}`;
     const method = 'GET';
-    const data = null; // No body data is needed for GET requests
-    const requiresAuth = true; // Assuming this endpoint requires authentication
+    const data = null; 
+    const requiresAuth = true; 
 
-    // Execute the request using the common API request function
+
     const response = await makeApiRequest(url, method, data, requiresAuth);
-
-    // Since makeApiRequest already handles the response parsing, you can directly return the response
-    return response; // This data should now include the user details as specified by your API
+    return response; 
   } catch (error) {
     console.error('Failed to fetch user by username:', error);
     throw error;
@@ -45,8 +42,8 @@ export const fetchUserByUsername = async (username) => {
 };
 
 
-export const sendFriendRequest = async (toUserId) => {
-  return makeApiRequest(`user/${toUserId}/add`, 'POST', null, true);
+export const sendFriendRequest = async (receivingUserId) => {
+  return makeApiRequest(`user/${receivingUserId}/add`, 'POST', null, true);
 };
 
 export const fetchSentFriendRequests = () => makeApiRequest('friendRequest/', 'GET', null, true);

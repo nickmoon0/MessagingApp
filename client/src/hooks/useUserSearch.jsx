@@ -22,9 +22,10 @@ const useUserSearch = (onRequestSent) => {
         const result = await fetchUserByUsername(searchParam);
         console.log('Search result:', result);
         const { user } = result; // Destructuring to get the 'user' object
-
-if (user && user.userId) {
+        
+      if (user && user.userId) {
           setUsers([user]); // Use the 'user' object for the user state
+          console.log('id: ', user.userId);
           setUserFound(true);
           setError('');
         } else {
@@ -43,17 +44,17 @@ if (user && user.userId) {
     return () => clearTimeout(delayDebounceFn);
   }, [searchParam, user?.username]); 
 
-  const handleSendFriendRequest = async (toUserId) => {
+  const handleSendFriendRequest = async (userId) => {
     try 
     {
-      await sendFriendRequest(toUserId);
+      await sendFriendRequest(userId);
       console.log("Friend request sent successfully!");
 
-      const userResponse = await fetchUserById(toUserId);
+      const userResponse = await fetchUserById(userId);
       if (userResponse && userResponse.username) 
       {
         onRequestSent({
-          id: toUserId,
+          id: userId,
           username: userResponse.username,
         });
       }

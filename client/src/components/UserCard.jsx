@@ -5,7 +5,7 @@ const UserCard = ({ users, onSendRequest }) => (
   <Card size="small" style={{ marginTop: 16, border: 'none' }}>
     {users.map((user) => (
       <div
-        key={user.id}
+        key={user.userId}
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -16,7 +16,7 @@ const UserCard = ({ users, onSendRequest }) => (
         <span style={{ fontSize: '16px', lineHeight: '0' }}>{user.username}</span>
         <Button
           type="primary"
-          onClick={() => onSendRequest(user.id)}
+          onClick={() => onSendRequest(user.userId)}
           style={{
             backgroundColor: 'green',
             borderColor: 'green',
