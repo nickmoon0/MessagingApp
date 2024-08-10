@@ -63,6 +63,3 @@ This project is a web-based instant messaging application. It uses C#/ASP.NET Co
 2. Build the project: `dotnet build`.
 3. Navigate to the API project: `cd MessagingApp.Api`.
 4. Run the API: `dotnet run`.
-
-## Enjoy
-![plot](./readme_icon.jpg)
